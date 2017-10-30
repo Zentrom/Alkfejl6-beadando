@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -17,7 +20,17 @@ import javax.persistence.Table;
 @EqualsAndHashCode(callSuper = true)
 public class Friends extends BaseEntity {
 
-    @Column(nullable = false)
-    private String somethin;
+    /*@Column(nullable = false, unique = true)
+    private int valami;
+    
+    
+    @ManyToMany(fetch=FetchType.LAZY)
+    @JoinColumn(name="USER_ID")
+    private int user_id;
+    
+    
+    @ManyToMany(fetch=FetchType.LAZY)
+    @JoinColumn(name="USER2_ID")
+    private int user2_id;*/
 
 }

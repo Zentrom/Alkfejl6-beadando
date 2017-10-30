@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,5 +22,9 @@ public class Wishlist extends BaseEntity {
 
     @Column(nullable = false)
     private String title;
+    
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="USER_ID")
+    private int user_id;
 
 }
