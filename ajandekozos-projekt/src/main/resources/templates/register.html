@@ -7,16 +7,20 @@
     </head>
     <body>
         <h1>Register</h1>
-        <form action="#" th:action="@{/register}" th:object="${userLogin}" method="post">
-            <div id="username">
-                <label for="username">Username:</label>
-                <input type="text" name="username" placeholder="username" th:field="*{username}" />
+        <form action="#" th:action="@{/register}" th:object="${userData}" method="post">
+            <div id="firstname">
+                <label for="firstname">FirstName:</label>
+                <input type="text" name="firstname" placeholder="firstname" th:field="*{firstname}" />
             </div>
-            <div id="password">
-                <label for="password">Password:</label>
-                <input type="password" name="password" placeholder="password" th:field="*{password}" />
+            <div id="lastname">
+                <label for="lastname">LastName:</label>
+                <input type="text" name="lastname" placeholder="lastname" th:field="*{lastname}" />
             </div>
-            <input type="submit" value="Submit!" />
+            <div id="email">
+                <label for="email">Email:</label>
+                <input type="text" name="email" placeholder="email" th:field="*{email}" />
+            </div>
+            <input type="submit" value="Regisztrálok!" />
             <button type="reset">Cancel</button>
         </form>
     </body>

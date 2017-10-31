@@ -1,5 +1,6 @@
 package hu.elte.alkfejl.ajandekozosprojekt.controller;
 
+import hu.elte.alkfejl.ajandekozosprojekt.model.UserData;
 import hu.elte.alkfejl.ajandekozosprojekt.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,7 +36,7 @@ public class IndexController {
 
     @GetMapping("/register")
     public String register(Model model) {
-        model.addAttribute("userLogin", new UserLogin()); 
+        model.addAttribute("userData", new UserData()); 
         return "register";
     }
     
@@ -49,15 +50,20 @@ public class IndexController {
     }
     
     @PostMapping("/register")
-    public String register(@ModelAttribute UserLogin userLogin) {
-        userLogin.setRole(USER);
-        userService.register(userLogin);
+    public String register(@ModelAttribute UserData userData) {
+        userService.register(userData);
 
-        return redirectToProfile(userLogin);
+        return redirectToProfile(userData.getUserLogin());
     }
     
     private String redirectToProfile(@ModelAttribute UserLogin userLogin) {
-        return "redirect:/user/profile?name=" + userLogin.getUsername();
+        //return "redirect:/user/profile?name=" + userLogin.getUsername();
+        return "/user/profile";
     }
+    
+//    private String redirectToProfile(int user_id) {
+//        //return "redirect:/user/profile?name=" + userLogin.getUsername();
+//        return "/user/profile";
+//    }
     
 }

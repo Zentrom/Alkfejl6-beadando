@@ -1,7 +1,9 @@
 package hu.elte.alkfejl.ajandekozosprojekt.service;
 
+import hu.elte.alkfejl.ajandekozosprojekt.model.UserData;
 import static hu.elte.alkfejl.ajandekozosprojekt.model.UserLogin.Role.USER;
 import hu.elte.alkfejl.ajandekozosprojekt.model.UserLogin;
+import hu.elte.alkfejl.ajandekozosprojekt.repository.UserDataRepository;
 import hu.elte.alkfejl.ajandekozosprojekt.repository.UserRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +16,11 @@ import org.springframework.web.context.annotation.SessionScope;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
-
+    private UserDataRepository userDataRepository;
+    
     private UserLogin userLogin;
+    
+    private UserData userData;
 
     public UserLogin login(UserLogin userLogin) //throws UserNotValidException 
     {
@@ -30,6 +35,11 @@ public class UserService {
         userLogin.setRole(USER);
         this.userLogin = userRepository.save(userLogin);
         return userLogin;
+    }
+    
+    public UserData register(UserData userData){
+        this.userData = userDataRepository.save(userData);
+        return userData;
     }
 
     public boolean isValid(UserLogin userLogin) {

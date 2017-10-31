@@ -31,6 +31,7 @@ public class UserData extends BaseEntity {
     
     @OneToOne(targetEntity=UserLogin.class,fetch=FetchType.LAZY)
     @JoinColumn(name="USER_ID")
-    private int user_id;
+    //private int user_id;
+    private UserLogin userLogin;
     
 }
