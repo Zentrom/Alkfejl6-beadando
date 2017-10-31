@@ -1,6 +1,6 @@
 package hu.elte.alkfejl.ajandekozosprojekt.config;
 
-import hu.elte.alkfejl.ajandekozosprojekt.model.User;
+import hu.elte.alkfejl.ajandekozosprojekt.model.UserLogin;
 import hu.elte.alkfejl.ajandekozosprojekt.service.UserService;
 import hu.elte.alkfejl.ajandekozosprojekt.service.annotations.Role;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,23 +22,23 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        List<User.Role> routeRoles = getRoles((HandlerMethod) handler);
-        User user = userService.getUser();
+        List<UserLogin.Role> routeRoles = getRoles((HandlerMethod) handler);
+        UserLogin userLogin = userService.getUserLogin();
 
         // when there are no restrictions, we let the user through
-        if (routeRoles.isEmpty() || routeRoles.contains(User.Role.GUEST)) {
+        if (routeRoles.isEmpty() || routeRoles.contains(UserLogin.Role.GUEST)) {
             return true;
         }
         // check role
-        if (userService.isLoggedIn() && routeRoles.contains(user.getRole())) {
+        if (userService.isLoggedIn() && routeRoles.contains(userLogin.getRole())) {
             return true;
         }
         response.setStatus(401);
         return false;
     }
 
-    private List<User.Role> getRoles(HandlerMethod handler) {
+    private List<UserLogin.Role> getRoles(HandlerMethod handler) {
         Role role = handler.getMethodAnnotation(Role.class);
-        return role == null ? Collections.emptyList() : Arrays.asList(role.value());
+        return null;//role == null ? Collections.emptyList() : Arrays.asList(role.value());
     }
 }

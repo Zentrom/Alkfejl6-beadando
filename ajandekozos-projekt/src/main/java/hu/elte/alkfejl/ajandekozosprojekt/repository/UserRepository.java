@@ -1,18 +1,19 @@
 package hu.elte.alkfejl.ajandekozosprojekt.repository;
 
-import hu.elte.alkfejl.ajandekozosprojekt.model.User;
+import hu.elte.alkfejl.ajandekozosprojekt.model.UserLogin;
+import hu.elte.alkfejl.ajandekozosprojekt.model.UserData;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends CrudRepository<User, String> {
-    Optional<User> findByEmail(String email);
+public interface UserRepository extends CrudRepository<UserLogin, String> {
+    //Optional<UserData> findByEmail(String email);
 
-    Optional<User> findByUsername(String username);
+    Optional<UserLogin> findByUsername(String username);
 
-    Optional<User> findByUsernameAndPassword(String username, String password);
+    Optional<UserLogin> findByUsernameAndPassword(String username, String password);
 
     //public void save(User user);
 }

@@ -1,7 +1,7 @@
 package hu.elte.alkfejl.ajandekozosprojekt.service;
 
-import hu.elte.alkfejl.ajandekozosprojekt.model.User;
-import static hu.elte.alkfejl.ajandekozosprojekt.model.User.Role.USER;
+import static hu.elte.alkfejl.ajandekozosprojekt.model.UserLogin.Role.USER;
+import hu.elte.alkfejl.ajandekozosprojekt.model.UserLogin;
 import hu.elte.alkfejl.ajandekozosprojekt.repository.UserRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,28 +15,28 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    private User user;
+    private UserLogin userLogin;
 
-    public User login(User user) //throws UserNotValidException 
+    public UserLogin login(UserLogin userLogin) //throws UserNotValidException 
     {
-        if (isValid(user)) {
-            return this.user = userRepository.findByUsername(user.getUsername()).get();
+        if (isValid(userLogin)) {
+            return this.userLogin = userRepository.findByUsername(userLogin.getUsername()).get();
         }
         //throw new UserNotValidException();
         return null;
     }
 
-    public User register(User user) {
-        user.setRole(USER);
-        this.user = userRepository.save(user);
-        return user;
+    public UserLogin register(UserLogin userLogin) {
+        userLogin.setRole(USER);
+        this.userLogin = userRepository.save(userLogin);
+        return userLogin;
     }
 
-    public boolean isValid(User user) {
-        return userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword()).isPresent();
+    public boolean isValid(UserLogin userLogin) {
+        return userRepository.findByUsernameAndPassword(userLogin.getUsername(), userLogin.getPassword()).isPresent();
     }
 
     public boolean isLoggedIn() {
-        return user != null;
+        return userLogin != null;
     }
 }

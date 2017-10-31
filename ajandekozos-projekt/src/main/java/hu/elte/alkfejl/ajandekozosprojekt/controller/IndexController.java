@@ -1,6 +1,5 @@
 package hu.elte.alkfejl.ajandekozosprojekt.controller;
 
-import hu.elte.alkfejl.ajandekozosprojekt.model.User;
 import hu.elte.alkfejl.ajandekozosprojekt.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,74 +7,57 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import static hu.elte.alkfejl.ajandekozosprojekt.model.User.Role.USER;
+import static hu.elte.alkfejl.ajandekozosprojekt.model.UserLogin.Role.USER;
+import hu.elte.alkfejl.ajandekozosprojekt.model.UserLogin;
 
 @Controller
 @RequestMapping("")
 public class IndexController {
 
-    //@Autowired
-    //private UserService userService;
-
-    /*@GetMapping("/greet")
-    public String greeting(@RequestParam(value = "name", required = false, defaultValue = "World") String name, Model model) {
-        model.addAttribute("name", name);
-        return "greeting";
+    @Autowired
+    private UserService userService;
+    
+    @GetMapping("")
+    public String homePage() {
+        return "redirect:index";
+    }
+    
+    @GetMapping("/index")
+    public String index() {
+        return "index";
     }
 
     @GetMapping("/login")
     public String login(Model model) {
-        model.addAttribute(new User());
-        return "login";
-    }
-
-    @PostMapping("/login")
-    public String login(@ModelAttribute User user, Model model) {
-        if (userService.isValid(user)) {
-            return redirectToGreeting(user);
-        }
-        model.addAttribute("loginFailed", true);
+        model.addAttribute("userLogin", new UserLogin()); 
         return "login";
     }
 
     @GetMapping("/register")
     public String register(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("userLogin", new UserLogin()); 
         return "register";
     }
-
-    @PostMapping("/register")
-    public String register(@ModelAttribute User user) {
-        user.setRole(USER);
-        userService.register(user);
-
-        return redirectToGreeting(user);
-    }
-
-    private String redirectToGreeting(@ModelAttribute User user) {
-        return "redirect:/user/greet?name=" + user.getUsername();
-    }*/
     
-    @GetMapping("/index")
-    public String index(Model model) {
-        //model.addAttribute(new User());
-        return "index";
-    }
-
     @PostMapping("/login")
-    public String login(Model model) {
+    public String login(@ModelAttribute UserLogin userLogin, Model model) {
+        if (userService.isValid(userLogin)) {
+            return redirectToProfile(userLogin);
+        }
+        model.addAttribute("loginFailed", true);
         return "login";
     }
-
-    /*@GetMapping("/register")
-    public String register(Model model) {
-        model.addAttribute("user", new User());
-        return "register";
-    }*/
-
+    
     @PostMapping("/register")
-    public String register(@ModelAttribute User user) {
-        return "register";
+    public String register(@ModelAttribute UserLogin userLogin) {
+        userLogin.setRole(USER);
+        userService.register(userLogin);
+
+        return redirectToProfile(userLogin);
+    }
+    
+    private String redirectToProfile(@ModelAttribute UserLogin userLogin) {
+        return "redirect:/user/profile?name=" + userLogin.getUsername();
     }
     
 }

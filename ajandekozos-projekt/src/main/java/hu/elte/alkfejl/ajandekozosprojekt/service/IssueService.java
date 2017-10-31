@@ -1,13 +1,13 @@
 package hu.elte.alkfejl.ajandekozosprojekt.service;
 
 import hu.elte.alkfejl.ajandekozosprojekt.model.Issue;
-import hu.elte.alkfejl.ajandekozosprojekt.model.User;
+import hu.elte.alkfejl.ajandekozosprojekt.model.UserLogin;
 import org.springframework.stereotype.Component;
 
 @Component
 public class IssueService {
 
-    public Iterable<Issue> listByRole(User user) {
+    public Iterable<Issue> listByRole(UserLogin userLogin) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

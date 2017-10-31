@@ -1,14 +1,13 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Login</title>
+        <title>Register</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link rel="stylesheet" href="styles.css" />
     </head>
     <body>
-        <h1>Login</h1>
-        <h2 th:if="${loginFailed}">Invalid user data!</h2>
-        <form action="#" th:action="@{login}" th:object="${userLogin}" method="post">
+        <h1>Register</h1>
+        <form action="#" th:action="@{/register}" th:object="${userLogin}" method="post">
             <div id="username">
                 <label for="username">Username:</label>
                 <input type="text" name="username" placeholder="username" th:field="*{username}" />

@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static hu.elte.alkfejl.ajandekozosprojekt.model.User.Role.ADMIN;
-import static hu.elte.alkfejl.ajandekozosprojekt.model.User.Role.USER;
+import static hu.elte.alkfejl.ajandekozosprojekt.model.UserLogin.Role.ADMIN;
+import static hu.elte.alkfejl.ajandekozosprojekt.model.UserLogin.Role.USER;
 
 @RestController
 @RequestMapping("/api/issues")
@@ -24,7 +24,7 @@ public class IssueApiController {
     @Role({ADMIN, USER})
     @GetMapping
     private ResponseEntity<Iterable<Issue>> list() {
-        Iterable<Issue> issues = issueService.listByRole(userService.getUser());
+        Iterable<Issue> issues = issueService.listByRole(userService.getUserLogin());
         return ResponseEntity.ok(issues);
     }
 

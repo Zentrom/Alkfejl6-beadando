@@ -29,6 +29,7 @@ public class UserLogin extends BaseEntity {
     @Column(nullable = false)
     private Role role;
 
+
     public enum Role {                     //private?!
         GUEST, USER, ADMIN
     }
