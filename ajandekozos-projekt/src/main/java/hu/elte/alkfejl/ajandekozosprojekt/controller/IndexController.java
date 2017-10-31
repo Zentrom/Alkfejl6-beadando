@@ -52,7 +52,7 @@ public class IndexController {
     @PostMapping("/register")
     public String register(@ModelAttribute UserData userData) {
         userService.register(userData);
-
+        
         return redirectToProfile(userData.getUserLogin());
     }
     

@@ -16,6 +16,7 @@ import org.springframework.web.context.annotation.SessionScope;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
     private UserDataRepository userDataRepository;
     
     private UserLogin userLogin;
@@ -39,6 +40,7 @@ public class UserService {
     
     public UserData register(UserData userData){
         this.userData = userDataRepository.save(userData);
+        
         return userData;
     }
 
