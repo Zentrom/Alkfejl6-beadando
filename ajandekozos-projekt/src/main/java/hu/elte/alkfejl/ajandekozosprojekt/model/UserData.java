@@ -21,15 +21,15 @@ import javax.persistence.Table;
 public class UserData extends BaseEntity {
 
     @Column(nullable = false)
-    private String firstName;
+    private String firstname;
 
     @Column(nullable = false)
-    private String lastName;
+    private String lastname;
 
     @Column(nullable = false, unique = true)
     private String email;
     
-    @OneToOne(fetch=FetchType.LAZY)
+    @OneToOne(targetEntity=UserLogin.class,fetch=FetchType.LAZY)
     @JoinColumn(name="USER_ID")
     private int user_id;
     

@@ -27,11 +27,11 @@ public class Comment extends BaseEntity {
     @Column(nullable = false)
     private Date timestamp;
     
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(targetEntity=UserLogin.class,fetch=FetchType.LAZY)
     @JoinColumn(name="USER_ID")
     private int user_id;
     
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(targetEntity=Present.class,fetch=FetchType.LAZY)
     @JoinColumn(name="PRESENT_ID")
     private int present_id;
 }

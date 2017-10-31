@@ -1,3 +1,5 @@
+INSERT INTO USERS (ID, VERSION, USERNAME, EMAIL, PASSWORD, ROLE) VALUES (0, 0, 'admin', 'admin@gmail.com', 'admin', 'ADMIN');
+
 INSERT INTO USER_DATA (ID, VERSION, FIRSTNAME, LASTNAME, EMAIL) VALUES (1, 0, 'adminaa', 'admina', 'admin@gmail.com');
 INSERT INTO USER_DATA (ID, VERSION, FIRSTNAME, LASTNAME, EMAIL) VALUES (2, 0, 'akos', 'negrut', 'negrut@gmail.com');
 INSERT INTO USER_DATA (ID, VERSION, FIRSTNAME, LASTNAME, EMAIL) VALUES (3, 0, 'gergely', 'jakab', 'jakab@gmail.com');
@@ -37,8 +39,8 @@ INSERT INTO COMMENT (ID, VERSION, TEXT, TIMESTAMP) VALUES (9, 0, 'Egy zsak borso
 INSERT INTO COMMENT (ID, VERSION, TEXT, TIMESTAMP) VALUES (10, 0, 'Az meg messze van...', '2016-04-25');
 
 INSERT INTO WISHLIST (ID, VERSION, TITLE) VALUES (1, 0, 'Amit szeretnek karacsonyra');
-INSERT INTO WISHLIST (ID, VERSION, TITLE) VALUES (1, 0, 'Lopjatok nekem');
-INSERT INTO WISHLIST (ID, VERSION, TITLE) VALUES (1, 0, 'Kincskereso kincskodmon');
-INSERT INTO WISHLIST (ID, VERSION, TITLE) VALUES (1, 0, 'Szokik a malna');
-INSERT INTO WISHLIST (ID, VERSION, TITLE) VALUES (1, 0, 'Amit nem hozott el a mikulas');
-INSERT INTO WISHLIST (ID, VERSION, TITLE) VALUES (1, 0, 'Tolem loptak el ezeket');
+INSERT INTO WISHLIST (ID, VERSION, TITLE) VALUES (2, 0, 'Lopjatok nekem');
+INSERT INTO WISHLIST (ID, VERSION, TITLE) VALUES (3, 0, 'Kincskereso kincskodmon');
+INSERT INTO WISHLIST (ID, VERSION, TITLE) VALUES (4, 0, 'Szokik a malna');
+INSERT INTO WISHLIST (ID, VERSION, TITLE) VALUES (5, 0, 'Amit nem hozott el a mikulas');
+INSERT INTO WISHLIST (ID, VERSION, TITLE) VALUES (6, 0, 'Tolem loptak el ezeket');

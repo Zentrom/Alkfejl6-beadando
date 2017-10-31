@@ -26,7 +26,7 @@ public class UserLogin extends BaseEntity {
     private String password;
     
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private Role role;
 
     public enum Role {                     //private?!

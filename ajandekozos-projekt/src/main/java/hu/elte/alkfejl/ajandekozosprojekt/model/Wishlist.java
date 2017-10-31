@@ -23,7 +23,7 @@ public class Wishlist extends BaseEntity {
     @Column(nullable = false)
     private String title;
     
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(targetEntity=UserLogin.class,fetch=FetchType.LAZY)
     @JoinColumn(name="USER_ID")
     private int user_id;
 

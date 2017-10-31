@@ -32,11 +32,11 @@ public class Present extends BaseEntity {
     @Column(nullable = false)
     private char hidden;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(targetEntity=Wishlist.class,fetch=FetchType.LAZY)
     @JoinColumn(name="LIST_ID")
     private int list_id;
     
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(targetEntity=UserLogin.class,fetch=FetchType.LAZY)
     @JoinColumn(name="USER_ID")
     private int user_id;
     
