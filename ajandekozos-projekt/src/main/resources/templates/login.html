@@ -8,7 +8,7 @@
     <body>
         <h1>Login</h1>
         <h2 th:if="${loginFailed}">Invalid user data!</h2>
-        <form action="#" th:action="@{login}" th:object="${userLogin}" method="post">
+        <form action="#" th:action="@{login}" th:object="${user}" method="post">
             <div id="username">
                 <label for="username">Username:</label>
                 <input type="text" name="username" placeholder="username" th:field="*{username}" />

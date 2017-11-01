@@ -1,14 +1,13 @@
 package hu.elte.alkfejl.ajandekozosprojekt.service;
 
-import hu.elte.alkfejl.ajandekozosprojekt.model.UserData;
-import static hu.elte.alkfejl.ajandekozosprojekt.model.UserLogin.Role.USER;
-import hu.elte.alkfejl.ajandekozosprojekt.model.UserLogin;
-import hu.elte.alkfejl.ajandekozosprojekt.repository.UserDataRepository;
+import hu.elte.alkfejl.ajandekozosprojekt.model.User;
 import hu.elte.alkfejl.ajandekozosprojekt.repository.UserRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
+
+import static hu.elte.alkfejl.ajandekozosprojekt.model.User.Role.USER;
 
 @Service
 @SessionScope
@@ -16,39 +15,29 @@ import org.springframework.web.context.annotation.SessionScope;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    private UserDataRepository userDataRepository;
     
-    private UserLogin userLogin;
-    
-    private UserData userData;
+    private User user;
 
-    public UserLogin login(UserLogin userLogin) //throws UserNotValidException 
+    public User login(User user) //throws UserNotValidException
     {
-        if (isValid(userLogin)) {
-            return this.userLogin = userRepository.findByUsername(userLogin.getUsername()).get();
+        if (isValid(user)) {
+            return this.user = userRepository.findByUsername(user.getUsername()).get();
         }
         //throw new UserNotValidException();
         return null;
     }
 
-    public UserLogin register(UserLogin userLogin) {
-        userLogin.setRole(USER);
-        this.userLogin = userRepository.save(userLogin);
-        return userLogin;
-    }
-    
-    public UserData register(UserData userData){
-        this.userData = userDataRepository.save(userData);
-        
-        return userData;
+    public User register(User user) {
+        user.setRole(USER);
+        this.user = userRepository.save(user);
+        return user;
     }
 
-    public boolean isValid(UserLogin userLogin) {
-        return userRepository.findByUsernameAndPassword(userLogin.getUsername(), userLogin.getPassword()).isPresent();
+    public boolean isValid(User user) {
+        return userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword()).isPresent();
     }
 
     public boolean isLoggedIn() {
-        return userLogin != null;
+        return user != null;
     }
 }
