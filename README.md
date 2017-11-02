@@ -35,20 +35,18 @@ Célunk egy olyan webes applikáció fejlesztése, amely segíti az ajándékoz�
   - csak hitelesítés után elérhető funckiók bevezetése (autentikáció)
 
 ## Adatbázis terv
-![alt text](pictures/database.png "Adatbázist model")
+![alt text](pictures/databasev2.png "Adatbázist model")
 
 ### Kapcsolatok:
 
 - egy - sok kapcsolatok
-  - USER_LOGIN - PRESENT (PURCHASED_BY kapcsolótáblával)
-  - USER_LOGIN - WISHLIST
+  - USER - PRESENT
+  - USER- WISHLIST
   - WISHLIST - PRESENT
-  - USER_LOGIN - COMMENT
+  - USER - COMMENT
   - PRESENT - COMMENT
 - sok - sok kapcsolat
-  - USER_LOGIN - USER_LOGIN (FRIENDS kapcsolótáblával) 
-- egy - egy kapcsolat
-  - USER_LOGIN - USER_DATA
+  - USER - USER (FRIENDS kapcsolótáblával) 
   
 ##  Szerepkörök
 - User: Saját listákat hozhat létre, kereshet a felhasználók között és barátok vehet fel. Továbbá hozzáadhat/kihúzhat elemeket a barátok listáiról és kommentelhet is hozzájuk.
