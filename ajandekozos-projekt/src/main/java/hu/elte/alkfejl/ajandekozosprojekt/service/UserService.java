@@ -2,6 +2,7 @@ package hu.elte.alkfejl.ajandekozosprojekt.service;
 
 import hu.elte.alkfejl.ajandekozosprojekt.model.User;
 import hu.elte.alkfejl.ajandekozosprojekt.repository.UserRepository;
+import hu.elte.alkfejl.ajandekozosprojekt.service.exceptions.UserNotValidException;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,16 +16,14 @@ import static hu.elte.alkfejl.ajandekozosprojekt.model.User.Role.USER;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
-    
+
     private User user;
 
-    public User login(User user) //throws UserNotValidException
-    {
+    public User login(User user) throws UserNotValidException {
         if (isValid(user)) {
             return this.user = userRepository.findByUsername(user.getUsername()).get();
         }
-        //throw new UserNotValidException();
-        return null;
+        throw new UserNotValidException();
     }
 
     public User register(User user) {
