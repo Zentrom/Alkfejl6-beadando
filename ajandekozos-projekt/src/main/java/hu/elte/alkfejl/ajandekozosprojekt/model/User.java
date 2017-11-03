@@ -32,8 +32,7 @@ public class User extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "user",cascade = CascadeType.ALL)
     private List<WishList> wishLists;
 
     @ManyToMany(cascade={CascadeType.ALL})

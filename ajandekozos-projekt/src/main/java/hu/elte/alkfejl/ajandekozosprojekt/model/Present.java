@@ -24,16 +24,19 @@ public class Present extends BaseEntity {
 
     @Column
     private String link;
-    
+
     @Column(nullable = false)
     private boolean hidden;
-    
-    @ManyToOne(targetEntity=User.class,fetch=FetchType.LAZY)
-    @JoinColumn(name="USER_ID")
+
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "USER_ID")
     private User user;
 
-    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinColumn(name = "PRESENT_ID", referencedColumnName = "ID")
+    @ManyToOne(targetEntity = WishList.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "LIST_ID")
+    private int listId;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "present", cascade = CascadeType.ALL)
     private List<Comment> comments;
-    
+
 }
