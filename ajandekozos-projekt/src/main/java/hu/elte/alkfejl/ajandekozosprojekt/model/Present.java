@@ -5,12 +5,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "PRESENT")
@@ -31,13 +27,13 @@ public class Present extends BaseEntity {
     
     @Column(nullable = false)
     private char hidden;
-
-    @ManyToOne(targetEntity=Wishlist.class,fetch=FetchType.LAZY)
-    @JoinColumn(name="LIST_ID")
-    private int list_id;
     
     @ManyToOne(targetEntity=User.class,fetch=FetchType.LAZY)
     @JoinColumn(name="USER_ID")
-    private int user_id;
+    private User user;
+
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinColumn(name = "PRESENT_ID", referencedColumnName = "ID")
+    private List<Comment> comments;
     
 }

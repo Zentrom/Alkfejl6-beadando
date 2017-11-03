@@ -32,6 +32,10 @@ public class User extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String email;
 
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
+    private List<WishList> wishLists;
+
     @ManyToMany(cascade={CascadeType.ALL})
     @JoinTable(name="FRIENDS", joinColumns={@JoinColumn(name="USER_ID")},
             inverseJoinColumns={@JoinColumn(name="FRIEND_ID")})
