@@ -16,17 +16,17 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class Present extends BaseEntity {
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String name;
 
     @Column(nullable = false)
     private int price;
 
-    @Column(nullable = false)
+    @Column
     private String link;
     
     @Column(nullable = false)
-    private char hidden;
+    private boolean hidden;
     
     @ManyToOne(targetEntity=User.class,fetch=FetchType.LAZY)
     @JoinColumn(name="USER_ID")
