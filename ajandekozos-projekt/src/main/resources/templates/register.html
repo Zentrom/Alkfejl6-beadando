@@ -28,7 +28,7 @@
                 <label for="email">Email:</label>
                 <input type="text" name="email" placeholder="email" th:field="*{email}" />
             </div>
-            <input type="submit" value="Regisztrálok!" />
+            <input onclick="window.location.href='/user/profile/*{username}'" type="submit" value="Regisztrálok!" />
             <button type="reset">Cancel</button>
         </form>
     </body>

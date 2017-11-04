@@ -40,6 +40,12 @@ public class IndexController {
         return "register";
     }
     
+    @GetMapping("/user/profile")
+    public String profile(@ModelAttribute User user,Model model) {
+        model.addAttribute("user", user);
+        return "/user/profile";
+    }
+    
     @PostMapping("/login")
     public String login(@ModelAttribute User user, Model model) {
         if (userService.isValid(user)) {
@@ -57,9 +63,11 @@ public class IndexController {
         return redirectToProfile(user);
     }
     
+    //@GetMapping("/user/profile")
     private String redirectToProfile(@ModelAttribute User user) {
-        //return "redirect:/user/profile?name=" + user.getUsername();
-        return "/user/profile/" + user.getUsername();
+        return "redirect:/user/profile?username=" + user.getUsername();
+        //return "/user/profile";// + user.getUsername();
+        //return "/user/"+ user.getUsername() +"/profile";
     }
     
     /*@RequestMapping("/{name}")
