@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.annotation.SessionScope;
 
 @Controller
 @RequestMapping("")
@@ -40,28 +43,55 @@ public class IndexController {
         return "register";
     }
     
+    /*@GetMapping("{name}")
+    public @ResponseBody String usiname(@PathVariable String name) {
+
+       User user = new User();
+
+       user.setUsername(name);
+       user.setId(1);
+       return "mama";
+    }*/
+    
+   /* @GetMapping("/user/profile")
+    public String profile(@ModelAttribute User user,Model model){//,@RequestParam(required = false, defaultValue = "world", name = "username") String name) {
+        if(userService.isLoggedIn()){
+            //model.addAttribute("user", userService.getUser());
+            model.addAttribute("user", user);
+            return "/user/profile";
+        }
+        return "index";
+        //return "/user/profile?username=" + name;
+        
+    }*/
+    
     @GetMapping("/user/profile")
-    public String profile(@ModelAttribute User user,Model model) {
-        model.addAttribute("user", user);
-        return "/user/profile";
+    public String profile(@RequestParam(required = false, defaultValue = "world", name = "username") String name,Model model){//,@RequestParam(required = false, defaultValue = "world", name = "username") String name) {
+        //if(userService.isLoggedIn()){
+            //model.addAttribute("user", userService.getUser());
+            model.addAttribute("user", userService.getUserRepository().findByUsername(name).get());
+            return "/user/profile";
+        //}
+        //return "index";
+        //return "/user/profile?username=" + name;
     }
     
     @GetMapping("/user/friends")
-    public String friends(@ModelAttribute User user,Model model) {
-        model.addAttribute("user", user);
-        return "/user/profile";
+    public String friends(@RequestParam(required = false, defaultValue = "world", name = "username") String name,Model model) {
+        model.addAttribute("user", userService.getUserRepository().findByUsername(name).get());
+        return "/user/friends";
     }
     
     @GetMapping("/user/settings")
-    public String settings(@ModelAttribute User user,Model model) {
-        model.addAttribute("user", user);
-        return "/user/profile";
+    public String settings(@RequestParam(required = false, defaultValue = "world", name = "username") String name,Model model) {
+        model.addAttribute("user", userService.getUserRepository().findByUsername(name).get());
+        return "/user/settings";
     }
     
     @GetMapping("/user/wishlist")
-    public String wishlist(@ModelAttribute User user,Model model) {
-        model.addAttribute("user", user);
-        return "/user/profile";
+    public String wishlist(@RequestParam(required = false, defaultValue = "world", name = "username") String name,Model model) {
+        model.addAttribute("user", userService.getUserRepository().findByUsername(name).get());
+        return "/user/wishlist";
     }
     
     @PostMapping("/login")
@@ -81,11 +111,24 @@ public class IndexController {
         return redirectToProfile(user);
     }
     
+//    @PostMapping("/user/profile")
+//    public String profilel(@ModelAttribute User user,Model model){//,@RequestParam(required = false, defaultValue = "world", name = "username") String name) {
+//       // if(userService.isLoggedIn()){
+//            //model.addAttribute("user", userService.getUser());
+//            model.addAttribute("user", user);
+//            return "/user/profile";
+//       // }
+//       // return "index";
+//        //return "/user/profile?username=" + name;
+//        
+//    }
+    
     //@GetMapping("/user/profile")
     private String redirectToProfile(@ModelAttribute User user) {
         return "redirect:/user/profile?username=" + user.getUsername();
         //return "/user/profile";// + user.getUsername();
         //return "/user/"+ user.getUsername() +"/profile";
+        //return "/user/profile?username=" + user.getUsername();
     }
     
     /*@RequestMapping("/{name}")

@@ -7,23 +7,23 @@
     </head>
     <body>
         <h1>Profile</h1>
-        <form action="@{/user/profile}" th:action="@{/user/profile}" th:object="${user}" method="get">
+        <form action="@{/user/wishlist}" th:action="@{/user/wishlist}" th:object="${user}" method="get">
             <div >
                 <p>Ön be van jelentkezve mint: <span th:text="${user.username}">Username</span></p>
             </div>
-            <div align="left">
+           <div align="left">
                 <table align="left">
                 <tr><td><a href="profile.html" 
-           th:href="@{/user/profile}" 
+           th:href="@{/user/profile(username=${user.username})}" 
            >Profile</a></td></tr>
                 <tr><td><a href="wishlist.html" 
-           th:href="@{/user/wishlist}" 
+           th:href="@{/user/wishlist(username=${user.username})}" 
            >My Wishlist</a></td></tr>
                 <tr><td><a href="friends.html"
-                   th:href="@{/user/friends}" >
+                   th:href="@{/user/friends(username=${user.username})}" >
            My Friends</a></td></tr>
                 <tr><td><a href="settings.html" 
-           th:href="@{/user/settings}" 
+           th:href="@{/user/settings(username=${user.username})}" 
            >Settings</a></td></tr>
                 <tr><td><a href="index.html" 
            th:href="@{/}"

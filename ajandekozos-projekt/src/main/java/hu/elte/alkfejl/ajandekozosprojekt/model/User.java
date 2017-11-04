@@ -32,8 +32,8 @@ public class User extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "user",cascade = CascadeType.ALL)
-    private List<WishList> wishLists;
+    @OneToOne(fetch = FetchType.LAZY,mappedBy = "user",cascade = CascadeType.ALL)
+    private WishList wishList;
 
     @ManyToMany(cascade={CascadeType.ALL})
     @JoinTable(name="FRIENDS", joinColumns={@JoinColumn(name="USER_ID")},

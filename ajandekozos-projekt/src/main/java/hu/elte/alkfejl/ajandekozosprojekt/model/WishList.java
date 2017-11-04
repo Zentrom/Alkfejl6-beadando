@@ -22,7 +22,7 @@ public class WishList extends BaseEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "listId", cascade = CascadeType.ALL)
     private List<Present> presents;
 
-    @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
+    @OneToOne(targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID")
     private User user;
 }
