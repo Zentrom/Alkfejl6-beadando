@@ -1,8 +1,8 @@
 package hu.elte.alkfejl.ajandekozosprojekt.api;
 
-import hu.elte.alkfejl.ajandekozosprojekt.model.Issue;
-import hu.elte.alkfejl.ajandekozosprojekt.service.IssueService;
+import hu.elte.alkfejl.ajandekozosprojekt.model.WishList;
 import hu.elte.alkfejl.ajandekozosprojekt.service.UserService;
+import hu.elte.alkfejl.ajandekozosprojekt.service.WishListService;
 import hu.elte.alkfejl.ajandekozosprojekt.service.annotations.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,47 +12,40 @@ import static hu.elte.alkfejl.ajandekozosprojekt.model.User.Role.ADMIN;
 import static hu.elte.alkfejl.ajandekozosprojekt.model.User.Role.USER;
 
 @RestController
-@RequestMapping("/api/issues")
-public class IssueApiController {
+@RequestMapping("/api/lists")
+public class WishListApiController {
 
     @Autowired
-    private IssueService issueService;
+    private WishListService wishListService;
 
     @Autowired
     private UserService userService;
 
     @Role({ADMIN, USER})
     @GetMapping
-    private ResponseEntity<Iterable<Issue>> list() {
-        Iterable<Issue> issues = issueService.listByRole(userService.getUser());
+    private ResponseEntity<Iterable<WishList>> list() {
+        Iterable<WishList> issues = wishListService.listByRole(userService.getUser());
         return ResponseEntity.ok(issues);
     }
 
     @Role({ADMIN, USER})
     @PostMapping
-    private ResponseEntity<Issue> create(@RequestBody Issue issue) {
-        Issue saved = issueService.create(issue);
+    private ResponseEntity<WishList> createOrUpdate(@RequestBody WishList list) {
+        WishList saved = wishListService.createOrUpdate(list);
         return ResponseEntity.ok(saved);
     }
 
     @Role({ADMIN, USER})
     @GetMapping("/{id}")
-    private ResponseEntity<Issue> read(@RequestParam int id) {
-        Issue read = issueService.read(id);
+    private ResponseEntity<WishList> read(@RequestParam int id) {
+        WishList read = wishListService.read(id);
         return ResponseEntity.ok(read);
-    }
-
-    @Role(ADMIN)
-    @PutMapping("/{id}")
-    private ResponseEntity<Issue> update(@RequestParam int id, @RequestBody Issue issue) {
-        Issue updated = issueService.update(id, issue);
-        return ResponseEntity.ok(updated);
     }
 
     @Role(ADMIN)
     @DeleteMapping("/{id}")
     private ResponseEntity delete(@RequestParam int id) {
-        issueService.delete(id);
+        wishListService.delete(id);
         return ResponseEntity.ok().build();
     }
 }

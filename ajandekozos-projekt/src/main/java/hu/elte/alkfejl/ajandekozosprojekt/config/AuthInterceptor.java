@@ -10,6 +10,8 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Component
@@ -37,6 +39,6 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 
     private List<User.Role> getRoles(HandlerMethod handler) {
         Role role = handler.getMethodAnnotation(Role.class);
-        return null;//role == null ? Collections.emptyList() : Arrays.asList(role.value());
+        return role == null ? Collections.emptyList() : Arrays.asList(role.value());
     }
 }
