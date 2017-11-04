@@ -46,6 +46,24 @@ public class IndexController {
         return "/user/profile";
     }
     
+    @GetMapping("/user/friends")
+    public String friends(@ModelAttribute User user,Model model) {
+        model.addAttribute("user", user);
+        return "/user/profile";
+    }
+    
+    @GetMapping("/user/settings")
+    public String settings(@ModelAttribute User user,Model model) {
+        model.addAttribute("user", user);
+        return "/user/profile";
+    }
+    
+    @GetMapping("/user/wishlist")
+    public String wishlist(@ModelAttribute User user,Model model) {
+        model.addAttribute("user", user);
+        return "/user/profile";
+    }
+    
     @PostMapping("/login")
     public String login(@ModelAttribute User user, Model model) {
         if (userService.isValid(user)) {

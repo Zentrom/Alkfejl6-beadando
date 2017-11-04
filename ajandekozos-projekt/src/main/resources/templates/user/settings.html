@@ -12,33 +12,40 @@
                 <p>Ön be van jelentkezve mint: <span th:text="${user.username}">Username</span></p>
             </div>
             <div align="left">
-                <a href="profile.html" 
+                <table align="left">
+                <tr><td><a href="profile.html" 
            th:href="@{/user/profile}" 
-           >Profile</a>
-                <a href="wishlist.html" 
+           >Profile</a></td></tr>
+                <tr><td><a href="wishlist.html" 
            th:href="@{/user/wishlist}" 
-           >My Wishlist</a>
-                <a href="friends.html"
+           >My Wishlist</a></td></tr>
+                <tr><td><a href="friends.html"
                    th:href="@{/user/friends}" >
-           My Friends</a>
-                <a href="settings.html" 
+           My Friends</a></td></tr>
+                <tr><td><a href="settings.html" 
            th:href="@{/user/settings}" 
-           >Settings</a>
-                <a href="index.html" 
+           >Settings</a></td></tr>
+                <tr><td><a href="index.html" 
            th:href="@{/}"
-           >Logout</a>
+           >Logout</a></td></tr>
                 <!--<a href="profile.html" 
            th:href="@{/product/comments(prodId=${prod.id})}" 
            >view</a>-->
+                </table>
             </div>
             <div align="right">
-                <p size="4"><b>
-            Ez egy olyan webes applikáció, amely segíti az ajándékozás folyamatát,
-            legyen szó születésnapról, karácsonyról vagy bármilyen más egyéb ünnepről.
-            A programmal, regisztrálás és belépés után, kívánság listákat készíthetünk, 
-            amelyet a barátaink (barátnak felvett felhasználók) láthatnak, illetve módosításokat
-            hajthatnak végre rajta, anélkül, hogy azt a lista tulajdonosa láthatná.
-        </b></p>
+                <form action="#" th:action="@{settings}" th:object="${user}" method="post">
+            <div id="username">
+                <label for="username">Username:</label>
+                <input type="text" name="username" placeholder="username" th:field="*{username}" />
+            </div>
+            <div id="password">
+                <label for="password">Password:</label>
+                <input type="password" name="password" placeholder="password" th:field="*{password}" />
+            </div>
+            <input onclick="window.location.href='/user/profile/*{username}'" type="submit" value="Belepes!" />
+            <button type="reset">Cancel</button>
+                 </form>
             </div>
         </form>
     </body>
