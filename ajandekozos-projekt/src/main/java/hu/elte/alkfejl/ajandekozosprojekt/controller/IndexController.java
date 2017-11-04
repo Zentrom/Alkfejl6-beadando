@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -43,6 +44,7 @@ public class IndexController {
     public String login(@ModelAttribute User user, Model model) {
         if (userService.isValid(user)) {
             return redirectToProfile(user);
+            //return pathParameter(user.getUsername());
         }
         model.addAttribute("loginFailed", true);
         return "login";
@@ -57,8 +59,13 @@ public class IndexController {
     
     private String redirectToProfile(@ModelAttribute User user) {
         //return "redirect:/user/profile?name=" + user.getUsername();
-        return "/user/profile";
+        return "/user/profile/" + user.getUsername();
     }
+    
+    /*@RequestMapping("/{name}")
+    public String pathParameter(@PathVariable String username) {
+        return username; 
+    }*/
     
 //    private String redirectToProfile(int user_id) {
 //        //return "redirect:/user/profile?name=" + user.getUsername();
