@@ -5,14 +5,7 @@ import hu.elte.alkfejl.ajandekozosprojekt.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.annotation.SessionScope;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("")
@@ -94,7 +87,7 @@ public class IndexController {
     public String wishlist(@RequestParam(required = false, defaultValue = "world", name = "username") String name,Model model) {
         User tmpUser = userService.getUserRepository().findByUsername(name).get();
         model.addAttribute("user", tmpUser);
-        model.addAttribute("presents", tmpUser.getWishList().getPresents());
+        model.addAttribute("wishlists", tmpUser.getWishLists());
         return "/user/wishlist";
     }
     
@@ -107,9 +100,8 @@ public class IndexController {
         model.addAttribute("loginFailed", true);
         return "login";
     }
-    
-    
-    
+
+
     @PostMapping("/register")
     public String register(@ModelAttribute User user) {
         userService.register(user);
@@ -119,7 +111,7 @@ public class IndexController {
     
     @PostMapping("/user/settings")
     public String settings(@ModelAttribute User user, Model model) {
-        userService.register(user);
+        userService.update(user.getId(), user);
                 
         return redirectToProfile(user);
     }
