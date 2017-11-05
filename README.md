@@ -52,6 +52,39 @@ Célunk egy olyan webes applikáció fejlesztése, amely segíti az ajándékoz�
 - User: Saját listákat hozhat létre, kereshet a felhasználók között és barátok vehet fel. Továbbá hozzáadhat/kihúzhat elemeket a barátok listáiról és kommentelhet is hozzájuk.
 - Admin: Belenyúlhat az adatbázisba, módosíthatja a listákat, törölhet felhasználókat stb.
 
+## Fejlesztői környezet
+- NetBeans/IntelliJ IDEA
+- Maven
+- Git verziókezelő használata
+- GitHub repository klónozása lokális használatra
+- A pom.xml-ben megtalálhatóak a Spring-Bootos függőségek
+- Projekt elérése böngészőből: localhost:8080
+
+## Könyvtárszerkezet
+![alt text](pictures/konyvtarszerk.png "Könyvtár szerkezet")
+
+## Végpontok
+- GET /index: Fogadó oldal
+- GET /login: Oldal a bejelentkezéshez
+- POST /login: Bejelentkezés
+- GET /register: Oldal a regisztráláshoz
+- POST /register: Regisztrálás
+- GET /user/friends: Barátok listázása
+- POST /user/friends: Barátok keresése, felvétele
+- GET /user/profile: Profil kezdőoldala
+- GET /user/settings: Felhasználói adatok
+- POST /user/settings Felhasználói adatok módosítása
+- GET /user/wishlist: Listák megjelenítése
+- POST /user/wishlist: Új lista hozzáadása
+- GET /user/wishlist/list: Listán belüli ajándékok
+- POST /user/wishlist/list: Új ajándék felvétele
+- GET /user/friends/wishlist: Adott barát listáinak a megtekintése
+- GET /user/friends/wishlist/list: Barát egy listájának a tartalma
+- POST /user/friends/wishlist/list: Barát listájához új elem felvétele
+
+### Use case:
+- User szemszögből:
+![alt text](pictures/user_usecase.png "User use case")
 
 ## Készítették:
 
