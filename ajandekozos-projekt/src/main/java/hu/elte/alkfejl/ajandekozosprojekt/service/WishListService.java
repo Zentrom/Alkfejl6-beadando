@@ -24,6 +24,10 @@ public class WishListService {
         return Collections.emptyList();
     }
 
+    public WishList findByTitle(String title) {
+        return wishListRepository.findByTitle(title);
+    }
+
     public WishList create(WishList list) {
         return wishListRepository.save(list);
     }

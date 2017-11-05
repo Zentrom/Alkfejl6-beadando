@@ -4,26 +4,29 @@ import hu.elte.alkfejl.ajandekozosprojekt.model.Present;
 import hu.elte.alkfejl.ajandekozosprojekt.model.User;
 import hu.elte.alkfejl.ajandekozosprojekt.repository.PresentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Collections;
+import java.util.List;
 
+@Component
 public class PresentService {
 
     @Autowired
     private PresentRepository presentRepository;
 
-    public Iterable<Present> findAllByRole(User user, int listId) {
+    public List<Present> findAllByRole(User user, int listId) {
         User.Role role = user.getRole();
         if (role.equals(User.Role.USER)) {
-            return presentRepository.findAllByListIdAndHiddenFalse(listId);
+            return presentRepository.findAllByWishListIdAndHiddenFalse(listId);
         } else if (role.equals(User.Role.ADMIN)) {
-            return presentRepository.findAllByListId(listId);
+            return presentRepository.findAllByWishListId(listId);
         }
         return Collections.emptyList();
     }
 
-    public Iterable<Present> findAllForFriend(int listId) {
-        return presentRepository.findAllByListId(listId);
+    public List<Present> findAllForFriend(int listId) {
+        return presentRepository.findAllByWishListId(listId);
     }
 
     public Present create(Present present) {

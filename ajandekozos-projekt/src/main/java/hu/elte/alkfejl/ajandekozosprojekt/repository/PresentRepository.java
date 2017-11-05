@@ -10,8 +10,7 @@ import java.util.List;
 @Repository
 public interface PresentRepository extends CrudRepository<Present, Integer> {
 
-    List<Present> findAllByListId(int listId);
+    List<Present> findAllByWishListId(int listId);
 
-    List<Present> findAllByListIdAndHiddenFalse(int listId);
-
+    List<Present> findAllByWishListIdAndHiddenFalse(int listId);
 }

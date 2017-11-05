@@ -34,9 +34,13 @@ public class Present extends BaseEntity {
 
     @ManyToOne(targetEntity = WishList.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "LIST_ID")
-    private int listId;
+    private WishList wishList;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "presentId", cascade = CascadeType.ALL)
     private List<Comment> comments;
 
+    @Override
+    public String toString() {
+        return "Name: " + name + " , price: " + price + ", link: " + link;
+    }
 }

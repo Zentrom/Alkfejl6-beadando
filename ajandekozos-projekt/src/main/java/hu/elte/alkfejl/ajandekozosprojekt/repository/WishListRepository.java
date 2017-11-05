@@ -12,4 +12,6 @@ public interface WishListRepository extends CrudRepository<WishList, Integer> {
 
     List<WishList> findAllByUser(User user);
 
+    WishList findByTitle(String title);
+
 }

@@ -3,7 +3,7 @@ package hu.elte.alkfejl.ajandekozosprojekt.controller;
 import hu.elte.alkfejl.ajandekozosprojekt.model.User;
 import hu.elte.alkfejl.ajandekozosprojekt.model.WishList;
 import hu.elte.alkfejl.ajandekozosprojekt.service.UserService;
-import java.util.List;
+import hu.elte.alkfejl.ajandekozosprojekt.service.WishListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +15,9 @@ public class IndexController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private WishListService wishListService;
     
     @GetMapping("")
     public String homePage() {
@@ -96,16 +99,11 @@ public class IndexController {
     @GetMapping("/user/presents")
     public String presents(@RequestParam(required = false, defaultValue = "world", name = "username") String name,@RequestParam(required = false, defaultValue = "world", name = "wishlist") String wish,Model model) {
         User tmpUser = userService.getUserRepository().findByUsername(name).get();
-        List<WishList> tmpWishlist = tmpUser.getWishLists();
+        WishList wishList = wishListService.findByTitle(wish);
         model.addAttribute("user", tmpUser);
         //model.addAttribute("wishlists", tmpWishlist);
-        int wishListid = 0;
-        for(int i=0;i<tmpWishlist.size();i++){
-            if(tmpWishlist.get(i).getTitle().equals(wish)){
-                wishListid=i;
-            }
-        }
-        model.addAttribute("presents", tmpWishlist.get(wishListid).getPresents());
+
+        model.addAttribute("presents", wishList.getPresents());
         return "/user/presents";
     }
     
