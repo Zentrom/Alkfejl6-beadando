@@ -17,7 +17,7 @@
            th:href="@{/user/profile(username=${user.username})}" 
            >Profile</a></td></tr>
                 <tr><td><a href="wishlist.html" 
-           th:href="@{/user/wishlist(username=${user.username})}" 
+           th:href="@{/user/wishlist(username=${user.username},friendname='null')}" 
            >My Wishlist</a></td></tr>
                 <tr><td><a href="friends.html"
                    th:href="@{/user/friends(username=${user.username})}" >
@@ -37,7 +37,7 @@
             <div align="right">
                 <ul th:each="friend : ${friends}">
                     <li> <a href="wishlist.html" 
-           th:href="@{/user/wishlist(username=${friend.username})}"><span th:text="${friend.username}">Username</span></a>
+           th:href="@{/user/wishlist(username=${user.username},friendname=${friend.username})}"><span th:text="${friend.username}">Username</span></a>
                         </li>
                 </ul>
             </div>

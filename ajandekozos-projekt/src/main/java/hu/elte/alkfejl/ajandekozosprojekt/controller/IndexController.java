@@ -89,12 +89,23 @@ public class IndexController {
     }
     
     @GetMapping("/user/wishlist")
-    public String wishlist(@RequestParam(required = false, defaultValue = "world", name = "username") String name,Model model) {
-        User tmpUser = userService.getUserRepository().findByUsername(name).get();
-        model.addAttribute("user", tmpUser);
-        model.addAttribute("wishlists", tmpUser.getWishLists());
-        return "/user/wishlist";
+    public String wishlist(@RequestParam(required = false, defaultValue = "world", name = "username") String name,@RequestParam(required = false, defaultValue = "world", name = "friendname") String friendname,Model model) {
+        if(friendname.equals("null")){
+            User tmpUser = userService.getUserRepository().findByUsername(name).get();
+            model.addAttribute("user", tmpUser);
+            model.addAttribute("wishlists", tmpUser.getWishLists());
+            model.addAttribute("friendname", friendname);
+            return "/user/wishlist";
+        }else{
+            User tmpUser = userService.getUserRepository().findByUsername(name).get();
+            User friendUser = userService.getUserRepository().findByUsername(friendname).get();
+            model.addAttribute("user", tmpUser);
+            model.addAttribute("wishlists", friendUser.getWishLists());
+            model.addAttribute("friendname", friendname);
+            return "/user/wishlist";
+        }
     }
+    
     
     @GetMapping("/user/presents")
     public String presents(@RequestParam(required = false, defaultValue = "world", name = "username") String name,@RequestParam(required = false, defaultValue = "world", name = "wishlist") String wish,Model model) {
