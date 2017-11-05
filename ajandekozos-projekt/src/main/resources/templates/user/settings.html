@@ -3,7 +3,7 @@
     <head>
         <title>Profile</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link rel="stylesheet" href="styles.css" />
+        <link rel="stylesheet" href="../styles.css" />
     </head>
     <body>
         <h1>Profile</h1>
@@ -36,14 +36,31 @@
             <div align="right">
                 <form action="#" th:action="@{user/settings}" th:object="${user}" method="post">
             <div id="username">
+                <p>Your current username is: <span th:text="${user.username}">Username</span></p>
                 <label for="username">Username:</label>
-                <input type="text" name="username" placeholder="username" th:field="*{username}" />
+                <input type="text" name="username" value="${user.username}" th:field="*{username}" />
             </div>
             <div id="password">
+                <p>Your current password is: <span th:text="${user.password}">Username</span></p>
                 <label for="password">Password:</label>
-                <input type="password" name="password" placeholder="password" th:field="*{password}" />
+                <input type="password" name="password" value="${user.password}" th:field="*{password}" />
             </div>
-            <input onclick="window.location.href='/user/profile/*{username}'" type="submit" value="Belepes!" />
+            <div id="firstname">
+                <p>Your current firstname is: <span th:text="${user.firstname}">Username</span></p>
+                <label for="firstname">FirstName:</label>
+                <input type="text" name="firstname" value="${user.firstname}" th:field="*{firstname}" />
+            </div>
+            <div id="lastname">
+                <p>Your current lastname is: <span th:text="${user.lastname}">Username</span></p>
+                <label for="lastname">LastName:</label>
+                <input type="text" name="lastname" value="${user.lastname}" th:field="*{lastname}" />
+            </div>
+            <div id="email">
+                <p>Your current email is: <span th:text="${user.email}">Username</span></p>
+                <label for="email">Email:</label>
+                <input type="text" name="email" value="${user.email}" th:field="*{email}" />
+            </div>
+            <input onclick="window.location.href='/user/profile/*{username}'" type="submit" value="Mentes!" />
             <button type="reset">Cancel</button>
                  </form>
             </div>

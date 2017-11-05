@@ -39,4 +39,9 @@ public class UserService {
     public boolean isLoggedIn() {
         return user != null;
     }
+
+    /*public User update(User user) {
+        
+        return user;
+    }*/
 }

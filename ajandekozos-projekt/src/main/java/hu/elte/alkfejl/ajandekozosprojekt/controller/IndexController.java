@@ -78,7 +78,9 @@ public class IndexController {
     
     @GetMapping("/user/friends")
     public String friends(@RequestParam(required = false, defaultValue = "world", name = "username") String name,Model model) {
-        model.addAttribute("user", userService.getUserRepository().findByUsername(name).get());
+        User tmpUser = userService.getUserRepository().findByUsername(name).get();
+        model.addAttribute("user", tmpUser);
+        model.addAttribute("friends", tmpUser.getFriends());
         return "/user/friends";
     }
     
@@ -90,7 +92,9 @@ public class IndexController {
     
     @GetMapping("/user/wishlist")
     public String wishlist(@RequestParam(required = false, defaultValue = "world", name = "username") String name,Model model) {
-        model.addAttribute("user", userService.getUserRepository().findByUsername(name).get());
+        User tmpUser = userService.getUserRepository().findByUsername(name).get();
+        model.addAttribute("user", tmpUser);
+        model.addAttribute("presents", tmpUser.getWishList().getPresents());
         return "/user/wishlist";
     }
     
@@ -104,10 +108,19 @@ public class IndexController {
         return "login";
     }
     
+    
+    
     @PostMapping("/register")
     public String register(@ModelAttribute User user) {
         userService.register(user);
 
+        return redirectToProfile(user);
+    }
+    
+    @PostMapping("/user/settings")
+    public String settings(@ModelAttribute User user, Model model) {
+        userService.register(user);
+                
         return redirectToProfile(user);
     }
     

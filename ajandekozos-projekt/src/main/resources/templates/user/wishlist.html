@@ -3,7 +3,7 @@
     <head>
         <title>Profile</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link rel="stylesheet" href="styles.css" />
+        <link rel="stylesheet" href="../styles.css" />
     </head>
     <body>
         <h1>Profile</h1>
@@ -33,15 +33,17 @@
            >view</a>-->
                 </table>
             </div>
+            <form action="@{/user/wishlist}" th:action="@{/user/wishlist}" th:object="${presents}" method="get">
             <div align="right">
                 <table align="right">
                     <tr th:each="pres : ${presents}">
                         <td th:text="${pres.name}">Onions</td>
-                        <td th:text="${prod.price}">2.41</td>
-                        <td th:text="${prod.link}">yes</td>
+                        <td th:text="${pres.price}">2.41</td>
+                        <td th:text="${pres.link}">yes</td>
                     </tr>
                 </table>
             </div>
-        </form>
+                </form>
+            </form>
     </body>
 </html>
