@@ -7,7 +7,7 @@
     </head>
     <body>
         <h1>Profile</h1>
-        <form action="@{/user/wishlist}" th:action="@{/user/wishlist}" th:object="${user}" method="get">
+        <form action="@{/user/presents}" th:action="@{/user/presents}" th:object="${user}" method="get">
             <div >
                 <p>Ön be van jelentkezve mint: <span th:text="${user.username}">Username</span></p>
             </div>
@@ -33,12 +33,13 @@
            >view</a>-->
                 </table>
             </div>
-            <form action="@{/user/wishlist}" th:action="@{/user/wishlist}" th:object="${wishlists}" method="get">
+            <form action="@{/user/presents}" th:action="@{/user/presents}" th:object="${presents}" method="get">
             <div align="right">
                 <table align="right">
-                    <tr th:each="list : ${wishlists}">
-                        <!--<td th:text="${list.title}" th:href="@{/user/presents(username=${user.username},wishlist=$(list.title))}">Onions</td>-->
-                        <td><a th:text="${list.title}" href="presents.html" th:href="@{/user/presents(username=${user.username},wishlist=${list.title})}" >Ajandekok</a></td>
+                    <tr th:each="pres : ${presents}">
+                        <td th:text="${pres.name}">Onions</td>
+                        <td th:text="${pres.price}">Onions</td>
+                        <td th:text="${pres.link}">Onions</td>
                     </tr>
                 </table>
             </div>

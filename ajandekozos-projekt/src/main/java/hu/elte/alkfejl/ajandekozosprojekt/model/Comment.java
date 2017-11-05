@@ -28,6 +28,6 @@ public class Comment extends BaseEntity {
 
     @ManyToOne(targetEntity = Present.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "PRESENT_ID")
-    private int presentId;
+    private Present presentId;
 
 }
