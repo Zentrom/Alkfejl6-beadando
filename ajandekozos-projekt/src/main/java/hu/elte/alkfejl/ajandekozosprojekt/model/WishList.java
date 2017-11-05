@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, exclude = "user")
 public class WishList extends BaseEntity {
 
     @Column(nullable = false)
@@ -22,7 +22,7 @@ public class WishList extends BaseEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "listId", cascade = CascadeType.ALL)
     private List<Present> presents;
 
-    @OneToOne(targetEntity = User.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID")
     private User user;
 }

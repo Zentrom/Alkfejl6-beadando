@@ -14,6 +14,7 @@ import static hu.elte.alkfejl.ajandekozosprojekt.model.User.Role.USER;
 @SessionScope
 @Data
 public class UserService {
+    
     @Autowired
     private UserRepository userRepository;
 
