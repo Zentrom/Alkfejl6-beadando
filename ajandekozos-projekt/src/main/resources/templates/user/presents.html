@@ -1,24 +1,28 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Profile</title>
+        <title>Presents</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link rel="stylesheet" href="../styles.css" />
     </head>
     <body>
-        <h1>Profile</h1>
+        <h1>Presents</h1>
         <form action="@{/user/presents}" th:action="@{/user/presents}" th:object="${user}" method="get">
-            <div >
+            <form action="@{/user/wishlist}" th:action="@{/user/wishlist}" th:object="${friendname}" method="get">
+            <div th:if="${friendname} == 'null'">
                 <p>Ön be van jelentkezve mint: <span th:text="${user.username}">Username</span></p>
             </div>
-           <div align="left">
+            <div th:if="${friendname} != 'null'">
+                    <p>Ön megtekinti a következő kivánságlistáit: <span th:text="${friendname}">Username</span></p>
+                </div>
+           <div align="left" th:if="${friendname} == 'null'">
                 <table align="left">
                     <tr>
                         <td><a href="profile.html"
                                th:href="@{/user/profile(username=${user.username})}"
            >Profile</a></td></tr>
                 <tr><td><a href="wishlist.html" 
-           th:href="@{/user/wishlist(username=${user.username})}" 
+           th:href="@{/user/wishlist(username=${user.username},friendname='null')}" 
            >My Wishlist</a></td></tr>
                 <tr><td><a href="friends.html"
                    th:href="@{/user/friends(username=${user.username})}" >
@@ -34,9 +38,20 @@
            >view</a>-->
                 </table>
             </div>
+                
+                <div  th:if="${friendname} != 'null'" align="left">
+                <table align="left">
+                <tr><td><a href="profile.html" 
+           th:href="@{/user/profile(username=${user.username})}" 
+           >MyProfile</a></td></tr>
+                
+                </table>
+            </div>
+                
             <form action="@{/user/presents}" th:action="@{/user/presents}" th:object="${presents}" method="get">
             <div align="right">
                 <table align="right">
+                    <tr class='focim'><td>Név</td><td>Ár</td><td>Link</td></tr>
                     <tr th:each="pres : ${presents}">
                         <td th:text="${pres.name}">Onions</td>
                         <td th:text="${pres.price}">Onions</td>
@@ -45,6 +60,7 @@
                 </table>
             </div>
                 </form>
+            </form>
             </form>
     </body>
 </html>

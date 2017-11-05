@@ -1,12 +1,12 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Profile</title>
+        <title>Wishlist</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link rel="stylesheet" href="../styles.css" />
     </head>
     <body>
-        <h1>Profile</h1>
+        <h1>Wishlist</h1>
         <form action="@{/user/wishlist}" th:action="@{/user/wishlist}" th:object="${user}" method="get">
             <form action="@{/user/wishlist}" th:action="@{/user/wishlist}" th:object="${friendname}" method="get">
             <div th:if="${friendname} == 'null'">
@@ -51,7 +51,7 @@
                 <table align="right">
                     <tr th:each="list : ${wishlists}">
                         <!--<td th:text="${list.title}" th:href="@{/user/presents(username=${user.username},wishlist=$(list.title))}">Onions</td>-->
-                        <td><a th:text="${list.title}" href="presents.html" th:href="@{/user/presents(username=${user.username},wishlist=${list.title})}" >Ajandekok</a></td>
+                        <td><a th:text="${list.title}" href="presents.html" th:href="@{/user/presents(username=${user.username},wishlist=${list.title},friendname=${friendname})}" >Ajandekok</a></td>
                     </tr>
                 </table>
             </div>

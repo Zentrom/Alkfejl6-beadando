@@ -8,6 +8,12 @@ p {
 
 table{
     background-color: white;
+    border : 4px;
+    border-color: black;
+}
+
+tr.focim{
+    background: red;
 }
 
 a:link {

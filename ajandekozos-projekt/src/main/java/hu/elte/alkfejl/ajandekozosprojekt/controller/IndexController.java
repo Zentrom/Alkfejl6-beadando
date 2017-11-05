@@ -108,12 +108,12 @@ public class IndexController {
     
     
     @GetMapping("/user/presents")
-    public String presents(@RequestParam(required = false, defaultValue = "world", name = "username") String name,@RequestParam(required = false, defaultValue = "world", name = "wishlist") String wish,Model model) {
+    public String presents(@RequestParam(required = false, defaultValue = "world", name = "username") String name,@RequestParam(required = false, defaultValue = "world", name = "wishlist") String wish,@RequestParam(required = false, defaultValue = "world", name = "friendname") String friendname,Model model) {
         User tmpUser = userService.getUserRepository().findByUsername(name).get();
         WishList wishList = wishListService.findByTitle(wish);
         model.addAttribute("user", tmpUser);
         //model.addAttribute("wishlists", tmpWishlist);
-
+        model.addAttribute("friendname", friendname);
         model.addAttribute("presents", wishList.getPresents());
         return "/user/presents";
     }
