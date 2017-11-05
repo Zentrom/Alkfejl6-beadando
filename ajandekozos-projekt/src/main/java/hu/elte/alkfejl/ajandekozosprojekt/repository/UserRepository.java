@@ -18,4 +18,5 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     Optional<User> findByFirstname(String firstname);
 
     Optional<User> findByLastname(String lastname);
+    
 }

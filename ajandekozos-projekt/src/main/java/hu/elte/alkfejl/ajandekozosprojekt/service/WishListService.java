@@ -24,8 +24,15 @@ public class WishListService {
         return Collections.emptyList();
     }
 
-    public WishList createOrUpdate(WishList list) {
+    public WishList create(WishList list) {
         return wishListRepository.save(list);
+    }
+
+    public WishList update(int id, WishList wishList) {
+        WishList currentWishList = wishListRepository.findOne(id);
+        currentWishList.setTitle(wishList.getTitle());
+
+        return wishListRepository.save(currentWishList);
     }
 
     public WishList read(int id) {

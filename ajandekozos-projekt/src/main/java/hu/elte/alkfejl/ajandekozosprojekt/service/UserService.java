@@ -40,8 +40,14 @@ public class UserService {
         return user != null;
     }
 
-    /*public User update(User user) {
-        
-        return user;
-    }*/
+    public User update(int id, User user) {
+        User currentUser = userRepository.findOne(id);
+        currentUser.setFirstname(user.getFirstname());
+        currentUser.setLastname(user.getLastname());
+        currentUser.setEmail(user.getEmail());
+        currentUser.setUsername(user.getUsername());
+        currentUser.setPassword(user.getPassword());
+
+        return userRepository.save(currentUser);
+    }
 }

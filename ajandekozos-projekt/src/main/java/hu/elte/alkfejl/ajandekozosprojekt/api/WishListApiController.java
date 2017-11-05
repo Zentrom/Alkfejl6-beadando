@@ -30,9 +30,16 @@ public class WishListApiController {
 
     @Role({ADMIN, USER})
     @PostMapping
-    private ResponseEntity<WishList> createOrUpdate(@RequestBody WishList list) {
-        WishList saved = wishListService.createOrUpdate(list);
+    private ResponseEntity<WishList> create(@RequestBody WishList list) {
+        WishList saved = wishListService.create(list);
         return ResponseEntity.ok(saved);
+    }
+
+    @Role({ADMIN, USER})
+    @PutMapping("/{id}")
+    private ResponseEntity<WishList> update(@PathVariable int id, @RequestBody WishList wishList) {
+        WishList updated = wishListService.update(id, wishList);
+        return ResponseEntity.ok(updated);
     }
 
     @Role({ADMIN, USER})

@@ -36,7 +36,7 @@ public class Present extends BaseEntity {
     @JoinColumn(name = "LIST_ID")
     private int listId;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "present", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "presentId", cascade = CascadeType.ALL)
     private List<Comment> comments;
 
 }
