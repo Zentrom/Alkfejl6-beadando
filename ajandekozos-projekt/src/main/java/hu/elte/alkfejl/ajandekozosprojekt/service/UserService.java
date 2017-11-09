@@ -48,7 +48,12 @@ public class UserService {
         currentUser.setEmail(user.getEmail());
         currentUser.setUsername(user.getUsername());
         currentUser.setPassword(user.getPassword());
+        currentUser.setRole(User.Role.USER);
 
-        return userRepository.save(currentUser);
+        return this.user = userRepository.save(currentUser);
+    }
+
+    public User findByUserName(String userName) {
+        return userRepository.findByUsername(userName).get();
     }
 }
