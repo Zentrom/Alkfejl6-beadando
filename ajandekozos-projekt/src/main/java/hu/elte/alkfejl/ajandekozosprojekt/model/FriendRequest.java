@@ -7,30 +7,25 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 
 @Entity
-@Table(name = "COMMENT")
+@Table(name = "FRIENDREQUEST")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Comment extends BaseEntity {
+public class FriendRequest extends BaseEntity {
 
-    @Column(nullable = false)
-    private String text;
-
-    @Column(nullable = false)
-    private Timestamp timestamp;
+    // TODO kell ide az ignore?
+    
+    @JsonIgnore
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "REQUESTER_ID")
+    private User requester;
 
     @JsonIgnore
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_ID")
-    private User user;
-
-    @JsonIgnore
-    @ManyToOne(targetEntity = Present.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "PRESENT_ID")
-    private Present present;
+    @JoinColumn(name = "REQUESTEE_ID")
+    private User requestee;
 
 }

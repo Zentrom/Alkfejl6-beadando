@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static hu.elte.alkfejl.ajandekozosprojekt.model.User.Role.USER;
 
 @Service
@@ -41,7 +44,11 @@ public class UserService {
         return user != null;
     }
 
-    public User update(int id, User user) {
+    public void logout() {
+        user = null;
+    }
+
+/*    public User update(int id, User user) {
         User currentUser = userRepository.findOne(id);
         currentUser.setFirstname(user.getFirstname());
         currentUser.setLastname(user.getLastname());
@@ -51,9 +58,16 @@ public class UserService {
         currentUser.setRole(User.Role.USER);
 
         return this.user = userRepository.save(currentUser);
+    }*/
+
+    public Iterable<User> listFriends() {
+        return user.getFriends();
     }
 
-    public User findByUserName(String userName) {
-        return userRepository.findByUsername(userName).get();
+    public List<User> findPossibleFriends(String firstName, String lastName) {
+        List<User> searchedUsers = userRepository.findAllByFirstnameContainingAndLastnameContaining(firstName, lastName);
+        List<User> alreadyFriends = user.getFriends();
+
+        return searchedUsers.stream().filter(x -> !alreadyFriends.contains(x)).collect(Collectors.toList());
     }
 }

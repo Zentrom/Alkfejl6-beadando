@@ -1,5 +1,6 @@
 package hu.elte.alkfejl.ajandekozosprojekt.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ public class BaseEntity {
     @Column(name = "ID")
     private int id;
 
+    @JsonIgnore
     @Version
     private int version;
 }

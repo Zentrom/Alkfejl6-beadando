@@ -1,5 +1,6 @@
 package hu.elte.alkfejl.ajandekozosprojekt.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -19,9 +20,11 @@ public class WishList extends BaseEntity {
     @Column(nullable = false)
     private String title;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "wishList", cascade = CascadeType.ALL)
     private List<Present> presents;
 
+    @JsonIgnore
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID")
     private User user;
