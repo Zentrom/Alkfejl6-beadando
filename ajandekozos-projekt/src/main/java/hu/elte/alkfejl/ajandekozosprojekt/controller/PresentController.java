@@ -3,19 +3,26 @@ package hu.elte.alkfejl.ajandekozosprojekt.controller;
 import hu.elte.alkfejl.ajandekozosprojekt.ResourceConstants;
 import hu.elte.alkfejl.ajandekozosprojekt.model.Present;
 import hu.elte.alkfejl.ajandekozosprojekt.service.PresentService;
-import hu.elte.alkfejl.ajandekozosprojekt.service.WishListService;
+import hu.elte.alkfejl.ajandekozosprojekt.service.UserService;
+import hu.elte.alkfejl.ajandekozosprojekt.service.annotations.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import static hu.elte.alkfejl.ajandekozosprojekt.model.User.Role.ADMIN;
+import static hu.elte.alkfejl.ajandekozosprojekt.model.User.Role.USER;
 
 @RestController
 public class PresentController {
 
     private PresentService presentService;
 
+    private UserService userService;
+
     @Autowired
-    public PresentController(PresentService presentService, WishListService wishListService) {
+    public PresentController(PresentService presentService, UserService userService) {
         this.presentService = presentService;
+        this.userService = userService;
     }
 
     @GetMapping(ResourceConstants.PRESENTS)
@@ -38,7 +45,7 @@ public class PresentController {
 
     @PatchMapping(ResourceConstants.PRESENTSID)
     public ResponseEntity<Present> updatePresent(@PathVariable int presentId, @RequestBody Present present) {
-        Present updated = presentService.updateByListOwner(presentId, present);
+        Present updated = presentService.updateByListOwnerOrAdmin(presentId, present);
         return ResponseEntity.ok(updated);
     }
 
@@ -66,10 +73,19 @@ public class PresentController {
         return ResponseEntity.ok(read);
     }
 
+    // TODO jó az hogy a Role-t a presentService.updatePresent-en belül nézzük?
+    @Role({ADMIN, USER})
     @PatchMapping(ResourceConstants.FRIEND_PRESENTID)
-    public ResponseEntity<Present> updateBuyerOfPresent(@PathVariable int friendPresentId, @RequestBody Present present) {
-        Present updated = presentService.updateByFriend(friendPresentId, present);
+    public ResponseEntity<Present> updateFriendPresent(@PathVariable("friendPresentId") int presentId, @RequestBody Present present) {
+        Present updated = presentService.updatePresent(userService.getUser(), presentId, present);
         return ResponseEntity.ok(updated);
+    }
+
+    @Role(ADMIN)
+    @DeleteMapping(ResourceConstants.FRIEND_PRESENTID)
+    public ResponseEntity deleteUserPresent(@PathVariable("friendPresentId") int presentId) {
+        presentService.delete(presentId);
+        return ResponseEntity.ok().build();
     }
 
 

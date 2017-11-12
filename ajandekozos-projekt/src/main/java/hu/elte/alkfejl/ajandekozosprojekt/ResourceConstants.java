@@ -27,4 +27,8 @@ public class ResourceConstants {
     public static final String COMMENTS = FRIEND_PRESENTID + "/comments";
     public static final String COMMENTID = "/{commentId}";
 
+    public static final String DELETE_FRIEND_OR_USER = FRIENDS + "/{friendId}";
+    public static final String DELETE_USER_LIST = FRIEND_LISTS + "/{userListId}";
+
+
 }

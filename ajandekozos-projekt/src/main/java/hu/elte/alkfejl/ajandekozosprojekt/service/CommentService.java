@@ -64,14 +64,8 @@ public class CommentService {
         return commentRepository.save(comment);
     }
 
-    public boolean delete(User user, int commentId) {
-        Comment comment = commentRepository.findOne(commentId);
-        if (comment.getUser().equals(user)) {
-            commentRepository.delete(commentId);
-            return true;
-        }
-
-        return false;
+    public void delete(int commentId) {
+        commentRepository.delete(commentId);
     }
 
 }

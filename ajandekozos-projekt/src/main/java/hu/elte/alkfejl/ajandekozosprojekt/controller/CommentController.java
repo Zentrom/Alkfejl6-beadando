@@ -36,8 +36,8 @@ public class CommentController {
 
     @DeleteMapping(ResourceConstants.COMMENTID)
     public ResponseEntity deleteComment(@PathVariable int commentId) {
-        // TODO kell ez vagy majd kliens oldalon ellenőrizzük a dolgokat?
-        if (commentService.delete(userService.getUser(), commentId)) {
+        if (commentService.checkPermission(userService.getUser(), commentId)) {
+            commentService.delete(commentId);
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.badRequest().build();

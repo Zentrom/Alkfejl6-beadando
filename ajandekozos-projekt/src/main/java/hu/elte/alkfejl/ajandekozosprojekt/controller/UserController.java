@@ -3,13 +3,14 @@ package hu.elte.alkfejl.ajandekozosprojekt.controller;
 import hu.elte.alkfejl.ajandekozosprojekt.ResourceConstants;
 import hu.elte.alkfejl.ajandekozosprojekt.model.User;
 import hu.elte.alkfejl.ajandekozosprojekt.service.UserService;
+import hu.elte.alkfejl.ajandekozosprojekt.service.annotations.Role;
 import hu.elte.alkfejl.ajandekozosprojekt.service.exceptions.UserNotValidException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import static hu.elte.alkfejl.ajandekozosprojekt.model.User.Role.ADMIN;
+import static hu.elte.alkfejl.ajandekozosprojekt.model.User.Role.USER;
 
 @RestController
 public class UserController {
@@ -49,9 +50,25 @@ public class UserController {
         return ResponseEntity.ok(userService.register(user));
     }
 
+    @Role({ADMIN, USER})
     @GetMapping(ResourceConstants.FRIENDS)
     public ResponseEntity<Iterable<User>> listFriends() {
         Iterable<User> friends = userService.listFriends();
         return ResponseEntity.ok(friends);
+    }
+
+    @Role(USER)
+    @DeleteMapping(ResourceConstants.DELETE_FRIEND_OR_USER)
+    public ResponseEntity deleteFriend(@PathVariable int friendId) {
+        userService.deleteFriend(friendId);
+        return ResponseEntity.ok().build();
+    }
+
+    // TODO jó így az endpoint?
+    @Role(ADMIN)
+    @DeleteMapping(ResourceConstants.DELETE_FRIEND_OR_USER)
+    public ResponseEntity deleteUser(@PathVariable("friendId") int userId) {
+        userService.deleteUser(userId);
+        return ResponseEntity.ok().build();
     }
 }

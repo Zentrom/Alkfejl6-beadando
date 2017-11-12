@@ -33,6 +33,10 @@ public class UserService {
     public User register(User user) {
         user.setRole(USER);
         this.user = userRepository.save(user);
+
+        User admin = userRepository.findByUsername("admin").get();
+        admin.getFriends().add(user);
+
         return user;
     }
 
@@ -69,5 +73,15 @@ public class UserService {
         List<User> alreadyFriends = user.getFriends();
 
         return searchedUsers.stream().filter(x -> !alreadyFriends.contains(x)).collect(Collectors.toList());
+    }
+
+    public void deleteUser(int userId) {
+        userRepository.delete(userId);
+    }
+
+    public void deleteFriend(int friendId) {
+        User friend = userRepository.findOne(friendId);
+        friend.getFriends().removeIf(x -> x.equals(user));
+        user.getFriends().removeIf(x -> x.equals(friend));
     }
 }

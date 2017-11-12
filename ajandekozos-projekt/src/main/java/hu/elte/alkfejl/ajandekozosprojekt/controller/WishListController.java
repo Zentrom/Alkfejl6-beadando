@@ -4,9 +4,12 @@ import hu.elte.alkfejl.ajandekozosprojekt.ResourceConstants;
 import hu.elte.alkfejl.ajandekozosprojekt.model.WishList;
 import hu.elte.alkfejl.ajandekozosprojekt.service.UserService;
 import hu.elte.alkfejl.ajandekozosprojekt.service.WishListService;
+import hu.elte.alkfejl.ajandekozosprojekt.service.annotations.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import static hu.elte.alkfejl.ajandekozosprojekt.model.User.Role.ADMIN;
 
 @RestController
 public class WishListController {
@@ -55,6 +58,13 @@ public class WishListController {
     public ResponseEntity<Iterable<WishList>> listFriendsLists(@PathVariable int friendId) {
         Iterable<WishList> friendsLists = wishListService.findAllByUserId(friendId);
         return ResponseEntity.ok(friendsLists);
+    }
+
+    @Role(ADMIN)
+    @DeleteMapping(ResourceConstants.DELETE_USER_LIST)
+    public ResponseEntity deleteFriendsList(@PathVariable int userListId) {
+        wishListService.delete(userListId);
+        return ResponseEntity.ok().build();
     }
 
 }

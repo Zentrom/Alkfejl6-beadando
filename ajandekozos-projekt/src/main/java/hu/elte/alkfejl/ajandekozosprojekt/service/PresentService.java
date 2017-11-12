@@ -1,6 +1,7 @@
 package hu.elte.alkfejl.ajandekozosprojekt.service;
 
 import hu.elte.alkfejl.ajandekozosprojekt.model.Present;
+import hu.elte.alkfejl.ajandekozosprojekt.model.User;
 import hu.elte.alkfejl.ajandekozosprojekt.model.WishList;
 import hu.elte.alkfejl.ajandekozosprojekt.repository.PresentRepository;
 import hu.elte.alkfejl.ajandekozosprojekt.repository.WishListRepository;
@@ -42,7 +43,15 @@ public class PresentService {
         return presentRepository.save(present);
     }
 
-    public Present updateByListOwner(int presentId, Present present) {
+    public Present updatePresent(User currentUser, int presentId, Present present) {
+        if (currentUser.getRole().equals(User.Role.ADMIN)) {
+            return updateByListOwnerOrAdmin(presentId, present);
+        } else {
+            return updateByFriend(presentId, present);
+        }
+    }
+
+    public Present updateByListOwnerOrAdmin(int presentId, Present present) {
         Present currentPresent = presentRepository.findOne(presentId);
         currentPresent.setName(present.getName());
         currentPresent.setPrice(present.getPrice());
