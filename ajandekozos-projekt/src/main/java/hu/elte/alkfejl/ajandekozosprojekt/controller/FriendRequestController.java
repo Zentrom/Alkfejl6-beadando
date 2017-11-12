@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(ResourceConstants.FRIEND_REQUESTS)
 public class FriendRequestController {
 
     private FriendRequestService friendRequestService;
@@ -32,8 +31,8 @@ public class FriendRequestController {
     }
 
     @DeleteMapping(ResourceConstants.FRIEND_REQUESTID)
-    public ResponseEntity processRequest(@PathVariable int friendRequestId, @RequestBody FriendRequest friendRequest) {
-        friendRequestService.process(friendRequestId, friendRequest);
+    public ResponseEntity processRequest(@PathVariable int friendRequestId, @RequestParam int status) {
+        friendRequestService.process(friendRequestId, status);
         return ResponseEntity.ok().build();
     }
 
@@ -44,8 +43,9 @@ public class FriendRequestController {
     }
 
     @GetMapping(ResourceConstants.USER_SEARCH)
-    public ResponseEntity<List<User>> searchUsers(@RequestParam String firstName, @RequestParam String lastName) {
+    public ResponseEntity<List<User>> searchUsers(@RequestParam(name = "firstname") String firstName, @RequestParam(name = "lastname") String lastName) {
         List<User> searchedUsers = userService.findPossibleFriends(firstName, lastName);
+        System.out.println("USER KERESES");
         return ResponseEntity.ok(searchedUsers);
     }
 

@@ -13,10 +13,10 @@ public class ResourceConstants {
     public static final String PRESENTS = WISHLISTSID + "/presents";
     public static final String PRESENTSID = PRESENTS + "/{presentId}";
 
-    public static final String FRIEND_REQUESTS = "/friendrequests";
+    public static final String FRIEND_REQUESTS = USER + "/friendrequests";
     public static final String FRIEND_REQUESTID = FRIEND_REQUESTS + "/{friendRequestId}";
 
-    public static final String USER_SEARCH = "/newrequest";
+    public static final String USER_SEARCH = USER + "/newrequest";
     public static final String CREATE_FRIEND_REQUEST = USER_SEARCH + "/{requesteeId}";
 
     public static final String FRIENDS = USER + "/friends";

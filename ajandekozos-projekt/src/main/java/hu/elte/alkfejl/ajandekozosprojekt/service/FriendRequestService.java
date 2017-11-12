@@ -39,9 +39,10 @@ public class FriendRequestService {
         return friendRequestRepository.save(friendRequest);
     }
 
-
-    public void process(int friendRequestId, FriendRequest friendRequest) {
-        if (friendRequest.getStatus().equals(FriendRequest.Status.ACCEPTED)) {
+    public void process(int friendRequestId, int statusInt) {
+        FriendRequest.Status status = FriendRequest.Status.values()[statusInt];
+        FriendRequest friendRequest = friendRequestRepository.findOne(friendRequestId);
+        if (status.equals(FriendRequest.Status.ACCEPTED)) {
             User requester = userRepository.findOne(friendRequest.getRequester().getId());
             User requestee = userRepository.findOne(friendRequest.getRequestee().getId());
 

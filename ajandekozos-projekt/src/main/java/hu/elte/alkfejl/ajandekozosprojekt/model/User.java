@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "USER")
@@ -44,7 +45,7 @@ public class User extends BaseEntity {
     // TODO mind a két oldalt definiálni kell? Lehet elég lenne csak az egyik
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "requestee", cascade = CascadeType.ALL)
-    private List<FriendRequest> friendRequestsFromUsers;
+    private Set<FriendRequest> friendRequestsFromUsers;
 
 /*    @OneToMany(fetch = FetchType.LAZY, mappedBy = "REQUESTER_ID", cascade = CascadeType.ALL)
     private List<FriendRequest> usersToRequest;*/

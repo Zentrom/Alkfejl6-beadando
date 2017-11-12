@@ -6,11 +6,13 @@ import hu.elte.alkfejl.ajandekozosprojekt.service.exceptions.UserNotValidExcepti
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.annotation.SessionScope;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static hu.elte.alkfejl.ajandekozosprojekt.model.User.Role.ADMIN;
 import static hu.elte.alkfejl.ajandekozosprojekt.model.User.Role.USER;
 
 @Service
@@ -68,11 +70,12 @@ public class UserService {
         return user.getFriends();
     }
 
+    @Transactional
     public List<User> findPossibleFriends(String firstName, String lastName) {
         List<User> searchedUsers = userRepository.findAllByFirstnameContainingAndLastnameContaining(firstName, lastName);
         List<User> alreadyFriends = user.getFriends();
 
-        return searchedUsers.stream().filter(x -> !alreadyFriends.contains(x)).collect(Collectors.toList());
+        return searchedUsers.stream().filter(x -> !alreadyFriends.contains(x) && !x.getRole().equals(ADMIN)).collect(Collectors.toList());
     }
 
     public void deleteUser(int userId) {
@@ -83,5 +86,13 @@ public class UserService {
         User friend = userRepository.findOne(friendId);
         friend.getFriends().removeIf(x -> x.equals(user));
         user.getFriends().removeIf(x -> x.equals(friend));
+    }
+
+    public void deleteFriendOrUser(int friendId) {
+        if (user.getRole().equals(ADMIN)) {
+            deleteUser(friendId);
+        } else {
+            deleteFriend(friendId);
+        }
     }
 }

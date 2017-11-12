@@ -59,16 +59,8 @@ public class UserController {
 
     @Role(USER)
     @DeleteMapping(ResourceConstants.DELETE_FRIEND_OR_USER)
-    public ResponseEntity deleteFriend(@PathVariable int friendId) {
-        userService.deleteFriend(friendId);
-        return ResponseEntity.ok().build();
-    }
-
-    // TODO jó így az endpoint?
-    @Role(ADMIN)
-    @DeleteMapping(ResourceConstants.DELETE_FRIEND_OR_USER)
-    public ResponseEntity deleteUser(@PathVariable("friendId") int userId) {
-        userService.deleteUser(userId);
+    public ResponseEntity deleteFriendOrUser(@PathVariable int friendId) {
+        userService.deleteFriendOrUser(friendId);
         return ResponseEntity.ok().build();
     }
 }
