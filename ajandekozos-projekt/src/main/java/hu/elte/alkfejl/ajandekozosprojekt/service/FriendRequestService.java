@@ -39,17 +39,17 @@ public class FriendRequestService {
         return friendRequestRepository.save(friendRequest);
     }
 
-    public void accept(int friendRequestId, FriendRequest friendRequest) {
-        User requester = userRepository.findOne(friendRequest.getRequester().getId());
-        User requestee = userRepository.findOne(friendRequest.getRequestee().getId());
 
-        requester.getFriends().add(requestee);
-        requestee.getFriends().add(requester);
+    public void process(int friendRequestId, FriendRequest friendRequest) {
+        if (friendRequest.getStatus().equals(FriendRequest.Status.ACCEPTED)) {
+            User requester = userRepository.findOne(friendRequest.getRequester().getId());
+            User requestee = userRepository.findOne(friendRequest.getRequestee().getId());
 
-        delete(friendRequestId);
-    }
+            requester.getFriends().add(requestee);
+            requestee.getFriends().add(requester);
+        }
 
-    public void delete(int friendRequestId) {
         friendRequestRepository.delete(friendRequestId);
     }
+    
 }

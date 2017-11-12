@@ -25,38 +25,31 @@ public class FriendRequestController {
         this.userService = userService;
     }
 
-    @GetMapping("")
+    @GetMapping(ResourceConstants.FRIEND_REQUESTS)
     public ResponseEntity<Iterable<FriendRequest>> listRequests() {
         Iterable<FriendRequest> friendRequests = friendRequestService.findAllByRequesteeId(userService.getUser().getId());
         return ResponseEntity.ok(friendRequests);
     }
 
-    @DeleteMapping("/{friendRequestId}")
-    public ResponseEntity declineRequest(@PathVariable int friendRequestId) {
-        friendRequestService.delete(friendRequestId);
+    @DeleteMapping(ResourceConstants.FRIEND_REQUESTID)
+    public ResponseEntity processRequest(@PathVariable int friendRequestId, @RequestBody FriendRequest friendRequest) {
+        friendRequestService.process(friendRequestId, friendRequest);
         return ResponseEntity.ok().build();
     }
 
-    // TODO itt is kitörlöm az adatbázisból, szóval PatchMapping az biztos, hogy jó?
-    @PatchMapping("/{friendRequestId}")
-    public ResponseEntity acceptRequest(@PathVariable int friendRequestId, @RequestBody FriendRequest friendRequest) {
-        friendRequestService.accept(friendRequestId, friendRequest);
-        return ResponseEntity.ok().build();
-    }
-
-    @GetMapping("/{friendRequestId}")
+    @GetMapping(ResourceConstants.FRIEND_REQUESTID)
     public ResponseEntity<FriendRequest> findRequest(@PathVariable int friendRequestId) {
         FriendRequest found = friendRequestService.findById(friendRequestId);
         return ResponseEntity.ok(found);
     }
 
-    @GetMapping("/search")
+    @GetMapping(ResourceConstants.USER_SEARCH)
     public ResponseEntity<List<User>> searchUsers(@RequestParam String firstName, @RequestParam String lastName) {
         List<User> searchedUsers = userService.findPossibleFriends(firstName, lastName);
         return ResponseEntity.ok(searchedUsers);
     }
 
-    @PostMapping("/search/{requesteeId}")
+    @PostMapping(ResourceConstants.CREATE_FRIEND_REQUEST)
     public ResponseEntity<FriendRequest> createFriendRequest(@PathVariable int requesteeId) {
         FriendRequest saved = friendRequestService.create(requesteeId, userService.getUser());
         return ResponseEntity.ok(saved);
