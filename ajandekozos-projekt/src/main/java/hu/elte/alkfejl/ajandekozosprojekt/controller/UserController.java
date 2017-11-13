@@ -22,6 +22,8 @@ public class UserController {
         this.userService = userService;
     }
 
+    // TODO kellenek ide a Role-ok?
+    @Role({ADMIN, USER})
     @GetMapping(ResourceConstants.USER)
     public ResponseEntity<User> user() {
         if (userService.isLoggedIn()) {
@@ -36,18 +38,19 @@ public class UserController {
             return ResponseEntity.ok(userService.login(user));
         } catch (UserNotValidException e) {
             return ResponseEntity.badRequest().build();
-        }
     }
-
-    @GetMapping(ResourceConstants.USER_LOGOUT)
-    public ResponseEntity logout() {
-        userService.logout();
-        return ResponseEntity.ok().build();
     }
 
     @PostMapping(ResourceConstants.USER_REGISTER)
     public ResponseEntity<User> register(@RequestBody User user) {
         return ResponseEntity.ok(userService.register(user));
+    }
+
+    @Role({ADMIN, USER})
+    @GetMapping(ResourceConstants.USER_LOGOUT)
+    public ResponseEntity logout() {
+        userService.logout();
+        return ResponseEntity.ok().build();
     }
 
     @Role({ADMIN, USER})
@@ -57,7 +60,7 @@ public class UserController {
         return ResponseEntity.ok(friends);
     }
 
-    @Role(USER)
+    @Role({ADMIN, USER})
     @DeleteMapping(ResourceConstants.DELETE_FRIEND_OR_USER)
     public ResponseEntity deleteFriendOrUser(@PathVariable int friendId) {
         userService.deleteFriendOrUser(friendId);

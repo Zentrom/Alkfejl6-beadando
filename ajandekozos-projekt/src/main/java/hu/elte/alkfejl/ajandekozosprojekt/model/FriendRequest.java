@@ -16,7 +16,7 @@ import javax.persistence.*;
 @EqualsAndHashCode(callSuper = true)
 public class FriendRequest extends BaseEntity {
 
-    // TODO kell ide az ignore?
+    // TODO kell ide az ignore? Lazy vs Eager
     
     @JsonIgnore
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)

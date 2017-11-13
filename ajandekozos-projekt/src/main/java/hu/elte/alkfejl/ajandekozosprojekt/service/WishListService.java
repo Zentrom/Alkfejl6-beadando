@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 
-import java.util.Collections;
-
 @Service
 @SessionScope
 public class WishListService {
@@ -16,14 +14,8 @@ public class WishListService {
     @Autowired
     private WishListRepository wishListRepository;
 
-    public Iterable<WishList> listByRole(User user) {
-        User.Role role = user.getRole();
-        if (role.equals(User.Role.USER)) {
-            return wishListRepository.findAllByUser(user);
-        } else if (role.equals(User.Role.ADMIN)) {
-            return wishListRepository.findAll();
-        }
-        return Collections.emptyList();
+    public Iterable<WishList> listByUser(User user) {
+        return wishListRepository.findAllByUser(user);
     }
 
     public WishList findById(int listId) {

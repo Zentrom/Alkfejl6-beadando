@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 
+import static hu.elte.alkfejl.ajandekozosprojekt.model.User.Role.ADMIN;
+
 @Service
 @SessionScope
 public class PresentService {
@@ -35,16 +37,21 @@ public class PresentService {
         return presentRepository.findOne(presentId);
     }
 
-    public Present create(int wishlistId, Present present, boolean hidden) {
+    public Present create(int wishlistId, Present present, User user) {
         WishList wishList = wishListRepository.findById(wishlistId);
+        User listOwner = wishList.getUser();
+        if (user.getRole().equals(ADMIN) || user.equals(listOwner)) {
+            present.setHidden(false);
+        } else {
+            present.setHidden(true);
+        }
         present.setWishList(wishList);
-        present.setHidden(hidden);
 
         return presentRepository.save(present);
     }
 
     public Present updatePresent(User currentUser, int presentId, Present present) {
-        if (currentUser.getRole().equals(User.Role.ADMIN)) {
+        if (currentUser.getRole().equals(ADMIN)) {
             return updateByListOwnerOrAdmin(presentId, present);
         } else {
             return updateByFriend(presentId, present);
@@ -56,7 +63,6 @@ public class PresentService {
         currentPresent.setName(present.getName());
         currentPresent.setPrice(present.getPrice());
         currentPresent.setLink(present.getLink());
-        currentPresent.setUser(present.getUser());
 
         return presentRepository.save(present);
     }

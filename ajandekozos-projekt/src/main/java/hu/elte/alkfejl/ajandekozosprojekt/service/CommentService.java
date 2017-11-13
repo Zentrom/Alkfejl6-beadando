@@ -59,7 +59,7 @@ public class CommentService {
         currentComment.setText(comment.getText());
         currentComment.setTimestamp(comment.getTimestamp());
         // TODO settelni kell az usert is? -> valószínűleg nem kell
-        currentComment.setUser(comment.getUser());
+/*        currentComment.setUser(comment.getUser());*/
 
         return commentRepository.save(comment);
     }

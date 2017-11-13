@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import static hu.elte.alkfejl.ajandekozosprojekt.model.User.Role.ADMIN;
+import static hu.elte.alkfejl.ajandekozosprojekt.model.User.Role.USER;
 
 @RestController
 public class WishListController {
@@ -24,36 +25,42 @@ public class WishListController {
         this.wishListService = wishListService;
     }
 
+    @Role(USER)
     @GetMapping(ResourceConstants.WISHLISTS)
     public ResponseEntity<Iterable<WishList>> list() {
-        Iterable<WishList> wishLists = wishListService.listByRole(userService.getUser());
+        Iterable<WishList> wishLists = wishListService.listByUser(userService.getUser());
         return ResponseEntity.ok(wishLists);
     }
 
+    @Role(USER)
     @PostMapping(ResourceConstants.WISHLISTS)
     public ResponseEntity<WishList> addWishList(@RequestBody WishList wishList) {
         WishList saved = wishListService.create(wishList);
         return ResponseEntity.ok(saved);
     }
 
+    @Role(USER)
     @DeleteMapping(ResourceConstants.WISHLISTSID)
     public ResponseEntity deleteWishList(@PathVariable int wishlistId) {
         wishListService.delete(wishlistId);
         return ResponseEntity.ok().build();
     }
 
+    @Role(USER)
     @PatchMapping(ResourceConstants.WISHLISTSID)
     public ResponseEntity<WishList> updateWishList(@PathVariable int wishlistId, @RequestBody WishList wishList) {
         WishList updated = wishListService.update(wishlistId, wishList);
         return ResponseEntity.ok(updated);
     }
 
+    @Role({ADMIN, USER})
     @GetMapping(ResourceConstants.WISHLISTSID)
     public ResponseEntity<WishList> readWishList(@PathVariable int wishlistId) {
         WishList read = wishListService.findById(wishlistId);
         return ResponseEntity.ok(read);
     }
 
+    @Role({ADMIN, USER})
     @GetMapping(ResourceConstants.FRIEND_LISTS)
     public ResponseEntity<Iterable<WishList>> listFriendsLists(@PathVariable int friendId) {
         Iterable<WishList> friendsLists = wishListService.findAllByUserId(friendId);
@@ -61,10 +68,25 @@ public class WishListController {
     }
 
     @Role(ADMIN)
-    @DeleteMapping(ResourceConstants.DELETE_USER_LIST)
-    public ResponseEntity deleteFriendsList(@PathVariable int userListId) {
+    @DeleteMapping(ResourceConstants.DELETE_OR_MODIFY_OR_ADD_USER_LIST)
+    public ResponseEntity adminDeleteFriendsList(@PathVariable int userListId) {
         wishListService.delete(userListId);
         return ResponseEntity.ok().build();
+    }
+
+    @Role(ADMIN)
+    @PatchMapping(ResourceConstants.DELETE_OR_MODIFY_OR_ADD_USER_LIST)
+    public ResponseEntity<WishList> adminUpdateFriendsWishList(@PathVariable int userListId, @RequestBody WishList wishList) {
+        WishList updated = wishListService.update(userListId, wishList);
+        return ResponseEntity.ok(updated);
+    }
+
+    // TODO itt jó user legyen settelve a requestbodyban (ne az Admin)
+    @Role(ADMIN)
+    @PostMapping(ResourceConstants.DELETE_OR_MODIFY_OR_ADD_USER_LIST)
+    public ResponseEntity<WishList> adminAddFriendsWishList(@RequestBody WishList wishList) {
+        WishList saved = wishListService.create(wishList);
+        return ResponseEntity.ok(saved);
     }
 
 }
