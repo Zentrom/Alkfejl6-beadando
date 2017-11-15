@@ -1,7 +1,9 @@
 package hu.elte.alkfejl.ajandekozosprojekt.service;
 
+import hu.elte.alkfejl.ajandekozosprojekt.model.FriendRequest;
 import hu.elte.alkfejl.ajandekozosprojekt.model.Present;
 import hu.elte.alkfejl.ajandekozosprojekt.model.User;
+import hu.elte.alkfejl.ajandekozosprojekt.repository.FriendRequestRepository;
 import hu.elte.alkfejl.ajandekozosprojekt.repository.UserRepository;
 import hu.elte.alkfejl.ajandekozosprojekt.service.exceptions.UserNotValidException;
 import lombok.Data;
@@ -21,9 +23,16 @@ import static hu.elte.alkfejl.ajandekozosprojekt.model.User.Role.USER;
 @SessionScope
 @Data
 public class UserService {
-    
-    @Autowired
+
     private UserRepository userRepository;
+
+    private FriendRequestRepository friendRequestRepository;
+
+    @Autowired
+    public UserService(UserRepository userRepository, FriendRequestRepository friendRequestRepository) {
+        this.userRepository = userRepository;
+        this.friendRequestRepository = friendRequestRepository;
+    }
 
     private User user;
 
@@ -37,9 +46,6 @@ public class UserService {
     public User register(User user) {
         user.setRole(USER);
         this.user = userRepository.save(user);
-
-        User admin = userRepository.findByUsername("admin").get();
-        admin.getFriends().add(user);
 
         return user;
     }
@@ -58,24 +64,34 @@ public class UserService {
 
     public Iterable<User> listFriends() {
         user = userRepository.findOne(user.getId());
-        return user.getFriends();
+
+        if (ADMIN.equals(user.getRole())) {
+            List<User> users = (List) userRepository.findAll();
+            users.remove(user);
+            return users;
+        } else {
+            return user.getFriends();
+        }
+    }
+
+    private boolean alreadyRequested(int requesteeId) {
+        return friendRequestRepository.findByRequesteeIdAndRequesterId(requesteeId, user.getId()) != null;
     }
 
     @Transactional
     public List<User> findPossibleFriends(String firstName, String lastName) {
         List<User> searchedUsers = userRepository.findAllByFirstnameContainingAndLastnameContaining(firstName, lastName);
+        user = userRepository.findOne(user.getId());
         List<User> alreadyFriends = user.getFriends();
 
-        // TODO kiszűrni ha már küldtünk neki requestet? -> vagy csak simán updateli a már meglévő friendrequestet
-        return searchedUsers.stream().filter(x -> !alreadyFriends.contains(x) && !x.getRole().equals(ADMIN)).collect(Collectors.toList());
+        return searchedUsers.stream().filter(x -> !alreadyFriends.contains(x)
+                && !x.getRole().equals(ADMIN)
+                && !alreadyRequested(x.getId())).collect(Collectors.toList());
     }
 
     @Transactional
     public void deleteUser(int userId) {
         User userToDelete = userRepository.findOne(userId);
-        user = userRepository.findOne(user.getId());
-
-        user.getFriends().remove(userToDelete);
         userRepository.delete(userToDelete);
     }
 

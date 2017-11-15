@@ -43,7 +43,7 @@ public class User extends BaseEntity {
     private List<WishList> wishLists;
 
     @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "FRIENDS", joinColumns = {@JoinColumn(name = "USER_ID")}, inverseJoinColumns = {@JoinColumn(name = "FRIEND_ID")})
     private List<User> friends;
 
