@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface FriendRequestRepository extends CrudRepository<FriendRequest, Integer> {
 
     Iterable<FriendRequest> findAllByRequesteeId(int requesteeId);
+
+    void deleteByRequesterIdAndRequesteeId(int requesterId, int requesteeId);
 }

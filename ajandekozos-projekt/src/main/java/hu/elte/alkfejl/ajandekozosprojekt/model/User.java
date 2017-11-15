@@ -1,6 +1,7 @@
 package hu.elte.alkfejl.ajandekozosprojekt.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,6 +19,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User extends BaseEntity {
 
     @Column(nullable = false, unique = true)
@@ -45,7 +47,6 @@ public class User extends BaseEntity {
     @JoinTable(name = "FRIENDS", joinColumns = {@JoinColumn(name = "USER_ID")}, inverseJoinColumns = {@JoinColumn(name = "FRIEND_ID")})
     private List<User> friends;
 
-    // TODO mind a két oldalt definiálni kell? Lehet elég lenne csak az egyik
     @JsonIgnore
     @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "requestee", cascade = CascadeType.ALL)

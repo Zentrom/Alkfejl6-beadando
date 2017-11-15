@@ -1,5 +1,6 @@
 package hu.elte.alkfejl.ajandekozosprojekt.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,13 +18,11 @@ import javax.persistence.*;
 public class FriendRequest extends BaseEntity {
 
     // TODO kell ide az ignore? Lazy vs Eager
-    
-    @JsonIgnore
+
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "REQUESTER_ID")
     private User requester;
 
-    @JsonIgnore
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "REQUESTEE_ID")
     private User requestee;
