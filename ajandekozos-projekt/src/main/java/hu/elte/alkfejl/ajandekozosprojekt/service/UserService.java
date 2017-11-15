@@ -57,6 +57,7 @@ public class UserService {
     }
 
     public Iterable<User> listFriends() {
+        user = userRepository.findOne(user.getId());
         return user.getFriends();
     }
 
@@ -65,6 +66,7 @@ public class UserService {
         List<User> searchedUsers = userRepository.findAllByFirstnameContainingAndLastnameContaining(firstName, lastName);
         List<User> alreadyFriends = user.getFriends();
 
+        // TODO kiszűrni ha már küldtünk neki requestet? -> vagy csak simán updateli a már meglévő friendrequestet
         return searchedUsers.stream().filter(x -> !alreadyFriends.contains(x) && !x.getRole().equals(ADMIN)).collect(Collectors.toList());
     }
 

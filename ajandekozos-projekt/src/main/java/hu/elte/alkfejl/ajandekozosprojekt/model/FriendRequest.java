@@ -17,8 +17,6 @@ import javax.persistence.*;
 @EqualsAndHashCode(callSuper = true)
 public class FriendRequest extends BaseEntity {
 
-    // TODO kell ide az ignore? Lazy vs Eager
-
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "REQUESTER_ID")
     private User requester;
