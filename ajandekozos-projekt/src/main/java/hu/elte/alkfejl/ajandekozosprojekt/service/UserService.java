@@ -1,5 +1,6 @@
 package hu.elte.alkfejl.ajandekozosprojekt.service;
 
+import hu.elte.alkfejl.ajandekozosprojekt.model.Present;
 import hu.elte.alkfejl.ajandekozosprojekt.model.User;
 import hu.elte.alkfejl.ajandekozosprojekt.repository.UserRepository;
 import hu.elte.alkfejl.ajandekozosprojekt.service.exceptions.UserNotValidException;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.annotation.SessionScope;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -54,18 +56,6 @@ public class UserService {
         user = null;
     }
 
-/*    public User update(int id, User user) {
-        User currentUser = userRepository.findOne(id);
-        currentUser.setFirstname(user.getFirstname());
-        currentUser.setLastname(user.getLastname());
-        currentUser.setEmail(user.getEmail());
-        currentUser.setUsername(user.getUsername());
-        currentUser.setPassword(user.getPassword());
-        currentUser.setRole(User.Role.USER);
-
-        return this.user = userRepository.save(currentUser);
-    }*/
-
     public Iterable<User> listFriends() {
         return user.getFriends();
     }
@@ -78,14 +68,24 @@ public class UserService {
         return searchedUsers.stream().filter(x -> !alreadyFriends.contains(x) && !x.getRole().equals(ADMIN)).collect(Collectors.toList());
     }
 
+    @Transactional
     public void deleteUser(int userId) {
-        userRepository.delete(userId);
+        User userToDelete = userRepository.findOne(userId);
+        user = userRepository.findOne(user.getId());
+
+        user.getFriends().remove(userToDelete);
+        userRepository.delete(userToDelete);
     }
 
+    @Transactional
     public void deleteFriend(int friendId) {
         User friend = userRepository.findOne(friendId);
-        friend.getFriends().removeIf(x -> x.equals(user));
-        user.getFriends().removeIf(x -> x.equals(friend));
+        user = userRepository.findOne(user.getId());
+
+        friend.getFriends().remove(user);
+        user.getFriends().remove(friend);
+
+        userRepository.save(friend);
     }
 
     public void deleteFriendOrUser(int friendId) {
