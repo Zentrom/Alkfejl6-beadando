@@ -1,22 +1,38 @@
 package hu.elte.alkfejl.ajandekozosprojekt.service;
 
+import hu.elte.alkfejl.ajandekozosprojekt.model.FriendRequest;
+import hu.elte.alkfejl.ajandekozosprojekt.model.Present;
 import hu.elte.alkfejl.ajandekozosprojekt.model.User;
+import hu.elte.alkfejl.ajandekozosprojekt.repository.FriendRequestRepository;
 import hu.elte.alkfejl.ajandekozosprojekt.repository.UserRepository;
 import hu.elte.alkfejl.ajandekozosprojekt.service.exceptions.UserNotValidException;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.annotation.SessionScope;
 
+import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static hu.elte.alkfejl.ajandekozosprojekt.model.User.Role.ADMIN;
 import static hu.elte.alkfejl.ajandekozosprojekt.model.User.Role.USER;
 
 @Service
 @SessionScope
 @Data
 public class UserService {
-    
-    @Autowired
+
     private UserRepository userRepository;
+
+    private FriendRequestRepository friendRequestRepository;
+
+    @Autowired
+    public UserService(UserRepository userRepository, FriendRequestRepository friendRequestRepository) {
+        this.userRepository = userRepository;
+        this.friendRequestRepository = friendRequestRepository;
+    }
 
     private User user;
 
@@ -30,6 +46,7 @@ public class UserService {
     public User register(User user) {
         user.setRole(USER);
         this.user = userRepository.save(user);
+
         return user;
     }
 
@@ -41,14 +58,59 @@ public class UserService {
         return user != null;
     }
 
-    public User update(int id, User user) {
-        User currentUser = userRepository.findOne(id);
-        currentUser.setFirstname(user.getFirstname());
-        currentUser.setLastname(user.getLastname());
-        currentUser.setEmail(user.getEmail());
-        currentUser.setUsername(user.getUsername());
-        currentUser.setPassword(user.getPassword());
+    public void logout() {
+        user = null;
+    }
 
-        return userRepository.save(currentUser);
+    public Iterable<User> listFriends() {
+        user = userRepository.findOne(user.getId());
+
+        if (ADMIN.equals(user.getRole())) {
+            List<User> users = (List) userRepository.findAll();
+            users.remove(user);
+            return users;
+        } else {
+            return user.getFriends();
+        }
+    }
+
+    private boolean alreadyRequested(int requesteeId) {
+        return friendRequestRepository.findByRequesteeIdAndRequesterId(requesteeId, user.getId()) != null;
+    }
+
+    @Transactional
+    public List<User> findPossibleFriends(String firstName, String lastName) {
+        List<User> searchedUsers = userRepository.findAllByFirstnameContainingAndLastnameContaining(firstName, lastName);
+        user = userRepository.findOne(user.getId());
+        List<User> alreadyFriends = user.getFriends();
+
+        return searchedUsers.stream().filter(x -> !alreadyFriends.contains(x)
+                && !x.getRole().equals(ADMIN)
+                && !alreadyRequested(x.getId())).collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void deleteUser(int userId) {
+        User userToDelete = userRepository.findOne(userId);
+        userRepository.delete(userToDelete);
+    }
+
+    @Transactional
+    public void deleteFriend(int friendId) {
+        User friend = userRepository.findOne(friendId);
+        user = userRepository.findOne(user.getId());
+
+        friend.getFriends().remove(user);
+        user.getFriends().remove(friend);
+
+        userRepository.save(friend);
+    }
+
+    public void deleteFriendOrUser(int friendId) {
+        if (user.getRole().equals(ADMIN)) {
+            deleteUser(friendId);
+        } else {
+            deleteFriend(friendId);
+        }
     }
 }

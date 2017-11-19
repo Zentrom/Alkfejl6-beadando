@@ -1,12 +1,13 @@
 package hu.elte.alkfejl.ajandekozosprojekt.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "COMMENT")
@@ -20,14 +21,16 @@ public class Comment extends BaseEntity {
     private String text;
 
     @Column(nullable = false)
-    private Date timestamp;
+    private Timestamp timestamp;
 
+    @JsonIgnore
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID")
     private User user;
 
+    @JsonIgnore
     @ManyToOne(targetEntity = Present.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "PRESENT_ID")
-    private Present presentId;
+    private Present present;
 
 }
