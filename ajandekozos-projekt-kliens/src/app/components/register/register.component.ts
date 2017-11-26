@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {User} from "../../model/User";
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
-import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-register',
@@ -15,17 +13,15 @@ export class RegisterComponent implements OnInit {
     email: new FormControl('', [Validators.required, Validators.email]),
   });
 
-  constructor(private authService: AuthService) {
-  }
 
   ngOnInit() {
   }
 
   submit() {
-    this.authService.register(new User(this.username.value, this.password.value, this.email.value))
+    /*this.authService.register(new User(this.username.value, this.password.value, this.email.value))
       .subscribe(
         res => console.log(res),
-        err => console.log(err))
+        err => console.log(err))*/
   }
 
   get username(): AbstractControl {

@@ -1,6 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {Role} from "../../model/User";
-import {AuthService} from "../../services/auth.service";
 
 interface MenuItem {
   link: String;

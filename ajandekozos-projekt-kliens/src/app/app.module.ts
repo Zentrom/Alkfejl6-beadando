@@ -4,45 +4,39 @@ import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router'
 
 import {AppComponent} from './app.component';
-import {LoginComponent} from './pages/login/login.component';
+import {LoginComponent} from './components/login/login.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {AuthService} from "./services/auth.service";
 import {HttpModule} from "@angular/http";
-import { RegisterComponent } from './pages/register/register.component';
-import  {appRoutes} from './routes';
-import { IssueDetailComponent } from './pages/issues/issue-detail/issue-detail.component';
-import { IssueListComponent } from './pages/issues/issue-list/issue-list.component';
-import {MaterialItemsModule} from "./MaterialItemsModule";
+import { RegisterComponent } from './components/register/register.component';
+import { RoutingModule} from './modules/routing/routing.module';
+import { UiModule} from "./modules/ui/ui.module";
 import { MenuComponent } from './components/menu/menu.component';
-import { NewIssueComponent } from './pages/issues/new-issue/new-issue.component';
-import { StatsComponent } from './pages/stats/stats.component';
-import {IssueService} from "./services/issue.service";
-import { HelpComponent } from './pages/help/help.component';
-import { ErrorComponent } from './pages/error/error.component';
+import { MainpageViewComponent } from './pages/mainpage-view/mainpage-view.component';
+import { WishlistViewComponent } from './pages/wishlist-view/wishlist-view.component';
+import { FriendsViewComponent } from './pages/friends-view/friends-view.component';
+import { SettingsViewComponent } from './pages/settings-view/settings-view.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    IssueDetailComponent,
-    IssueListComponent,
     MenuComponent,
-    NewIssueComponent,
-    StatsComponent,
-    HelpComponent,
-    ErrorComponent
+    MainpageViewComponent,
+    WishlistViewComponent,
+    FriendsViewComponent,
+    SettingsViewComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    RouterModule.forRoot(appRoutes),
+    RouterModule.forRoot(RoutingModule),
     BrowserAnimationsModule,
-    MaterialItemsModule
+    UiModule
   ],
-  providers: [AuthService, IssueService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {
