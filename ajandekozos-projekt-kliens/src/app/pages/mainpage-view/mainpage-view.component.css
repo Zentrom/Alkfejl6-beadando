@@ -1,0 +1,15 @@
+div.left-side{
+    display: inline-flex;
+    width: 300px;
+    border: 15px solid green;
+    padding: 25px;
+    margin: 10%;
+}
+  
+div.right-side{
+    display: inline-flex;
+    width: 300px;
+    border: 15px solid red;
+    padding: 25px;
+    margin: auto;
+}
