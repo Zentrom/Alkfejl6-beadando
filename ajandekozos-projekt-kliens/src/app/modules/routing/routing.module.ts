@@ -1,11 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ShopViewComponent } from '../../components/shop-view/shop-view.component';
-import { FamilyViewComponent } from '../../components/family-view/family-view.component';
+import { MainpageViewComponent } from '../../pages/mainpage-view/mainpage-view.component';
+import { WishlistViewComponent } from '../../pages/wishlist-view/wishlist-view.component';
+import { FriendsViewComponent} from '../../pages/friends-view/friends-view.component';
+import { SettingsViewComponent} from '../../pages/settings-view/settings-view.component';
 
-const appRoutes: Routes = [
-  { path: '', component: ShopViewComponent },
-  { path: 'family', component: FamilyViewComponent }
+export const appRoutes: Routes = [
+  {path: '', redirectTo: 'main', pathMatch: 'full'},
+  { path: 'main', component: MainpageViewComponent },
+  { path: 'wishlist', component: WishlistViewComponent },
+  { path: 'friends', component: FriendsViewComponent },
+  { path: 'settings', component: SettingsViewComponent }
 ];
 
 @NgModule({

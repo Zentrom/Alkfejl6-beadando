@@ -10,6 +10,7 @@ import {HttpModule} from "@angular/http";
 import { RegisterComponent } from './components/register/register.component';
 import { RoutingModule} from './modules/routing/routing.module';
 import { UiModule} from "./modules/ui/ui.module";
+import { appRoutes } from './modules/routing/routing.module';
 import { MenuComponent } from './components/menu/menu.component';
 import { MainpageViewComponent } from './pages/mainpage-view/mainpage-view.component';
 import { WishlistViewComponent } from './pages/wishlist-view/wishlist-view.component';
@@ -32,7 +33,7 @@ import { SettingsViewComponent } from './pages/settings-view/settings-view.compo
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    RouterModule.forRoot(RoutingModule),
+    RouterModule.forRoot(appRoutes),
     BrowserAnimationsModule,
     UiModule
   ],

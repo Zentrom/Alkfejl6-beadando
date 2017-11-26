@@ -12,12 +12,12 @@ interface MenuItem {
 })
 export class MenuComponent implements OnInit {
   private common: MenuItem[] = [
-    {link: '/stats', title: 'Statistics'},
-    {link: '/issues', title: 'Issues'},
-    {link: '/help', title: 'Help'}
+    {link: '/wishlist', title: 'Wishlist'},
+    {link: '/friends', title: 'Friends'},
+    {link: '/settings', title: 'Settings'}
   ];
 
-  private roleMenus = new Map<Role, MenuItem[]>([
+  /*private roleMenus = new Map<Role, MenuItem[]>([
     [Role.GUEST, [...this.common]],
     [Role.USER, [...this.common, {link: '/issues', title: 'Issues'}]],
     // [Role.ADMIN, [{link: '/stats', title: 'Statistics'}, {link: '/issues', title: 'Issues'}]]
@@ -26,13 +26,13 @@ export class MenuComponent implements OnInit {
   menus: MenuItem[];
 
   constructor(private authService: AuthService) {
-  }
+  }*/
 
   ngOnInit() {
-    if (this.authService.isLoggedIn) {
+    /*if (this.authService.isLoggedIn) {
       this.menus = this.roleMenus.get(this.authService.user.role);
     } else {
       this.menus = this.roleMenus.get(Role.GUEST)
-    }
+    }*/
   }
 }
