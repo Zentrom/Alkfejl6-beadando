@@ -3,11 +3,28 @@
     box-shadow: 0 0 20px rgba(0,0,0,0.5);
   }
   
-  mat-toolbar {
-    justify-content: flex-end;
-  }
+mat-toolbar {
+  justify-content: flex-end;
+}
+
+.center {
+  flex: 1 1 auto;
+}
+
+div.right-side{
+  margin-right: 20px;
+}
   
-  .center {
-    flex: 1 1 auto;
-  }
-  
+a {
+  margin-left: 20px;
+  margin-right: 20px;
+  /*font-size: 10px;*/
+}
+
+i.material-icons.md-18{
+  font-size: 18px;
+}
+
+i.material-icons.md-48{
+  font-size: 48px;
+}
