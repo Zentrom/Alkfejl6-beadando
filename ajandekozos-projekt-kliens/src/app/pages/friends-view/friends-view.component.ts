@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FriendsViewComponent implements OnInit {
 
+  typesOfShoes = ['Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers'];
+
   constructor() { }
 
   ngOnInit() {

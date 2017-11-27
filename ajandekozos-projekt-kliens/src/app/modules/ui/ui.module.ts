@@ -5,14 +5,22 @@ import {
   MatSelectModule,
   MatTableModule,
   MatToolbarModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatCardModule,
+  MatListModule,
+  MatRadioModule
 } from '@angular/material';
 import {CdkTableModule} from '@angular/cdk/table';
 import {NgModule} from "@angular/core";
 
 @NgModule({
-  imports: [MatFormFieldModule, MatInputModule, MatButtonModule, MatToolbarModule, MatTableModule, MatSelectModule, MatTooltipModule, CdkTableModule],
-  exports: [MatFormFieldModule, MatInputModule, MatButtonModule, MatToolbarModule, MatTableModule, MatSelectModule, MatTooltipModule, CdkTableModule],
+  imports: [MatFormFieldModule, MatInputModule, MatButtonModule, 
+    MatToolbarModule, MatTableModule, MatSelectModule, MatTooltipModule, 
+    CdkTableModule, MatCardModule, MatListModule, MatRadioModule
+  ],
+  exports: [MatFormFieldModule, MatInputModule, MatButtonModule,
+    MatToolbarModule, MatTableModule, MatSelectModule, MatTooltipModule, 
+    CdkTableModule, MatCardModule, MatListModule, MatRadioModule]
 })
 export class UiModule {
 }

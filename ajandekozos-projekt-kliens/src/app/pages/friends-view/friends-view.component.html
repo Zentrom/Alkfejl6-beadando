@@ -1,3 +1,17 @@
-<p>
-  friends-view works!
-</p>
+<mat-card class="card">
+  <mat-list #shoes>
+      <!--<mat-list-option *ngFor="let shoe of typesOfShoes">
+        {{shoe}}
+      </mat-list-option> 
+    <mat-radio-button value="2">Option 2</mat-radio-button>-->
+      <mat-radio-group #radio>
+        <mat-list-item *ngFor="let shoe of typesOfShoes">
+          <mat-radio-button value={{shoe}}> {{shoe}}</mat-radio-button>
+        </mat-list-item>
+      </mat-radio-group>        
+    </mat-list>
+    
+    <p>
+      Options selected: {{radio.value}}
+    </p>      
+</mat-card>
