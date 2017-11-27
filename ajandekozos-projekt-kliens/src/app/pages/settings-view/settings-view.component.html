@@ -1,5 +1,5 @@
-<div class="page-body" id="login-page">
-    <h2 class="mat-h2">Login</h2>
+<div class="page-body" id="settings-page">
+    <h2 class="mat-h2">Settings</h2>
     <form [formGroup]="loginForm" novalidate>
       <div class="form-control">
         <mat-form-field class="example-full-width">
@@ -18,8 +18,8 @@
           </mat-error>
         </mat-form-field>
       </div>
-      <button mat-raised-button class="mat-primary" (click)="submit()" [disabled]="!loginForm.valid">Login</button>
-      <a mat-button class="mat-accent" routerLink="/register">Register</a>
+      <button mat-raised-button class="mat-primary" (click)="submit()" [disabled]="!loginForm.valid">Save</button>
+      <!--<a mat-button class="mat-accent" routerLink="/register">Register</a>-->
     </form>
   </div>
   

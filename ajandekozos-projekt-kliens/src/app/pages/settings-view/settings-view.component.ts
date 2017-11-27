@@ -1,12 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 
+
 @Component({
   selector: 'app-settings-view',
   templateUrl: './settings-view.component.html',
   styleUrls: ['./settings-view.component.css']
 })
 export class SettingsViewComponent implements OnInit {
+
+
+
   loginForm: FormGroup = new FormGroup({
     username: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required])

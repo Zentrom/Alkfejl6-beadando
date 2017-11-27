@@ -1,4 +1,11 @@
 import {Component, OnInit} from '@angular/core';
+import { AppComponent } from '../../app.component';
+
+import { User,Role } from '../../model/user';
+
+
+
+
 
 interface MenuItem {
   link: String;
@@ -18,6 +25,8 @@ export class MenuComponent implements OnInit {
     {link: '/settings', title: 'Settings'}
   ];
 
+  adminUser: User;
+
   /*private roleMenus = new Map<Role, MenuItem[]>([
     [Role.GUEST, [...this.common]],
     [Role.USER, [...this.common, {link: '/issues', title: 'Issues'}]],
@@ -34,6 +43,8 @@ export class MenuComponent implements OnInit {
     
     this.mainP = this.notCommon;
     this.menus = this.common;
+
+    this.adminUser= new User("admin","admin","admin@gmail.com",Role.ADMIN);
 
     /*if (this.authService.isLoggedIn) {
       this.menus = this.roleMenus.get(this.authService.user.role);
