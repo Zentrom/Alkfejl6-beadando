@@ -1,32 +1,29 @@
 <mat-card class="card">
 <div class="page-body" id="settings-page">
     <h2 class="mat-h2">Settings</h2>
-    <form [formGroup]="loginForm" novalidate>
+    <form [formGroup]="settingsForm" novalidate>
       
       <label>Your current username is: {{adminUser.username}}</label>
       <div class="form-control">
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Username" formControlName="username">
-          <mat-error *ngIf="username.hasError('required')">
-            Username is <strong>required</strong>
-          </mat-error>
+          <input matInput placeholder="Username" type="username">
         </mat-form-field>
       </div>
       
       <label>Your current password is: {{adminUser.password}}</label>
       <div class="form-control">
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Password" formControlName="password" type="password">
-          <mat-error *ngIf="password.hasError('required')">
-            Password is <strong>required</strong>
-          </mat-error>
+          <input matInput placeholder="Password" type="password">
         </mat-form-field>
       </div>
 
       <label>Your current Email is: {{adminUser.email}}</label>
       <div class="form-control">
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Email" type="email">
+          <input matInput placeholder="Email" formControlName="email" type="email">
+          <mat-error *ngIf="email.hasError('email')">
+            Not a valid <strong>email</strong>
+          </mat-error>
         </mat-form-field>
       </div>
 

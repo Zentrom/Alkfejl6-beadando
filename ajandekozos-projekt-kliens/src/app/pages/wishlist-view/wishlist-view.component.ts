@@ -15,7 +15,7 @@ import 'rxjs/add/operator/map';
   styleUrls: ['./wishlist-view.component.css']
 })
 export class WishlistViewComponent implements OnInit {
-  displayedColumns = ['userId', 'userName', 'progress', 'color'];
+  displayedColumns = ['userId', 'name', 'price', 'link'];
   exampleDatabase = new ExampleDatabase();
   dataSource: ExampleDataSource | null;
 
@@ -27,48 +27,49 @@ export class WishlistViewComponent implements OnInit {
 }
 
 /** Constants used to fill up our data base. */
-const COLORS = ['maroon', 'red', 'orange', 'yellow', 'olive', 'green', 'purple',
-  'fuchsia', 'lime', 'teal', 'aqua', 'blue', 'navy', 'black', 'gray'];
-const NAMES = ['Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack',
-  'Charlotte', 'Theodore', 'Isla', 'Oliver', 'Isabella', 'Jasper',
-  'Cora', 'Levi', 'Violet', 'Arthur', 'Mia', 'Thomas', 'Elizabeth'];
+const COLORS = ['Maroon', 'Red', 'Orange', 'Yellow', 'Olive', 'Green', 'Purple',
+  'Fuchsia', 'Lime', 'Teal', 'Aqua', 'Blue', 'Navy', 'Black', 'Gray'];
+const NAMES = ['Car','Bike','WashingMachine','Carpet','Ball','Pencil',
+  'Gun','Fork','Jacket', 'Knife', 'Juice', 'Monitor', 'Pork'];
 
-export interface UserData {
+export interface PresentData {
   id: string;
   name: string;
-  progress: string;
-  color: string;
+  price: number;
+  link: string;
 }
 
 /** An example database that the data source uses to retrieve data for the table. */
 export class ExampleDatabase {
   /** Stream that emits whenever the data has been modified. */
-  dataChange: BehaviorSubject<UserData[]> = new BehaviorSubject<UserData[]>([]);
-  get data(): UserData[] { return this.dataChange.value; }
+  dataChange: BehaviorSubject<PresentData[]> = new BehaviorSubject<PresentData[]>([]);
+  get data(): PresentData[] { return this.dataChange.value; }
 
   constructor() {
     // Fill up the database with 100 users.
-    for (let i = 0; i < 100; i++) { this.addUser(); }
+    for (let i = 0; i < 30; i++) { this.addPresent(); }
+
+
   }
 
   /** Adds a new user to the database. */
-  addUser() {
+  addPresent() {
     const copiedData = this.data.slice();
-    copiedData.push(this.createNewUser());
+    copiedData.push(this.createNewPresent());
     this.dataChange.next(copiedData);
   }
 
-  /** Builds and returns a new User. */
-  private createNewUser() {
+
+  private createNewPresent() {
     const name =
-        NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
-        NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
+        COLORS[Math.round(Math.random() * (COLORS.length - 1))] + ' ' +
+        NAMES[Math.round(Math.random() * (NAMES.length - 1))];
 
     return {
       id: (this.data.length + 1).toString(),
       name: name,
-      progress: Math.round(Math.random() * 100).toString(),
-      color: COLORS[Math.round(Math.random() * (COLORS.length - 1))]
+      price: (100 * Math.round(Math.random() * 100)),
+      link: 'www.google.com'
     };
   }
 }
@@ -86,7 +87,7 @@ export class ExampleDataSource extends DataSource<any> {
   }
 
   /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<UserData[]> {
+  connect(): Observable<PresentData[]> {
     return this._exampleDatabase.dataChange;
   }
 

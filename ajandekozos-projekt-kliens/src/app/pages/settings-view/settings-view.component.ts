@@ -12,11 +12,9 @@ export class SettingsViewComponent implements OnInit {
 
 
 
-  loginForm: FormGroup = new FormGroup({
-    username: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required])
+  settingsForm: FormGroup = new FormGroup({
+    email: new FormControl('', [Validators.email])
   });
-
 
   adminUser: User;
   roleVar : String;
@@ -34,23 +32,23 @@ export class SettingsViewComponent implements OnInit {
   }
 
   get username(): AbstractControl {
-    return this.loginForm.get('username');
+    return this.settingsForm.get('username');
   }
 
   get password(): AbstractControl {
-    return this.loginForm.get('password');
+    return this.settingsForm.get('password');
   }
 
   get firstname(): AbstractControl {
-    return this.loginForm.get('firstname');
+    return this.settingsForm.get('firstname');
   }
 
   get lastname(): AbstractControl {
-    return this.loginForm.get('lastname');
+    return this.settingsForm.get('lastname');
   }
 
   get email(): AbstractControl {
-    return this.loginForm.get('email');
+    return this.settingsForm.get('email');
   }
 
   /*get role(): AbstractControl {

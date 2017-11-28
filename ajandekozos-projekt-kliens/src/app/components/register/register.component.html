@@ -31,7 +31,19 @@
       </mat-form-field>
     </div>
 
+    <div class="form-control">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="FirstName" type="text">
+      </mat-form-field>
+    </div>
+
+    <div class="form-control">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="LastName"  type="text">
+      </mat-form-field>
+    </div>
+
     <button mat-raised-button class="mat-primary" (click)="submit()" [disabled]="!registerForm.valid">Register</button>
-    <a mat-button class="mat-accent" routerLink="/login">Login</a>
+    <!--<a mat-button class="mat-accent" routerLink="/login">Login</a>-->
   </form>
 </div>

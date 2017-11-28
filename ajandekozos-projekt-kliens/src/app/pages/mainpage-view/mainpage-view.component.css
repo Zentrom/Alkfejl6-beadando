@@ -1,4 +1,4 @@
-div.left-side{
+mat-card.left-side{
     display: inline-flex;
     width: 300px;
     border: 15px solid green;
@@ -6,7 +6,7 @@ div.left-side{
     margin: 10%;
 }
   
-div.right-side{
+mat-card.right-side{
     display: inline-flex;
     width: 300px;
     border: 15px solid red;

@@ -39,4 +39,12 @@ export class RegisterComponent implements OnInit {
   get email(): AbstractControl {
     return this.registerForm.get('email');
   }
+
+  get firstname(): AbstractControl {
+    return this.registerForm.get('firstname');
+  }
+
+  get lastname(): AbstractControl {
+    return this.registerForm.get('lastname');
+  }
 }
