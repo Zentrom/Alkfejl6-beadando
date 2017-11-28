@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 
+import { User,Role } from '../../model/user';
 
 @Component({
   selector: 'app-settings-view',
@@ -17,7 +18,12 @@ export class SettingsViewComponent implements OnInit {
   });
 
 
+  adminUser: User;
+  roleVar : String;
+
   ngOnInit() {
+    this.adminUser= new User("admin","admin","Fadmin","Ladmin","admin@gmail.com",Role.ADMIN);
+    this.roleVar = Role[this.adminUser.role];
   }
 
   submit() {
@@ -34,4 +40,20 @@ export class SettingsViewComponent implements OnInit {
   get password(): AbstractControl {
     return this.loginForm.get('password');
   }
+
+  get firstname(): AbstractControl {
+    return this.loginForm.get('firstname');
+  }
+
+  get lastname(): AbstractControl {
+    return this.loginForm.get('lastname');
+  }
+
+  get email(): AbstractControl {
+    return this.loginForm.get('email');
+  }
+
+  /*get role(): AbstractControl {
+    return this.loginForm.get('role');
+  }*/
 }

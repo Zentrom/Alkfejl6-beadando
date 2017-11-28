@@ -5,12 +5,16 @@ export enum Role {
   export class User {
     username: String;
     password: String;
+    firstname: String;
+    lastname: String;
     email: String;
     role: Role;
   
-    constructor(username?: String, password?: String, email?: String, role?: Role) {
+    constructor(username?: String, password?: String, firstname?: String, lastname?:String, email?: String, role?: Role) {
       this.username = username || "";
       this.password = password || "";
+      this.firstname = firstname || "";
+      this.lastname = lastname || "";
       this.email = email || "";
       this.role = role || Role.GUEST;
       

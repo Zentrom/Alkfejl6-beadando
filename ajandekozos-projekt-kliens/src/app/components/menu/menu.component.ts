@@ -44,7 +44,7 @@ export class MenuComponent implements OnInit {
     this.mainP = this.notCommon;
     this.menus = this.common;
 
-    this.adminUser= new User("admin","admin","admin@gmail.com",Role.ADMIN);
+    this.adminUser= new User("admin","admin","Fadmin","Ladmin","admin@gmail.com",Role.ADMIN);
 
     /*if (this.authService.isLoggedIn) {
       this.menus = this.roleMenus.get(this.authService.user.role);
