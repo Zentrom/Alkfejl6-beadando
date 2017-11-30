@@ -16,7 +16,7 @@
     flex: 1 1 auto;
     overflow: auto;
     max-height: 500px;
-   
+    background-color: white;
   }
   
   .example-header-row, .example-row {
@@ -30,7 +30,22 @@
   .example-cell, .example-header-cell {
     flex: 1;
   }
+
+  .id-cell, .id-header-cell {
+    width: 10%;
+  }
   
+  .id-cell{
+    font-size: 13px;
+    color: rgba(0, 0, 0, 0.87);
+  }
+
+  .id-header-cell{
+    font-size: 12px;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.54);
+  }
+
   .example-header-cell {
     font-size: 12px;
     font-weight: bold;
@@ -40,4 +55,8 @@
   .example-cell {
     font-size: 13px;
     color: rgba(0, 0, 0, 0.87);
+  }
+
+  .commentButton {
+    font-size: 1px;
   }

@@ -13,11 +13,17 @@ export class FriendsViewComponent implements OnInit {
   adminFriends = ['Jancsika','Kappa','KorsosJuli','MeggyesiKarcsibá'];
 
   authService: AuthService;
+  result : String;
 
   constructor() { }
 
   ngOnInit() {
     this.authService = AppComponent.authService;
+    this.result="";
+  }
+
+  getResult(res: String){
+    this.result= res;
   }
 
   submit(){

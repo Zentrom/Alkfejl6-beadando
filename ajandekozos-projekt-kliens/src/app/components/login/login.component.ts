@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
+import {MatSnackBar} from '@angular/material';
 
 import { AuthService } from '../../services/auth.service';
 import { AppComponent } from '../../app.component';
+
 
 @Component({
   selector: 'app-login',
@@ -15,16 +17,22 @@ export class LoginComponent implements OnInit {
     password: new FormControl('', [Validators.required])
   });
 
+  constructor(public snackBar: MatSnackBar) {}
+
   authService: AuthService;
+
+  //snackBar : MatSnackBar;
 
   ngOnInit() {
     this.authService = AppComponent.authService;
+    //this.snackBar = new MatSnackBar();
   }
 
   submit() {
     if(this.loginForm.get('username').value == "admin" && this.loginForm.get('password').value == "admin"){
       //console.log(AuthService.isLoggedIn);
       AppComponent.authService.isLoggedIn = true;
+      this.snackBar.open("Successful login as:","admin",{duration: 2000});
     }
 
     //console.log(AuthService.isLoggedIn);
@@ -36,6 +44,7 @@ export class LoginComponent implements OnInit {
 
   logout(){
     AppComponent.authService.isLoggedIn = false;
+    this.snackBar.open("You logged out","",{duration: 2000});
   }
 
   get username(): AbstractControl {

@@ -60,6 +60,7 @@ Célunk egy olyan webes applikáció fejlesztése, amely segíti az ajándékoz�
 - A pom.xml-ben megtalálhatóak a Spring-Bootos függőségek
 - Projekt elérése böngészőből: localhost:8080
 
+
 ## Könyvtárszerkezet
 ![alt text](pictures/konyvtarszerk.png "Könyvtár szerkezet")
 

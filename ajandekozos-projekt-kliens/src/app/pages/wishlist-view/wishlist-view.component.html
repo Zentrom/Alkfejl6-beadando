@@ -5,8 +5,8 @@
   
       <!-- ID Column -->
       <ng-container cdkColumnDef="userId">
-        <cdk-header-cell *cdkHeaderCellDef class="example-header-cell"> ID </cdk-header-cell>
-        <cdk-cell *cdkCellDef="let row" class="example-cell"> {{row.id}} </cdk-cell>
+        <cdk-header-cell *cdkHeaderCellDef class="id-header-cell"> ID </cdk-header-cell>
+        <cdk-cell *cdkCellDef="let row" class="id-cell"> {{row.id}} </cdk-cell>
       </ng-container>
   
       <ng-container cdkColumnDef="name">
@@ -23,6 +23,15 @@
         <cdk-header-cell *cdkHeaderCellDef class="example-header-cell">HyperLink</cdk-header-cell>
         <cdk-cell *cdkCellDef="let row" class="example-cell"> {{row.link}} </cdk-cell>
       </ng-container>
+
+      <ng-container cdkColumnDef="comments">
+          <cdk-header-cell *cdkHeaderCellDef class="example-header-cell">Comments</cdk-header-cell>
+          <cdk-cell *cdkCellDef="let row" class="example-cell"> 
+            <button mat-mini-fab color="primary" class="commentButton">
+                <mat-icon>comment</mat-icon>
+              </button>
+          </cdk-cell>
+        </ng-container>
   
       <cdk-header-row *cdkHeaderRowDef="displayedColumns" class="example-header-row"></cdk-header-row>
       <cdk-row *cdkRowDef="let row; columns: displayedColumns;" class="example-row"></cdk-row>

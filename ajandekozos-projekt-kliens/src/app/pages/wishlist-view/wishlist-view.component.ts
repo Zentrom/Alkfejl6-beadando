@@ -7,6 +7,9 @@ import 'rxjs/add/operator/startWith';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/map';
 
+//import {MatButtonModule} from '@angular/material/button';
+
+
 import { AuthService } from '../../services/auth.service';
 
 /**
@@ -18,7 +21,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./wishlist-view.component.css']
 })
 export class WishlistViewComponent implements OnInit {
-  displayedColumns = ['userId', 'name', 'price', 'link'];
+  displayedColumns = ['userId', 'name', 'price', 'link', 'comments'];
   exampleDatabase = new ExampleDatabase();
   dataSource: ExampleDataSource | null;
 
