@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 
-import { User,Role } from '../../model/user';
+import { User,Role } from '../../model/User';
 
 @Component({
   selector: 'app-settings-view',

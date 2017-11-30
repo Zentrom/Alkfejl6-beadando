@@ -6,13 +6,17 @@ import {RoutesKetto, Server} from "../modules/routing/routing.module";
 @Injectable()
 export class AuthService {
   user: User;
-  isLoggedIn: boolean = false;
+  static isLoggedIn: boolean = false;
 
-  constructor(private http: Http) {
-    this.user = new User();
+  constructor(jelen: boolean) {
+    AuthService.isLoggedIn = jelen;
   }
 
-  login(user: User) {
+  isLoggedIn(){
+    return AuthService.isLoggedIn;
+  }
+
+  /*login(user: User) {
     return this.http.post(Server.routeTo(RoutesKetto.LOGIN), user)
       .map(res => {
         this.isLoggedIn = true;
@@ -36,5 +40,5 @@ export class AuthService {
         this.user = null;
         this.isLoggedIn = false;
       })
-  }
+  }*/
 }
