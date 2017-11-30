@@ -1,4 +1,4 @@
-<mat-card class="card">
+<mat-card *ngIf="authService.getisLoggedIn()" class="card">
   <mat-list #friends>
       <!--<mat-list-option *ngFor="let shoe of typesOfShoes">
         {{shoe}}

@@ -6,14 +6,14 @@ import {RoutesKetto, Server} from "../modules/routing/routing.module";
 @Injectable()
 export class AuthService {
   user: User;
-  static isLoggedIn: boolean = false;
+  isLoggedIn: boolean = false;
 
   constructor(jelen: boolean) {
-    AuthService.isLoggedIn = jelen;
+    this.isLoggedIn = jelen;
   }
 
-  isLoggedIn(){
-    return AuthService.isLoggedIn;
+  getisLoggedIn(){
+    return this.isLoggedIn;
   }
 
   /*login(user: User) {

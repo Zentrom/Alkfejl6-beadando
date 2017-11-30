@@ -1,4 +1,4 @@
-<mat-card class="card">
+<mat-card *ngIf="authService.getisLoggedIn()" class="card">
 <div class="page-body" id="settings-page">
     <h2 class="mat-h2">Settings</h2>
     <form [formGroup]="settingsForm" novalidate>

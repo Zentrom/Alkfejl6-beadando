@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AuthService } from '../../services/auth.service';
+import { AppComponent } from '../../app.component';
 
 @Component({
   selector: 'app-mainpage-view',
@@ -16,7 +17,7 @@ export class MainpageViewComponent implements OnInit {
 
 
   ngOnInit() {
-    this.authService = new AuthService(false);
+    this.authService = AppComponent.authService;
   }
 
 }

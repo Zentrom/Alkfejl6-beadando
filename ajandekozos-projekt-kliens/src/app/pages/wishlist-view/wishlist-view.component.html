@@ -1,4 +1,4 @@
-<div class="example-container mat-elevation-z8">
+<div *ngIf="authService.getisLoggedIn()" class="example-container mat-elevation-z8">
     <cdk-table #table [dataSource]="dataSource" class="example-table">
       <!--- Note that these columns can be defined in any order.
             The actual rendered columns are set as a property on the row definition" -->

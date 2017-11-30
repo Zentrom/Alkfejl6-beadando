@@ -1,4 +1,8 @@
-<div *ngIf="!authService.isLoggedIn()" class="page-body" id="login-page">
+<div *ngIf="authService.getisLoggedIn()" class="page-body" id="login-page">
+    <button mat-raised-button class="mat-primary" (click)="logout()" >Logout</button>
+</div>
+
+<div *ngIf="!authService.getisLoggedIn()" class="page-body" id="login-page">
   <h2 class="mat-h2">Login</h2>
   <form [formGroup]="loginForm" novalidate>
     <div class="form-control">
@@ -23,6 +27,4 @@
   </form>
 </div>
 
-<div *ngIf="authService.isLoggedIn()" class="page-body" id="login-page">
-    <button mat-raised-button class="mat-primary" (click)="logout()" >Logout</button>
-</div>
+

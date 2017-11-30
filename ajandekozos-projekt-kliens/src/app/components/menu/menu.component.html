@@ -3,25 +3,25 @@
     <h1 class="mat-h1">Ajandekozas</h1>
   </div>-->
 
-  <div *ngIf="authService.isLoggedIn()" class="center">
+  <div *ngIf="authService.getisLoggedIn()" class="center">
     <a mat-icon-button color="warn" [routerLink]="mainP.link" routerLinkActive="active">
         <i class="material-icons md-48">card_giftcard</i> <!--{{mainP.title}}-->
       </a>
     <a mat-button *ngFor="let menu of menus" [routerLink]="menu.link" routerLinkActive="active">{{menu.title}}</a>
   </div>
 
-  <div *ngIf="authService.isLoggedIn()" class="right-side">
+  <div *ngIf="authService.getisLoggedIn()" class="right-side">
     <p>{{adminUser.username}} <i class="material-icons md-18" matTooltip="Logged in!">verified_user</i></p>
   </div>
 
-    <div *ngIf="!authService.isLoggedIn()" class="center">
+    <div *ngIf="!authService.getisLoggedIn()" class="center">
       <a mat-icon-button color="warn" [routerLink]="mainP.link" routerLinkActive="active">
           <i class="material-icons md-48">card_giftcard</i> <!--{{mainP.title}}-->
         </a>
-       You need to Login to use this site's features
+       <--You need to Login to use this site's features
     </div>
   
-    <div *ngIf="!authService.isLoggedIn()" class="right-side">
+    <div *ngIf="!authService.getisLoggedIn()" class="right-side">
       <p> Not logged in <i class="material-icons md-18" matTooltip="Not Logged in!">not_interested</i></p>
 
     <!--<div *ngIf="!authService.isLoggedIn" class="unauthorized">

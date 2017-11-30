@@ -50,7 +50,7 @@ export class MenuComponent implements OnInit {
 
     this.adminUser= new User("admin","admin","Fadmin","Ladmin","admin@gmail.com",Role.ADMIN);
     //console.log(AuthService.isLoggedIn);
-    this.authService = new AuthService(AuthService.isLoggedIn);
+    this.authService = AppComponent.authService;
     //console.log(this.authService.isLoggedIn());
 
     /*if (this.authService.isLoggedIn) {

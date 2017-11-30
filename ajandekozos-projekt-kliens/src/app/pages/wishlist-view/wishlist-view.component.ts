@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { AppComponent } from '../../app.component';
 import {DataSource} from '@angular/cdk/collections';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/map';
+
+import { AuthService } from '../../services/auth.service';
 
 /**
  * @title Basic CDK data-table
@@ -19,10 +22,13 @@ export class WishlistViewComponent implements OnInit {
   exampleDatabase = new ExampleDatabase();
   dataSource: ExampleDataSource | null;
 
+  authService: AuthService;
+
   constructor() { }
 
   ngOnInit() {
     this.dataSource = new ExampleDataSource(this.exampleDatabase);
+    this.authService = AppComponent.authService;
   }
 }
 

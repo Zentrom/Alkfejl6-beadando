@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 
 import { User,Role } from '../../model/User';
+import { AppComponent } from '../../app.component';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-settings-view',
@@ -19,9 +21,12 @@ export class SettingsViewComponent implements OnInit {
   adminUser: User;
   roleVar : String;
 
+  authService: AuthService;
+
   ngOnInit() {
     this.adminUser= new User("admin","admin","Fadmin","Ladmin","admin@gmail.com",Role.ADMIN);
     this.roleVar = Role[this.adminUser.role];
+    this.authService = AppComponent.authService;
   }
 
   submit() {

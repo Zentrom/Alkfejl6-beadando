@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 
 import { AuthService } from '../../services/auth.service';
+import { AppComponent } from '../../app.component';
 
 @Component({
   selector: 'app-login',
@@ -17,12 +18,14 @@ export class LoginComponent implements OnInit {
   authService: AuthService;
 
   ngOnInit() {
-    this.authService = new AuthService(false);
+    this.authService = AppComponent.authService;
   }
 
   submit() {
-    //console.log(AuthService.isLoggedIn);
-    AuthService.isLoggedIn = true;
+    if(this.loginForm.get('username').value == "admin" && this.loginForm.get('password').value == "admin"){
+      //console.log(AuthService.isLoggedIn);
+      AppComponent.authService.isLoggedIn = true;
+    }
 
     //console.log(AuthService.isLoggedIn);
     /*this.loginService.login(new User(this.username.value, this.password.value))
@@ -32,7 +35,7 @@ export class LoginComponent implements OnInit {
   }
 
   logout(){
-    AuthService.isLoggedIn = false;
+    AppComponent.authService.isLoggedIn = false;
   }
 
   get username(): AbstractControl {

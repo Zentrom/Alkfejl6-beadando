@@ -1,4 +1,4 @@
-<div class="page-body" id="register-page">
+<div *ngIf="!authService.getisLoggedIn()" class="page-body" id="register-page">
   <h2 class="mat-h2">Register</h2>
   <form [formGroup]="registerForm" novalidate>
     <div class="form-control">
