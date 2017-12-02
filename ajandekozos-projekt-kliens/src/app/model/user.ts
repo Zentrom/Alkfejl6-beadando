@@ -1,6 +1,6 @@
 export enum Role {
     GUEST, USER, ADMIN
-  }
+}
   
   export class User {
     username: String;

@@ -1,19 +1,18 @@
 package hu.elte.alkfejl.ajandekozosprojekt.service;
 
-import hu.elte.alkfejl.ajandekozosprojekt.model.FriendRequest;
-import hu.elte.alkfejl.ajandekozosprojekt.model.Present;
 import hu.elte.alkfejl.ajandekozosprojekt.model.User;
 import hu.elte.alkfejl.ajandekozosprojekt.repository.FriendRequestRepository;
 import hu.elte.alkfejl.ajandekozosprojekt.repository.UserRepository;
 import hu.elte.alkfejl.ajandekozosprojekt.service.exceptions.UserNotValidException;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.annotation.SessionScope;
 
-import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static hu.elte.alkfejl.ajandekozosprojekt.model.User.Role.ADMIN;
@@ -28,30 +27,33 @@ public class UserService {
 
     private FriendRequestRepository friendRequestRepository;
 
-    @Autowired
-    public UserService(UserRepository userRepository, FriendRequestRepository friendRequestRepository) {
-        this.userRepository = userRepository;
-        this.friendRequestRepository = friendRequestRepository;
-    }
+    private PasswordEncoder passwordEncoder;
 
     private User user;
 
+    @Autowired
+    public UserService(UserRepository userRepository, FriendRequestRepository friendRequestRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.friendRequestRepository = friendRequestRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
+
     public User login(User user) throws UserNotValidException {
-        if (isValid(user)) {
-            return this.user = userRepository.findByUsername(user.getUsername()).get();
+        Optional<User> dbUser = userRepository.findByEmail(user.getEmail());
+
+        if(dbUser.isPresent() && passwordEncoder.matches(user.getPassword(), dbUser.get().getPassword())) {
+            return this.user = dbUser.get();
+        } else {
+            throw new UserNotValidException();
         }
-        throw new UserNotValidException();
     }
 
     public User register(User user) {
         user.setRole(USER);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         this.user = userRepository.save(user);
 
         return user;
-    }
-
-    public boolean isValid(User user) {
-        return userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword()).isPresent();
     }
 
     public boolean isLoggedIn() {
