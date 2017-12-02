@@ -23,6 +23,7 @@ public class Comment extends BaseEntity {
     @Column(nullable = false)
     private Timestamp timestamp;
 
+    // TODO kéne a user a kliens oldalra, hogy tudjuk, hogy ki írta a commentet
     @JsonIgnore
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID")

@@ -5,14 +5,7 @@ import { WishlistViewComponent } from '../../pages/wishlist-view/wishlist-view.c
 import { FriendsViewComponent} from '../../pages/friends-view/friends-view.component';
 import { SettingsViewComponent} from '../../pages/settings-view/settings-view.component';
 
-export class RoutesKetto {
-  static LOGIN: String = 'user/login';
-  static REGISTER: String = 'user/register';
-  static LOGOUT: String = 'user/logout';
-  static ISSUES: String = 'issues';
-}
-
-export const appRoutes: Routes = [
+ const appRoutes: Routes = [
   { path: '', redirectTo: 'main', pathMatch: 'full'},
   { path: 'main', component: MainpageViewComponent },
   { path: 'wishlist', component: WishlistViewComponent },
@@ -29,14 +22,5 @@ export const appRoutes: Routes = [
   ],
   declarations: []
 })
+
 export class RoutingModule { }
-
-export class Server {
-  private static address: String = 'localhost';
-  private static port: String = '4200';
-  private static prefix: String = 'api';
-
-  static routeTo(route: String) {
-    return `http://${Server.address}:${Server.port}/${Server.prefix}/${route}`
-  }
-}

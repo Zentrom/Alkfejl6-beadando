@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Http} from "@angular/http";
 import {User} from "../model/User";
-import {RoutesKetto, Server} from "../modules/routing/routing.module";
 
 @Injectable()
 export class AuthService {
