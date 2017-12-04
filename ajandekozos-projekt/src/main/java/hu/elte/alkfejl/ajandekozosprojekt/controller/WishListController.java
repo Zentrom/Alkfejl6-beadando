@@ -53,6 +53,7 @@ public class WishListController {
         return ResponseEntity.ok(updated);
     }
 
+    // TODO kell ez a végpont?
     @Role({ADMIN, USER})
     @GetMapping(ResourceConstants.WISHLISTSID)
     public ResponseEntity<WishList> readWishList(@PathVariable int wishlistId) {
@@ -68,23 +69,23 @@ public class WishListController {
     }
 
     @Role(ADMIN)
-    @DeleteMapping(ResourceConstants.DELETE_OR_MODIFY_OR_ADD_USER_LIST)
-    public ResponseEntity adminDeleteFriendsList(@PathVariable int userListId) {
+    @DeleteMapping(ResourceConstants.DELETE_OR_UPDATE_USER_LIST)
+    public ResponseEntity adminDeleteUsersWishList(@PathVariable int userListId) {
         wishListService.delete(userListId);
         return ResponseEntity.ok().build();
     }
 
     @Role(ADMIN)
-    @PatchMapping(ResourceConstants.DELETE_OR_MODIFY_OR_ADD_USER_LIST)
-    public ResponseEntity<WishList> adminUpdateFriendsWishList(@PathVariable int userListId, @RequestBody WishList wishList) {
+    @PatchMapping(ResourceConstants.DELETE_OR_UPDATE_USER_LIST)
+    public ResponseEntity<WishList> adminUpdateUsersWishList(@PathVariable int userListId, @RequestBody WishList wishList) {
         WishList updated = wishListService.update(userListId, wishList);
         return ResponseEntity.ok(updated);
     }
 
     // TODO itt jó user legyen settelve a requestbodyban (ne az Admin)
     @Role(ADMIN)
-    @PostMapping(ResourceConstants.DELETE_OR_MODIFY_OR_ADD_USER_LIST)
-    public ResponseEntity<WishList> adminAddFriendsWishList(@RequestBody WishList wishList) {
+    @PostMapping(ResourceConstants.FRIEND_LISTS)
+    public ResponseEntity<WishList> adminAddToUsersWishList(@RequestBody WishList wishList) {
         WishList saved = wishListService.create(wishList);
         return ResponseEntity.ok(saved);
     }

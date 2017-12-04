@@ -8,21 +8,27 @@ export class FriendRequest {
     public id: number;
 
     constructor(
-        private requester: User,
-        private requestee: User,
+        private requesterId: number,
+        private requesteeId: number,
+        private requesterName: string,
+        private requesteeName: string,
         private status: Status
     ) {}
 
-    public getId(): number {
-        return this.id;
+    public getRequester(): number {
+        return this.requesterId;
     }
 
-    public getRequester(): User {
-        return this.requester;
+    public getRequestee(): number {
+        return this.requesteeId;
     }
 
-    public getRequestee(): User {
-        return this.requestee;
+    public getRequesterName(): string {
+        return this.requesterName;
+    }
+    
+    public getRequesteeName(): string {
+        return this.requesteeName;
     }
 
     public getStatus(): Status {

@@ -2,12 +2,15 @@ package hu.elte.alkfejl.ajandekozosprojekt.controller;
 
 import hu.elte.alkfejl.ajandekozosprojekt.ResourceConstants;
 import hu.elte.alkfejl.ajandekozosprojekt.model.User;
+import hu.elte.alkfejl.ajandekozosprojekt.model.dto.UserDTO;
 import hu.elte.alkfejl.ajandekozosprojekt.service.UserService;
 import hu.elte.alkfejl.ajandekozosprojekt.service.annotations.Role;
 import hu.elte.alkfejl.ajandekozosprojekt.service.exceptions.UserNotValidException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 import static hu.elte.alkfejl.ajandekozosprojekt.model.User.Role.ADMIN;
 import static hu.elte.alkfejl.ajandekozosprojekt.model.User.Role.USER;
@@ -55,8 +58,8 @@ public class UserController {
 
     @Role({ADMIN, USER})
     @GetMapping(ResourceConstants.FRIENDS)
-    public ResponseEntity<Iterable<User>> listFriends() {
-        Iterable<User> friends = userService.listFriends();
+    public ResponseEntity<List<UserDTO>> listFriends() {
+        List<UserDTO> friends = userService.listFriends();
         return ResponseEntity.ok(friends);
     }
 

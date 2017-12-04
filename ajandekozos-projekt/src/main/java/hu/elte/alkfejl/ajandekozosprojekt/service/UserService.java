@@ -1,6 +1,7 @@
 package hu.elte.alkfejl.ajandekozosprojekt.service;
 
 import hu.elte.alkfejl.ajandekozosprojekt.model.User;
+import hu.elte.alkfejl.ajandekozosprojekt.model.dto.UserDTO;
 import hu.elte.alkfejl.ajandekozosprojekt.repository.FriendRequestRepository;
 import hu.elte.alkfejl.ajandekozosprojekt.repository.UserRepository;
 import hu.elte.alkfejl.ajandekozosprojekt.service.exceptions.UserNotValidException;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.annotation.SessionScope;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -64,16 +66,19 @@ public class UserService {
         user = null;
     }
 
-    public Iterable<User> listFriends() {
+    public List<UserDTO> listFriends() {
         user = userRepository.findOne(user.getId());
+        List<UserDTO> friendsDTO = new LinkedList();
 
         if (ADMIN.equals(user.getRole())) {
             List<User> users = (List) userRepository.findAll();
             users.remove(user);
-            return users;
+            users.stream().map(x -> friendsDTO.add(new UserDTO(x.getId(), x.getFirstname(), x.getLastname())));
         } else {
-            return user.getFriends();
+            user.getFriends().stream().map(x -> friendsDTO.add(new UserDTO(x.getId(), x.getFirstname(), x.getLastname())));
         }
+
+        return friendsDTO;
     }
 
     private boolean alreadyRequested(int requesteeId) {
@@ -81,14 +86,19 @@ public class UserService {
     }
 
     @Transactional
-    public List<User> findPossibleFriends(String firstName, String lastName) {
+    public List<UserDTO> findPossibleFriends(String firstName, String lastName) {
         List<User> searchedUsers = userRepository.findAllByFirstnameContainingAndLastnameContaining(firstName, lastName);
         user = userRepository.findOne(user.getId());
         List<User> alreadyFriends = user.getFriends();
 
-        return searchedUsers.stream().filter(x -> !alreadyFriends.contains(x)
+        List<User> filteredUsers = searchedUsers.stream().filter(x -> !alreadyFriends.contains(x)
                 && !x.getRole().equals(ADMIN)
                 && !alreadyRequested(x.getId())).collect(Collectors.toList());
+
+        List<UserDTO> filteredUsersDTO = new LinkedList();
+        filteredUsers.stream().map(x -> filteredUsersDTO.add(new UserDTO(x.getId(), x.getFirstname(), x.getLastname())));
+
+        return filteredUsersDTO;
     }
 
     @Transactional

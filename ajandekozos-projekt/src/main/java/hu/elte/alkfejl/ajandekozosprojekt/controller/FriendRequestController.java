@@ -1,8 +1,8 @@
 package hu.elte.alkfejl.ajandekozosprojekt.controller;
 
 import hu.elte.alkfejl.ajandekozosprojekt.ResourceConstants;
-import hu.elte.alkfejl.ajandekozosprojekt.model.FriendRequest;
-import hu.elte.alkfejl.ajandekozosprojekt.model.User;
+import hu.elte.alkfejl.ajandekozosprojekt.model.dto.FriendRequestDTO;
+import hu.elte.alkfejl.ajandekozosprojekt.model.dto.UserDTO;
 import hu.elte.alkfejl.ajandekozosprojekt.service.FriendRequestService;
 import hu.elte.alkfejl.ajandekozosprojekt.service.UserService;
 import hu.elte.alkfejl.ajandekozosprojekt.service.annotations.Role;
@@ -29,8 +29,8 @@ public class FriendRequestController {
 
     @Role(USER)
     @GetMapping(ResourceConstants.FRIEND_REQUESTS)
-    public ResponseEntity<Iterable<FriendRequest>> listRequests() {
-        Iterable<FriendRequest> friendRequests = friendRequestService.findAllByRequesteeId(userService.getUser().getId());
+    public ResponseEntity<List<FriendRequestDTO>> listRequests() {
+        List<FriendRequestDTO> friendRequests = friendRequestService.findAllByRequesteeId(userService.getUser().getId());
         return ResponseEntity.ok(friendRequests);
     }
 
@@ -44,23 +44,26 @@ public class FriendRequestController {
     // TODO kell ez a metódus?
     @Role(USER)
     @GetMapping(ResourceConstants.FRIEND_REQUESTID)
-    public ResponseEntity<FriendRequest> findRequest(@PathVariable int friendRequestId) {
-        FriendRequest found = friendRequestService.findById(friendRequestId);
+    public ResponseEntity<FriendRequestDTO> readRequest(@PathVariable int friendRequestId) {
+        FriendRequestDTO found = friendRequestService.findById(friendRequestId);
         return ResponseEntity.ok(found);
     }
 
     @Role(USER)
-    @GetMapping(ResourceConstants.USER_SEARCH)
-    public ResponseEntity<List<User>> listPossibleFriends(@RequestParam(name = "firstname") String firstName, @RequestParam(name = "lastname") String lastName) {
-        List<User> searchedUsers = userService.findPossibleFriends(firstName, lastName);
+    @GetMapping(ResourceConstants.SEARCH_USER_OR_CREATE_FRIENDREQUEST)
+    public ResponseEntity<List<UserDTO>> listPossibleFriends(@RequestParam(name = "firstname") String firstName, @RequestParam(name = "lastname") String lastName) {
+        List<UserDTO> searchedUsers = userService.findPossibleFriends(firstName, lastName);
         return ResponseEntity.ok(searchedUsers);
     }
 
+
     @Role(USER)
-    @PostMapping(ResourceConstants.CREATE_FRIEND_REQUEST)
-    public ResponseEntity<FriendRequest> createFriendRequest(@PathVariable int requesteeId) {
-        FriendRequest saved = friendRequestService.create(requesteeId, userService.getUser());
+    @PostMapping(ResourceConstants.SEARCH_USER_OR_CREATE_FRIENDREQUEST)
+    public ResponseEntity<FriendRequestDTO> createFriendRequest(@RequestBody FriendRequestDTO friendRequestDTO) {
+        FriendRequestDTO saved = friendRequestService.create(friendRequestDTO.getRequesteeId(), userService.getUser());
         return ResponseEntity.ok(saved);
     }
+
+    // TODO kell readPossibleFriend végpont?
 
 }

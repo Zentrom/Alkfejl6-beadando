@@ -22,7 +22,6 @@ export class AppComponent {
   /*getAuthService(){
     return this.authService;
   }
-
   setAuthService(bejelentkezve: boolean){
     this.authService.isLoggedIn= bejelentkezve;
   }*/

@@ -23,7 +23,6 @@ export class AuthService {
         return this.user;
       })
   }
-
   register(user: User) {
     return this.http.post(Server.routeTo(RoutesKetto.REGISTER), user)
       .map(res => {
@@ -32,7 +31,6 @@ export class AuthService {
         return this.user;
       })
   }
-
   logout() {
     return this.http.get(Server.routeTo(RoutesKetto.LOGOUT))
       .map(res => {

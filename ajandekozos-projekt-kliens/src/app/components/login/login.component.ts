@@ -22,7 +22,6 @@ export class LoginComponent implements OnInit {
   authService: AuthService;
 
   //snackBar : MatSnackBar;
-
   ngOnInit() {
     this.authService = AppComponent.authService;
     //this.snackBar = new MatSnackBar();

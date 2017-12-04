@@ -53,6 +53,7 @@ public class PresentController {
         return ResponseEntity.ok(updated);
     }
 
+    // TODO kell ez?
     @Role(USER)
     @GetMapping(ResourceConstants.PRESENTSID)
     public ResponseEntity<Present> readPresent(@PathVariable int presentId) {
@@ -62,18 +63,19 @@ public class PresentController {
 
     @Role({ADMIN, USER})
     @GetMapping(ResourceConstants.FRIEND_PRESENTS)
-    public ResponseEntity<Iterable<Present>> listPresentOfFriendsList(@PathVariable int friendListId) {
+    public ResponseEntity<Iterable<Present>> listPresentsOfFriendsOrUsersList(@PathVariable int friendListId) {
         Iterable<Present> presentOfFriendList = presentService.findAllByListId(friendListId);
         return ResponseEntity.ok(presentOfFriendList);
     }
 
     @Role({ADMIN, USER})
     @PostMapping(ResourceConstants.FRIEND_PRESENTS)
-    public ResponseEntity<Present> addNewPresentForFriend(@PathVariable int wishListId, @RequestBody Present present) {
+    public ResponseEntity<Present> addNewPresentForFriendOrUser(@PathVariable int wishListId, @RequestBody Present present) {
         Present saved = presentService.create(wishListId, present, userService.getUser());
         return ResponseEntity.ok(saved);
     }
 
+    // TODO kell ez?
     @Role({ADMIN, USER})
     @GetMapping(ResourceConstants.FRIEND_PRESENTID)
     public ResponseEntity<Present> readFriendPresent(@PathVariable int friendPresentId) {
@@ -84,7 +86,7 @@ public class PresentController {
     // TODO jó az hogy a Role-t a presentService.updatePresent-en belül nézzük?
     @Role({ADMIN, USER})
     @PatchMapping(ResourceConstants.FRIEND_PRESENTID)
-    public ResponseEntity<Present> updateFriendPresent(@PathVariable("friendPresentId") int presentId, @RequestBody Present present) {
+    public ResponseEntity<Present> updateFriendOrUserPresent(@PathVariable("friendPresentId") int presentId, @RequestBody Present present) {
         Present updated = presentService.updatePresent(userService.getUser(), presentId, present);
         return ResponseEntity.ok(updated);
     }
