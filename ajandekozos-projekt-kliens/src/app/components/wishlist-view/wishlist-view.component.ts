@@ -28,6 +28,14 @@ export class WishlistViewComponent implements OnInit {
     });
   }
 
+  public removeList(wishlist: WishList): void {  
+    this.wishlistService.deleteWishList(wishlist.id).subscribe(() => {
+      this.wishlistService.getWishLists().subscribe((wishlists: WishList[]) => {
+        this.wishlists = wishlists;
+      });
+    })
+  }
+
   ngOnInit() {
     this.wishlistService.getWishLists().subscribe((wishlists: WishList[]) => {
       this.wishlists = wishlists;

@@ -11,8 +11,10 @@
     <mat-card-content>
       <mat-list>
           <mat-list-item *ngFor="let present of presents" routerLink="/">
-            {{present.name}}
+            <p routerLink="/">Name: {{present.name}} Id: {{present.id}}</p>
+            <mat-icon class="deleteicon" (click)="removePresent(present)">delete</mat-icon>
           </mat-list-item>
       </mat-list>
     </mat-card-content>
+
 </mat-card>

@@ -14,7 +14,7 @@ import java.sql.Timestamp;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, exclude = {"user", "present"})
 public class Comment extends BaseEntity {
 
     @Column(nullable = false)
@@ -26,12 +26,12 @@ public class Comment extends BaseEntity {
     // TODO kéne a user a kliens oldalra, hogy tudjuk, hogy ki írta a commentet
     @JsonIgnore
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_ID")
+    @JoinColumn(name = "USER_ID", unique = false)
     private User user;
 
     @JsonIgnore
     @ManyToOne(targetEntity = Present.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "PRESENT_ID")
+    @JoinColumn(name = "PRESENT_ID", unique = false)
     private Present present;
 
 }

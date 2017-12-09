@@ -37,6 +37,14 @@ export class PresentsViewComponent implements OnInit {
     });
   }
 
+  public removePresent(present: Present): void {  
+    this.presentService.deletePresent(this.listId, present.id).subscribe(() => {
+      this.presentService.getPresents(this.listId).subscribe((presents: Present[]) => {
+        this.presents = presents;
+      });
+    })
+  }
+
   ngOnInit() {
     this.listId = parseInt(this.activatedRoute.snapshot.paramMap.get('listId'));
 

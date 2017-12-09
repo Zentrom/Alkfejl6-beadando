@@ -16,7 +16,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, exclude = {"user", "wishList"})
 public class Present extends BaseEntity {
 
     @Column(nullable = false)
@@ -33,12 +33,12 @@ public class Present extends BaseEntity {
 
     @JsonIgnore
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_ID")
+    @JoinColumn(name = "USER_ID", unique = false)
     private User user;
 
     @JsonIgnore
     @ManyToOne(targetEntity = WishList.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "LIST_ID")
+    @JoinColumn(name = "LIST_ID", unique = false)
     private WishList wishList;
 
     @JsonIgnore

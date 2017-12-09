@@ -115,4 +115,9 @@ public class User extends BaseEntity {
             friend.getFriends().remove(this);
         }
     }
+
+    @Override
+    public String toString() {
+        return "Name: " + firstname + " " + lastname;
+    }
 }

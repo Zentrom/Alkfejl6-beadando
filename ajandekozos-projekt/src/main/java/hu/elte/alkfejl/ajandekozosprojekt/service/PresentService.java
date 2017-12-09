@@ -9,6 +9,7 @@ import hu.elte.alkfejl.ajandekozosprojekt.repository.PresentRepository;
 import hu.elte.alkfejl.ajandekozosprojekt.repository.WishListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.annotation.SessionScope;
 
 import java.util.LinkedList;
@@ -37,6 +38,7 @@ public class PresentService {
 
         for (Present present: presents) {
             PresentDTO presentDTO = new PresentDTO();
+            presentDTO.setId(present.getId());
             presentDTO.setName(present.getName());
             presentDTO.setPrice(present.getPrice());
             presentDTO.setLink(present.getLink());
@@ -56,6 +58,7 @@ public class PresentService {
 
         for (Present present: presents) {
             PresentDTO presentDTO = new PresentDTO();
+            presentDTO.setId(present.getId());
             presentDTO.setName(present.getName());
             presentDTO.setPrice(present.getPrice());
             presentDTO.setLink(present.getLink());
@@ -80,7 +83,8 @@ public class PresentService {
         return foundDTO;
     }
 
-    public PresentDTO create(int wishlistId, PresentDTO presentDTO, User user) {
+    @Transactional
+    public PresentDTO create(int wishlistId, PresentDTO presentDTO) {
         WishList wishList = wishListRepository.findById(wishlistId);
         Present present = new Present();
 /*
@@ -93,12 +97,12 @@ public class PresentService {
         }
 */
 
-        present.setWishList(wishList);
         present.setName(presentDTO.getName());
         present.setPrice(presentDTO.getPrice());
         present.setLink(presentDTO.getLink());
         present.setHidden(presentDTO.isHidden());
         //present.setUser(null);
+        present.setWishList(wishList);
         Present saved = presentRepository.save(present);
 
         PresentDTO savedDTO = new PresentDTO();
@@ -155,6 +159,7 @@ public class PresentService {
     }
 
     public void delete(int id) {
+        System.out.println("PRESENT ID TO DELETE: "+ id);
         presentRepository.delete(id);
     }
 
