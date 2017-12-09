@@ -12,39 +12,39 @@ export class WishlistService {
   ) {}
 
   public getWishLists(): Observable<WishList[]> {
-    return this.httpClient.get<WishList[]>(api + 'wishlists');
+    return this.httpClient.get<WishList[]>(api + 'user/wishlists');
   }
 
   public addWishList(wishlist: WishList): Observable<WishList> {
-    return this.httpClient.post<WishList>(api + 'wishlists', wishlist);
+    return this.httpClient.post<WishList>(api + 'user/wishlists', wishlist);
   }
 
   public deleteWishList(listId: number): Observable<any> {
-    return this.httpClient.delete(api + 'wishlists/' + listId);
+    return this.httpClient.delete(api + 'user/wishlists/' + listId);
   }
 
   public updateWishList(wishlist: WishList): Observable<WishList> {
-    return this.httpClient.patch<WishList>(api + 'wishlists/' + wishlist.getId(), wishlist);
+    return this.httpClient.patch<WishList>(api + 'user/wishlists/' + wishlist.id, wishlist);
   }
 
   public readWishList(wishlistId: number): Observable<WishList> {
-    return this.httpClient.get<WishList>(api + 'wishlists/' + wishlistId);
+    return this.httpClient.get<WishList>(api + 'user/wishlists/' + wishlistId);
   }
 
   public listFriendsLists(friendId: number): Observable<WishList[]> {
-    return this.httpClient.get<WishList[]>(api + 'friends/' + friendId + '/wishlists');
+    return this.httpClient.get<WishList[]>(api + 'user/friends/' + friendId + '/wishlists');
   }
 
   public adminDeleteUsersWishList(friendId: number, listId: number): Observable<any> {
-    return this.httpClient.delete(api + 'friends/' + friendId + '/wishlists/' + listId);
+    return this.httpClient.delete(api + 'user/friends/' + friendId + '/wishlists/' + listId);
   }
 
   public adminUpdateUsersWishList(friendId: number, wishlist: WishList): Observable<WishList> {
-    return this.httpClient.patch<WishList>(api + 'friends/' + friendId + '/wishlists/' + wishlist.getId(), wishlist);
+    return this.httpClient.patch<WishList>(api + 'user/friends/' + friendId + '/wishlists/' + wishlist.id, wishlist);
   }
 
   public adminAddToUsersWishList(friendId: number, wishlist: WishList): Observable<WishList> {
-    return this.httpClient.post<WishList>(api + 'friends/' + friendId + '/wishlists', wishlist);
+    return this.httpClient.post<WishList>(api + 'user/friends/' + friendId + '/wishlists', wishlist);
   }
 
 

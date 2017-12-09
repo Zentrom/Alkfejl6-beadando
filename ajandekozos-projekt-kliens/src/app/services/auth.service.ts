@@ -1,41 +1,75 @@
-import {Injectable} from '@angular/core';
-import {Http} from "@angular/http";
-import {User} from "../model/User";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, Subject } from 'rxjs';
+import { User } from '../model/user';
+import { api } from '../config/api';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthService {
-  user: User;
-  isLoggedIn: boolean = false;
+  private static user: User = null;
 
-  constructor(jelen: boolean) {
-    this.isLoggedIn = jelen;
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) {}
+
+  public login(username: string, password: string): Observable<boolean> {
+    const result = new Subject<boolean>();
+    this.http.post(api + '/login', { username, password }).subscribe((user) => {
+      AuthService.user = user as User;
+      result.next(true);
+    }, (error) => {
+      AuthService.user = null as User;
+      result.next(false);
+    });
+    return result;
   }
 
-  getisLoggedIn(){
-    return this.isLoggedIn;
+  public register(username: string, password: string, firstname: string, lastname: string, email: string): Observable<boolean> {
+    const result = new Subject<boolean>();
+    this.http.post(api + '/register', { username, password, firstname, lastname, email }).subscribe((user) => {
+      AuthService.user = user as User;
+      result.next(true);
+    }, (error) => {
+      AuthService.user = null as User;
+      result.next(false);
+    });
+    return result;
   }
 
-  /*login(user: User) {
-    return this.http.post(Server.routeTo(RoutesKetto.LOGIN), user)
-      .map(res => {
-        this.isLoggedIn = true;
-        this.user = res.json();
-        return this.user;
-      })
+  public logout(): void {
+    this.http.get(api + 'user/logout', {responseType: 'text'}).subscribe(() => {
+      AuthService.user = null;
+      this.router.navigate(['/']);
+    });
   }
-  register(user: User) {
-    return this.http.post(Server.routeTo(RoutesKetto.REGISTER), user)
-      .map(res => {
-        this.isLoggedIn = true;
-        this.user = res.json();
-        return this.user;
-      })
+
+  public isLoggedIn(): boolean {
+    return AuthService.user !== null;
   }
-  logout() {
-    return this.http.get(Server.routeTo(RoutesKetto.LOGOUT))
-      .map(res => {
-        this.user = null;
-        this.isLoggedIn = false;
-      })
-  }*/
+
+  public syncLoginStatus(): void {
+    this.http.get(api).subscribe((user) => {
+      if (user) {
+        AuthService.user = user as User;
+      } else {
+        AuthService.user = null;
+      }
+    });
+  }
+
+  public userHasRole(role: string[]): boolean {
+    if (!this.isLoggedIn()) {
+      return false;
+    }
+    return role.includes(AuthService.user.role);
+  }
+
+  public getRole(): string {
+    if (this.isLoggedIn()) {
+      return AuthService.user.role;
+    }
+    return undefined;
+  }
 }

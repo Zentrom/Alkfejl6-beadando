@@ -18,20 +18,19 @@ export class FriendrequestService {
 
   // itt a status igazából egy szám (0 vagy 1) csak számként nem lehet paraméterben átküldeni
   public processRequests(requestId: number, status: string): Observable<any> {
-      return this.httpClient.delete(api + 'friendrequests/' + requestId, {params: {status}});
+      return this.httpClient.delete(api + 'user/friendrequests/' + requestId, {params: {status}});
   }
 
   public readRequest(requestId: number): Observable<FriendRequest> {
-    return this.httpClient.get<FriendRequest>(api + 'friendrequests/' + requestId);
+    return this.httpClient.get<FriendRequest>(api + 'user/friendrequests/' + requestId);
   }
 
   public listPossibleFriends(firstname: string, lastname: string): Observable<UserDTO[]> {
-    return this.httpClient.get<UserDTO[]>(api + 'newrequest', {params: {firstname, lastname}});
+    return this.httpClient.get<UserDTO[]>(api + 'user/newrequest', {params: {firstname, lastname}});
   }
 
-  // Get vagy Post?
   public createFriendRequest(friendRequest: FriendRequest): Observable<FriendRequest> {
-    return this.httpClient.post<FriendRequest>(api + 'newrequest', friendRequest);
+    return this.httpClient.post<FriendRequest>(api + 'user/newrequest', friendRequest);
   }
 
 }

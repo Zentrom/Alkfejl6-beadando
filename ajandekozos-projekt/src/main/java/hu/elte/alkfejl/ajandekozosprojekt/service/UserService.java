@@ -41,10 +41,11 @@ public class UserService {
     }
 
     public User login(User user) throws UserNotValidException {
-        Optional<User> dbUser = userRepository.findByEmail(user.getEmail());
-
+        Optional<User> dbUser = userRepository.findByUsername(user.getUsername());
+        
         if(dbUser.isPresent() && passwordEncoder.matches(user.getPassword(), dbUser.get().getPassword())) {
-            return this.user = dbUser.get();
+            this.user = dbUser.get();
+            return this.user;
         } else {
             throw new UserNotValidException();
         }

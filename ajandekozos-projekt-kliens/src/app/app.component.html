@@ -1,4 +1,14 @@
-<div id="page-wrapper">
-  <app-menu></app-menu>
-  <router-outlet></router-outlet>
-</div>
+<mat-toolbar color="primary">
+  Gifting app
+  <span class="left">
+      <button mat-button routerLink="/">Index</button>
+      <button *ngIf="authService.isLoggedIn()" mat-button routerLink="/user/wishlists">My wishlists</button>
+  </span>
+  <span class="right">
+      <button *ngIf="!authService.isLoggedIn()" mat-button routerLink="/login">Login</button>
+      <button *ngIf="!authService.isLoggedIn()" mat-button routerLink="/register">Register</button>
+      <button *ngIf="authService.isLoggedIn()" mat-button routerLink="/" (click)="authService.logout()">Logout</button>
+  </span>
+</mat-toolbar>
+<router-outlet></router-outlet>
+

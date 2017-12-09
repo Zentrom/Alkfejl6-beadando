@@ -1,6 +1,4 @@
-import { Component } from '@angular/core';
-
-//import { User,Role } from './model/user';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
 
 @Component({
@@ -9,20 +7,13 @@ import { AuthService } from './services/auth.service';
   styleUrls: ['./app.component.css'],
   providers: [AuthService]
 })
-export class AppComponent {
-  title = 'app';
-
-  static authService: AuthService;
-
+export class AppComponent implements OnInit {
+  constructor (
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
-    AppComponent.authService = new AuthService(false);
+    this.authService.syncLoginStatus();
   }
 
-  /*getAuthService(){
-    return this.authService;
-  }
-  setAuthService(bejelentkezve: boolean){
-    this.authService.isLoggedIn= bejelentkezve;
-  }*/
 }

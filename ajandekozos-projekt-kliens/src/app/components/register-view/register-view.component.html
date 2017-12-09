@@ -1,0 +1,30 @@
+<mat-card>
+  <mat-card-content>
+    <h3>Register</h3>
+    <mat-form-field>
+      <input matInput type="text" placeholder="Username" #usernameinput>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input matInput type="password" placeholder="Password" #passwordinput>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <input matInput type="text" placeholder="Firstname" #firstnameinput>
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+          <input matInput type="text" placeholder="Lastname" #lastnameinput>
+        </mat-form-field>
+        <br>
+    <mat-form-field>
+        <input matInput type="email" placeholder="Email" #emailinput>
+    </mat-form-field>
+    <br>
+    <button mat-raised-button color="primary" 
+            (click)="tryRegister(usernameinput.value, passwordinput.value, firstnameinput.value, lastnameinput.value, emailinput.value)">
+      Register
+    </button>
+    <div *ngIf="error">{{error}}</div>
+  </mat-card-content>
+</mat-card>

@@ -12,44 +12,44 @@ export class PresentService {
   ) {}
 
   public getPresents(listId: number): Observable<Present[]> {
-    return this.httpClient.get<Present[]>(api + 'wishlists/' + listId + '/presents');
+    return this.httpClient.get<Present[]>(api + 'user/wishlists/' + listId + '/presents');
   }
 
   // listId kiszedése a present objektumból?
   public addPresent(listId: number, present: Present): Observable<Present> {
-    return this.httpClient.post<Present>(api + 'wishlists/' + listId + '/presents', present);
+    return this.httpClient.post<Present>(api + 'user/wishlists/' + listId + '/presents', present);
   }
 
   public deletePresent(listId: number, presentId: number): Observable<any> {
-    return this.httpClient.delete(api + 'wishlists/' + listId + '/presents/' + presentId);
+    return this.httpClient.delete(api + 'user/wishlists/' + listId + '/presents/' + presentId);
   }
 
   public updatePresent(listId: number, present: Present): Observable<Present> {
-    return this.httpClient.patch<Present>(api + 'wishlists/' + listId + '/presents/' + present.getId(), present);
+    return this.httpClient.patch<Present>(api + 'user/wishlists/' + listId + '/presents/' + present.id, present);
   }
 
   public readPresent(listId: number, presentId: number): Observable<Present> {
-    return this.httpClient.get<Present>(api + 'wishlists/' + listId + '/presents/' + presentId);
+    return this.httpClient.get<Present>(api + 'user/wishlists/' + listId + '/presents/' + presentId);
   }
 
   public listPresentsOfFriendsOrUsersList(friendId: number, friendListId: number): Observable<Present[]> {
-    return this.httpClient.get<Present[]>(api + 'friends/' + friendId + '/wishlists/' + friendListId + '/presents');
+    return this.httpClient.get<Present[]>(api + 'user/friends/' + friendId + '/wishlists/' + friendListId + '/presents');
   }
 
   public addNewPresentForFriendOrUser(friendId: number, friendListId: number, present: Present): Observable<Present> {
-    return this.httpClient.post<Present>(api + 'friends/' + friendId + '/wishlists/' + friendListId + '/presents', present);
+    return this.httpClient.post<Present>(api + 'user/friends/' + friendId + '/wishlists/' + friendListId + '/presents', present);
   }
 
   public readFriendPresent(friendId: number, friendListId: number, presentId: number): Observable<Present> {
-    return this.httpClient.get<Present>(api + 'friends/' + friendId + '/wishlists/' + friendListId + '/presents/' + presentId);
+    return this.httpClient.get<Present>(api + 'user/friends/' + friendId + '/wishlists/' + friendListId + '/presents/' + presentId);
   }
 
   public updateFriendOrUserPresent(friendId: number, friendListId: number, present: Present): Observable<Present> {
-    return this.httpClient.patch<Present>(api + 'friends/' + friendId + '/wishlists/' + friendListId + '/presents/' + present.getId(), present);
+    return this.httpClient.patch<Present>(api + 'user/friends/' + friendId + '/wishlists/' + friendListId + '/presents/' + present.id, present);
   }
 
   public deleteUserPresent(friendId: number, listId: number, userListId: number): Observable<any> {
-    return this.httpClient.delete(api + 'friends/' + friendId + '/wishlists/' + listId + '/presents/' + userListId);
+    return this.httpClient.delete(api + 'user/friends/' + friendId + '/wishlists/' + listId + '/presents/' + userListId);
   }
 
 

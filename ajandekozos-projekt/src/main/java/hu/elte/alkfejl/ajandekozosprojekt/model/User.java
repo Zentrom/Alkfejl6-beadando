@@ -26,8 +26,9 @@ public class User extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String username;
 
+    public static final short FIELD_LENGTH = 255;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @Column(nullable = false)
+    @Column(nullable = false, length = FIELD_LENGTH)
     private String password;
 
     @Column(nullable = false)

@@ -3,9 +3,9 @@ package hu.elte.alkfejl.ajandekozosprojekt;
 public class ResourceConstants {
 
     public static final String USER = "/user";
-    public static final String USER_LOGIN = "user/login";
+    public static final String USER_LOGIN = "/login";
+    public static final String USER_REGISTER = "/register";
     public static final String USER_LOGOUT = "user/logout";
-    public static final String USER_REGISTER = "user/register";
 
     public static final String WISHLISTS = USER + "/wishlists";
     public static final String WISHLISTSID = WISHLISTS + "/{wishlistId}";

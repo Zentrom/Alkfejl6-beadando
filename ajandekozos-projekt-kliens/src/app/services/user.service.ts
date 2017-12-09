@@ -12,11 +12,11 @@ export class UserService {
   ) {}
 
   public getFriends(): Observable<UserDTO[]> {
-    return this.httpClient.get<UserDTO[]>(api + 'friends');
+    return this.httpClient.get<UserDTO[]>(api + 'user/friends');
   }
 
   public deleteFriendOrUser(userId: number): Observable<any> {
-    return this.httpClient.delete(api + 'friends/' + userId);
+    return this.httpClient.delete(api + 'user/friends/' + userId);
   }
 
 }
