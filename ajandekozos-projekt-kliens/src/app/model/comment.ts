@@ -5,6 +5,6 @@ export class Comment {
         public id: number,
         public text: string,
         public timeStamp: Date,
-        public user: User = null,
+        public authorName: string
     ) {}
 }

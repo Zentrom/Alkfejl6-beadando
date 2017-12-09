@@ -1,0 +1,18 @@
+<button mat-raised-button (click)="moveBack()">Go back</button>
+
+<app-addpresent-view (createPresent)="addPresent($event)">
+</app-addpresent-view>
+
+<mat-card class="presentsview">
+    <mat-card-title>
+        <h3>Presents</h3>
+    </mat-card-title>
+
+    <mat-card-content>
+      <mat-list>
+          <mat-list-item *ngFor="let present of presents" routerLink="/">
+            {{present.name}}
+          </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+</mat-card>

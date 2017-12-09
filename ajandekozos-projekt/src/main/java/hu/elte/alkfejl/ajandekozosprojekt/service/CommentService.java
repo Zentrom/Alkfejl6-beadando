@@ -3,6 +3,7 @@ package hu.elte.alkfejl.ajandekozosprojekt.service;
 import hu.elte.alkfejl.ajandekozosprojekt.model.Comment;
 import hu.elte.alkfejl.ajandekozosprojekt.model.Present;
 import hu.elte.alkfejl.ajandekozosprojekt.model.User;
+import hu.elte.alkfejl.ajandekozosprojekt.model.dto.CommentDTO;
 import hu.elte.alkfejl.ajandekozosprojekt.repository.CommentRepository;
 import hu.elte.alkfejl.ajandekozosprojekt.repository.PresentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.context.annotation.SessionScope;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -28,12 +30,34 @@ public class CommentService {
         this.presentRepository = presentRepository;
     }
 
-    public List<Comment> findAllByPresentId(int presentId) {
-        return commentRepository.findAllByPresentId(presentId);
+    public List<CommentDTO> findAllByPresentId(int presentId) {
+        List<CommentDTO> commentsDTO = new LinkedList<>();
+        List<Comment> comments = commentRepository.findAllByPresentId(presentId);
+
+        for (Comment comment: comments) {
+            CommentDTO commentDTO = new CommentDTO();
+            commentDTO.setId(comment.getId());
+            commentDTO.setText(comment.getText());
+            commentDTO.setTimeStamp(comment.getTimestamp());
+            commentDTO.setAuthorName(comment.getUser().getFirstname() + " " + comment.getUser().getLastname());
+
+            commentsDTO.add(commentDTO);
+        }
+
+        return commentsDTO;
     }
 
-    public Comment findById(int commentId) {
-        return commentRepository.findOne(commentId);
+    // TODO valószínűleg nem kell
+    public CommentDTO findById(int commentId) {
+        CommentDTO foundDTO = new CommentDTO();
+        Comment found = commentRepository.findOne(commentId);
+
+        foundDTO.setId(found.getId());
+        foundDTO.setText(found.getText());
+        foundDTO.setTimeStamp(found.getTimestamp());
+        foundDTO.setAuthorName(found.getUser().getFirstname() + " " + found.getUser().getLastname());
+
+        return foundDTO;
     }
 
     public boolean checkPermission(User user, int commentId) {
@@ -45,23 +69,37 @@ public class CommentService {
         return false;
     }
 
-    public Comment create(int presentId, User user, Comment comment) {
+    public CommentDTO create(int presentId, User user, Comment comment) {
+        CommentDTO savedDTO = new CommentDTO();
+
         Present present = presentRepository.findOne(presentId);
         // TODO jó a dátum így?
+        comment.setUser(user);
         comment.setTimestamp(Timestamp.valueOf(LocalDateTime.now()));
         comment.setPresent(present);
+        Comment saved = commentRepository.save(comment);
 
-        return commentRepository.save(comment);
+        savedDTO.setId(saved.getId());
+        savedDTO.setText(saved.getText());
+        savedDTO.setTimeStamp(saved.getTimestamp());
+        savedDTO.setAuthorName(user.getFirstname() + " " + user.getLastname());
+
+        return savedDTO;
     }
 
-    public Comment update(int commentId, Comment comment) {
+    public CommentDTO update(int commentId, Comment comment) {
+        CommentDTO updatedDTO = new CommentDTO();
         Comment currentComment = commentRepository.findOne(commentId);
+
         currentComment.setText(comment.getText());
         currentComment.setTimestamp(comment.getTimestamp());
         // TODO settelni kell az usert is? -> valószínűleg nem kell
 /*        currentComment.setUser(comment.getUser());*/
+        Comment updated = commentRepository.save(comment);
+        updatedDTO.setText(updated.getText());
+        updatedDTO.setTimeStamp(updated.getTimestamp());
 
-        return commentRepository.save(comment);
+        return updatedDTO;
     }
 
     public void delete(int commentId) {

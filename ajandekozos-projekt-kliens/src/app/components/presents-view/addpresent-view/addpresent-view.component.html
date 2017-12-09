@@ -1,0 +1,26 @@
+<mat-card class="addform">
+    <mat-card-title>
+        <h3>Add new present</h3>
+    </mat-card-title>
+
+    <mat-card-content>
+        <mat-form-field>
+            <input matInput #presentName type="text" placeholder="Preset name">
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+            <input matInput #presentPrice type="number" placeholder="Price">
+            <span matSuffix> Ft</span>
+        </mat-form-field> 
+        <br>
+        <mat-form-field>
+            <input matInput #presentLink type="url" placeholder="Url">
+        </mat-form-field> 
+        <br>
+        <button mat-raised-button color="primary"
+            (click)="clickButton(presentName.value, presentPrice.value, presentLink.value)">
+            Add Present
+        </button>
+    </mat-card-content>
+
+</mat-card>

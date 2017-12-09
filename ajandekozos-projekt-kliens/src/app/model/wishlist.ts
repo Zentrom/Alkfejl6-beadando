@@ -1,6 +1,7 @@
 export class WishList {
+    public id: number
+
     constructor(
-        public id: number,
         public title: string
     ) {}
 }

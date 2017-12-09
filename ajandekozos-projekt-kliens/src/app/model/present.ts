@@ -1,12 +1,13 @@
-import { User } from './user';
+import { UserDTO } from './userdto';
 
 export class Present {
+    public id: number;
+    public user: UserDTO = null;
+    
     constructor(
-        public id: number,
         public name: string,
         public price: number,
         public link: string,
-        public hidden: boolean,
-        public user: User = null,
+        public hidden: boolean
     ) {}
 }

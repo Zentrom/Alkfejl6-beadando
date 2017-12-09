@@ -1,0 +1,16 @@
+<mat-card class="commentsview">
+
+    <mat-card-title>
+        <h3>Comments</h3>
+    </mat-card-title>
+
+    <mat-card-content>
+      <mat-list>
+          <mat-list-item *ngFor="let comment of comments" routerLink="/">
+            <h5 matLine> By: {{comment.authorName}} Date: {{comment.timestamp}}</h5>
+            <p>{{comment.text}}</p>>
+          </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+
+</mat-card>

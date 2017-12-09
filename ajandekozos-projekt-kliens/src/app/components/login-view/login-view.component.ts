@@ -24,7 +24,7 @@ export class LoginViewComponent implements OnInit {
   private tryLogin(username: string, password: string) {
     this.authService.login(username, password).subscribe((success: boolean) => {
       if (success) {
-        this.router.navigate(['/user/wishlists']);
+        this.router.navigate(['/']);
       } else {
         this.error = 'Error: Wrong username or password!';
       }

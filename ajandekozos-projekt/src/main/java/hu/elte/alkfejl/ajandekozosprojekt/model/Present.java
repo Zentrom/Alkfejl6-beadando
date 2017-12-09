@@ -41,6 +41,7 @@ public class Present extends BaseEntity {
     @JoinColumn(name = "LIST_ID")
     private WishList wishList;
 
+    @JsonIgnore
     @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "present", cascade = CascadeType.ALL)
     private List<Comment> comments;

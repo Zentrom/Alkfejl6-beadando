@@ -2,12 +2,16 @@ package hu.elte.alkfejl.ajandekozosprojekt.controller;
 
 import hu.elte.alkfejl.ajandekozosprojekt.ResourceConstants;
 import hu.elte.alkfejl.ajandekozosprojekt.model.Comment;
+import hu.elte.alkfejl.ajandekozosprojekt.model.dto.CommentDTO;
 import hu.elte.alkfejl.ajandekozosprojekt.service.CommentService;
 import hu.elte.alkfejl.ajandekozosprojekt.service.UserService;
 import hu.elte.alkfejl.ajandekozosprojekt.service.annotations.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.LinkedList;
+import java.util.List;
 
 import static hu.elte.alkfejl.ajandekozosprojekt.model.User.Role.ADMIN;
 import static hu.elte.alkfejl.ajandekozosprojekt.model.User.Role.USER;
@@ -28,15 +32,15 @@ public class CommentController {
 
     @Role({ADMIN, USER})
     @GetMapping("")
-    public ResponseEntity<Iterable<Comment>> listComments(@PathVariable int friendPresentId) {
-        Iterable<Comment> comments = commentService.findAllByPresentId(friendPresentId);
+    public ResponseEntity<List<CommentDTO>> listComments(@PathVariable int friendPresentId) {
+        List<CommentDTO> comments = commentService.findAllByPresentId(friendPresentId);
         return ResponseEntity.ok(comments);
     }
 
     @Role(USER)
     @PostMapping("")
-    public ResponseEntity<Comment> addComment(@PathVariable int friendPresentId, @RequestBody Comment comment) {
-        Comment saved = commentService.create(friendPresentId, userService.getUser(), comment);
+    public ResponseEntity<CommentDTO> addComment(@PathVariable int friendPresentId, @RequestBody Comment comment) {
+        CommentDTO saved = commentService.create(friendPresentId, userService.getUser(), comment);
         return ResponseEntity.ok(saved);
     }
 
@@ -53,18 +57,19 @@ public class CommentController {
     // TODO ha nem jó a permission akkor most milyen commentes is kap paraméterben? -> kliensoldali varázslat
     @Role({ADMIN, USER})
     @PatchMapping(ResourceConstants.COMMENTID)
-    public ResponseEntity<Comment> updateComment(@PathVariable int commentId, @RequestBody Comment comment) {
+    public ResponseEntity<CommentDTO> updateComment(@PathVariable int commentId, @RequestBody Comment comment) {
         if (commentService.checkPermission(userService.getUser(), commentId)) {
-            Comment updated = commentService.update(commentId, comment);
+            CommentDTO updated = commentService.update(commentId, comment);
             return ResponseEntity.ok(updated);
         }
         return ResponseEntity.badRequest().build();
     }
 
+    // TODO valószínűleg nem kell
     @Role({ADMIN, USER})
     @GetMapping(ResourceConstants.COMMENTID)
-    public ResponseEntity<Comment> readComment(@PathVariable int commentId) {
-        Comment read = commentService.findById(commentId);
+    public ResponseEntity<CommentDTO> readComment(@PathVariable int commentId) {
+        CommentDTO read = commentService.findById(commentId);
         return ResponseEntity.ok(read);
     }
 

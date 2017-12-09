@@ -26,7 +26,8 @@ public class WishListService {
         return wishListRepository.findAllByUserId(userId);
     }
 
-    public WishList create(WishList list) {
+    public WishList create(WishList list, User user) {
+        list.setUser(user);
         return wishListRepository.save(list);
     }
 

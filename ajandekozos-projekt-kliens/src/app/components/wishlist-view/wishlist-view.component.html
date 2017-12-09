@@ -1,3 +1,16 @@
-<p>
-  wishlist-view works!
-</p>
+<app-addwishlist-view (createList)="addList($event)">
+</app-addwishlist-view>
+
+<mat-card class="wishlistview">
+    <mat-card-title>
+        <h3>Wishlists</h3>
+    </mat-card-title>
+
+    <mat-card-content>
+      <mat-list>
+          <mat-list-item *ngFor="let list of wishlists" routerLink="/user/wishlists/{{list.id}}/presents">
+            {{list.title}}
+          </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>

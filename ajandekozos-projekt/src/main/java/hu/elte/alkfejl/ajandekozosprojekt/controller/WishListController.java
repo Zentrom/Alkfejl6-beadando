@@ -35,7 +35,7 @@ public class WishListController {
     @Role(USER)
     @PostMapping(ResourceConstants.WISHLISTS)
     public ResponseEntity<WishList> addWishList(@RequestBody WishList wishList) {
-        WishList saved = wishListService.create(wishList);
+        WishList saved = wishListService.create(wishList, userService.getUser());
         return ResponseEntity.ok(saved);
     }
 
@@ -83,11 +83,11 @@ public class WishListController {
     }
 
     // TODO itt jó user legyen settelve a requestbodyban (ne az Admin)
-    @Role(ADMIN)
+/*    @Role(ADMIN)
     @PostMapping(ResourceConstants.FRIEND_LISTS)
     public ResponseEntity<WishList> adminAddToUsersWishList(@RequestBody WishList wishList) {
         WishList saved = wishListService.create(wishList);
         return ResponseEntity.ok(saved);
-    }
+    }*/
 
 }

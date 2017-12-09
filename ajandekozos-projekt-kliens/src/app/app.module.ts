@@ -13,6 +13,10 @@ import { LoginViewComponent } from './components/login-view/login-view.component
 import { RegisterViewComponent } from './components/register-view/register-view.component';
 import { IndexViewComponent } from './components/index-view/index-view.component';
 import { WishlistViewComponent } from './components/wishlist-view/wishlist-view.component';
+import { PresentsViewComponent } from './components/presents-view/presents-view.component';
+import { CommentsViewComponent } from './components/comments-view/comments-view.component';
+import { AddwishlistViewComponent } from './components/wishlist-view/addwishlist-view/addwishlist-view.component';
+import { AddpresentViewComponent } from './components/presents-view/addpresent-view/addpresent-view.component';
 
 
 @NgModule({
@@ -21,7 +25,11 @@ import { WishlistViewComponent } from './components/wishlist-view/wishlist-view.
     LoginViewComponent,
     RegisterViewComponent,
     IndexViewComponent,
-    WishlistViewComponent
+    WishlistViewComponent,
+    PresentsViewComponent,
+    CommentsViewComponent,
+    AddwishlistViewComponent,
+    AddpresentViewComponent
   ],
   imports: [
     BrowserModule,

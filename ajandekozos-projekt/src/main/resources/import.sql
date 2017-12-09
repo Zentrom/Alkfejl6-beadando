@@ -1,7 +1,7 @@
 INSERT INTO USER (ID, VERSION, USERNAME, PASSWORD, FIRSTNAME, LASTNAME, EMAIL, ROLE) VALUES (0, 0, 'admin', '$2a$10$Vi76q6P5HRwbH.cSnP7JGO1lLW9laqNDObgKAH7sp2TIAl/MFJE7S', 'Admin', 'Admin', 'admin@gmail.com', 'ADMIN');
 INSERT INTO USER (ID, VERSION, USERNAME, PASSWORD, FIRSTNAME, LASTNAME, EMAIL, ROLE) VALUES (1, 0, 'nagyon', 'durva', 'pistike', 'ver', 'xxxshadowninjawarriorxxx@freemail.hu', 'USER');
 INSERT INTO USER (ID, VERSION, USERNAME, PASSWORD, FIRSTNAME, LASTNAME, EMAIL, ROLE) VALUES (2, 0, 'negrut', 'gyere', 'akos', 'negrut', 'negrut@gmail.com', 'USER');
-INSERT INTO USER (ID, VERSION, USERNAME, PASSWORD, FIRSTNAME, LASTNAME, EMAIL, ROLE) VALUES (3, 0, 'geri', 'mester', 'gergely', 'jakab', 'jakab@gmail.com', 'USER');
+INSERT INTO USER (ID, VERSION, USERNAME, PASSWORD, FIRSTNAME, LASTNAME, EMAIL, ROLE) VALUES (3, 0, 'geri', '$2a$10$eBJf5XJtPqNDrC3EwMuOp.XP1lNHcqrToDWuO6OG9xgIel3azFKzK', 'gergely', 'jakab', 'jakab@gmail.com', 'USER');
 INSERT INTO USER (ID, VERSION, USERNAME, PASSWORD, FIRSTNAME, LASTNAME, EMAIL, ROLE) VALUES (4, 0, 'szilagyi', 'ferenc', 'ferenc', 'szilagyi', 'szilagyi@gmail.com', 'USER');
 INSERT INTO USER (ID, VERSION, USERNAME, PASSWORD, FIRSTNAME, LASTNAME, EMAIL, ROLE) VALUES (5, 0, 'kosa', 'kosa', 'lajos', 'kosa', 'kosa@gmail.com', 'USER');
 INSERT INTO USER (ID, VERSION, USERNAME, PASSWORD, FIRSTNAME, LASTNAME, EMAIL, ROLE) VALUES (6, 0, 'javor', 'javor', 'erika', 'javor', 'javor@gmail.com', 'USER');
