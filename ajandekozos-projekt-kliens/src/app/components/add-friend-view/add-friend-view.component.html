@@ -31,15 +31,15 @@
     </mat-card-title>
 
     <mat-card-content>
-        <div *ngIf="!possibleFriends; else loaded">
-                <h4>Search users and send friendrequests!</h4>
+        <div *ngIf="!possibleFriends">
+                <h5 class="text-center">Search users and send friendrequests!</h5>
         </div>
 
         <div *ngIf="possibleFriends?.length==0">
-                <h4>No results!</h4>
+                <h5 class="text-center">No results!</h5>
         </div>
 
-        <ng-template #loaded>
+        <div *ngIf="possibleFriends?.length > 0">
             <div class="container">
                     <div class="col-md-12">
                         <table class="table table-bordered table-striped table-hover">
@@ -64,7 +64,7 @@
                     </table>
                     </div>
                 </div>
-        </ng-template>
+        </div>
 
     </mat-card-content>
 </mat-card>
