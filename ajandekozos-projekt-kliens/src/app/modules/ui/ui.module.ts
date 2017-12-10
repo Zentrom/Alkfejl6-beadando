@@ -12,7 +12,7 @@ import {
   MatSnackBarModule,
   MatIconModule, 
   MatProgressSpinnerModule,
-  MatDialogModule
+  MatDialogModule,
 } from '@angular/material';
 import {CdkTableModule} from '@angular/cdk/table';
 import {NgModule} from "@angular/core";

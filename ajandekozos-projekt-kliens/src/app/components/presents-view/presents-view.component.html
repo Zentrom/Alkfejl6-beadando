@@ -1,16 +1,20 @@
-<button mat-raised-button (click)="moveBack()">Go back</button>
+    <!-- <button mat-raised-button (click)="moveBack()">Go back</button>        -->
 
 <app-addpresent-view (createPresent)="addPresent($event)">
 </app-addpresent-view>
+
+
 
 <mat-card class="presentsview">
     <mat-card-title>
         <h3>Presents</h3>
     </mat-card-title>
 
+
     <div *ngIf="!presents; else loaded">
         <mat-spinner></mat-spinner>
     </div>
+
 
     <mat-card-content>
     <!-- 
@@ -28,24 +32,28 @@
         -->
 
 
-
       <ng-template #loaded>
             <div class="container">
                     <div class="col-md-12">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a routerLink="/user/wishlists">Wishlists</a></li>
+                            <li class="breadcrumb-item active">{{breadCrumbService.listTitle}}</li>
+                          </ol>
+
                         <table class="table table-bordered table-striped table-hover">
                       <thead>
                         <tr>
-                          <th style="width:40%" class="text-center">Name</th>
-                          <th style="width:20%" class="text-center">Price</th>
-                          <th style="width:20%" class="text-center">Link</th>
-                          <th style="width:10%" class="text-center">&nbsp;</th>
-                          <th style="width:10%" class="text-center">&nbsp;</th>
+                          <th style="width:46%" class="text-center">Name</th>
+                          <th style="width:15%" class="text-center">Price</th>
+                          <th style="width:15%" class="text-center">Link</th>
+                          <th style="width:12%" class="text-center">Edit</th>
+                          <th style="width:12%" class="text-center">Delete</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr *ngFor="let present of presents">
                           <td>{{ present.name }}</td>
-                          <td>{{ present.price }}</td>
+                          <td>{{ present.price }} Ft</td>
                           <td><button class="btn btn-info innerbtn" (click)="goToUrl(present.link)">Link</button></td>
                           <td>
                             <button class="btn btn-info innerbtn" (click)="openEditPresentDialog(present)">

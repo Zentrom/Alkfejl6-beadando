@@ -9,6 +9,7 @@ import { User } from '../../model/user';
 import { Present } from '../../model/present';
 import { PresentService } from '../../services/present.service';
 import { EditPresentDialogComponent } from './edit-present-dialog/edit-present-dialog.component';
+import { BreadcrumbService } from '../../services/breadcrumb.service';
 
 @Component({
   selector: 'app-presents-view',
@@ -26,14 +27,16 @@ export class PresentsViewComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private presentService: PresentService,
+    private breadCrumbService: BreadcrumbService,
     private location: Location,
     private dialog: MatDialog
   ) {} 
 
+  /*
   public moveBack(): void {
     this.location.back();
   }
-
+*/
   public goToUrl(url: string): void {
     if (!/^http[s]?:\/\//.test(url)) {
       url = 'http://' + url;

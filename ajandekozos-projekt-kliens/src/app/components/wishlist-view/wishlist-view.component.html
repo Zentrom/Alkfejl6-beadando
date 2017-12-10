@@ -35,16 +35,14 @@
                                 <table class="table table-bordered table-striped table-hover">
                               <thead>
                                 <tr>
-                                  <th style="width:10%" class="text-center">ID</th>
-                                  <th style="width:60%" class="text-center">Title</th>
-                                  <th style="width:10%" class="text-center">&nbsp;</th>
-                                  <th style="width:10%" class="text-center">&nbsp;</th>
-                                  <th style="width:10%" class="text-center">&nbsp;</th>
+                                  <th style="width:61%" class="text-center">Title</th>
+                                  <th style="width:13%" class="text-center">Edit</th>
+                                  <th style="width:13%" class="text-center">Delete</th>
+                                  <th style="width:13%" class="text-center">Open</th>
                                 </tr>
                               </thead>
                               <tbody>
                                 <tr *ngFor="let list of wishlists">
-                                  <td>{{ list.id }}</td>
                                   <td>{{ list.title }}</td>
                                   <td>
                                     <button class="btn btn-info innerbtn"
@@ -60,7 +58,8 @@
                                   </td>
                                   <td>
                                         <button class="btn btn-info innerbtn"
-                                            routerLink="/user/wishlists/{{list.id}}/presents">
+                                            routerLink="/user/wishlists/{{list.id}}/presents"
+                                            (click)="setBreadcrumbs(list.id, list.title)">
                                                      <i class="fa fa-chevron-right"></i>
                                         </button>
                                 </td>

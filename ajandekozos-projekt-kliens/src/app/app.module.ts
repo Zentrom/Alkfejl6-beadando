@@ -20,6 +20,7 @@ import { AddpresentViewComponent } from './components/presents-view/addpresent-v
 import { EditWishlistDialogComponent } from './components/wishlist-view/edit-wishlist-dialog/edit-wishlist-dialog.component';
 import { AddFriendViewComponent } from './components/add-friend-view/add-friend-view.component';
 import { EditPresentDialogComponent } from './components/presents-view/edit-present-dialog/edit-present-dialog.component';
+import { BreadcrumbService } from './services/breadcrumb.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import { EditPresentDialogComponent } from './components/presents-view/edit-pres
     AddpresentViewComponent,
     EditWishlistDialogComponent,
     AddFriendViewComponent,
-    EditPresentDialogComponent
+    EditPresentDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,7 +51,7 @@ import { EditPresentDialogComponent } from './components/presents-view/edit-pres
     EditWishlistDialogComponent,
     EditPresentDialogComponent
   ],
-  providers: [],
+  providers: [BreadcrumbService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

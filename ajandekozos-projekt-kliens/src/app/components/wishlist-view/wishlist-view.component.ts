@@ -7,6 +7,7 @@ import { filter } from 'rxjs/operators';
 import { WishList } from '../../model/wishlist';
 import { WishlistService } from '../../services/wishlist.service';
 import { EditWishlistDialogComponent } from './edit-wishlist-dialog/edit-wishlist-dialog.component';
+import { BreadcrumbService } from '../../services/breadcrumb.service';
 
 @Component({
   selector: 'app-wishlist-view',
@@ -22,6 +23,7 @@ export class WishlistViewComponent implements OnInit {
   constructor(
     private router: Router,
     private wishlistService: WishlistService,
+    private breadcrumbService: BreadcrumbService,
     private dialog: MatDialog
   ) {} 
 
@@ -53,6 +55,11 @@ export class WishlistViewComponent implements OnInit {
         this.wishlistService.updateWishList(wishlist).subscribe((updatedWishlist) => {
         });
     });
+  }
+
+  public setBreadcrumbs(listId: number, listTitle: string): void {
+    this.breadcrumbService.listId = listId;
+    this.breadcrumbService.listTitle = listTitle;
   }
 
   ngOnInit() {
