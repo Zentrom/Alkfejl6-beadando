@@ -30,24 +30,20 @@ export class PresentsViewComponent implements OnInit {
   }
 
   public addPresent(present: Present): void {
-    this.presentService.addPresent(this.listId, present).subscribe(() => {
-      this.presentService.getPresents(this.listId).subscribe((presents: Present[]) => {
-        this.presents = presents;
-      });
+    this.presentService.addPresent(this.listId, present).subscribe((newPresent) => {
+      this.presents.push(newPresent);
     });
   }
 
   public removePresent(present: Present): void {  
     this.presentService.deletePresent(this.listId, present.id).subscribe(() => {
-      this.presentService.getPresents(this.listId).subscribe((presents: Present[]) => {
-        this.presents = presents;
-      });
+      var index = this.presents.indexOf(present);
+      this.presents.splice(index, 1);   
     })
   }
 
   ngOnInit() {
     this.listId = parseInt(this.activatedRoute.snapshot.paramMap.get('listId'));
-
     this.presentService.getPresents(this.listId).subscribe((presents: Present[]) => {
       this.presents = presents;
     });

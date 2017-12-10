@@ -16,8 +16,12 @@
                 <mat-list-item *ngFor="let list of wishlists">
                     <p  routerLink="/user/wishlists/{{list.id}}/presents">Title: {{list.title}} Id: {{list.id}}</p>
         
-                    <button mat-mini-fab color="primary" class="deleteButton" (click)="removeList(list)">
+                    <button mat-mini-fab color="primary" class="button" (click)="removeList(list)">
                         <mat-icon>delete</mat-icon>
+                    </button>
+
+                    <button mat-mini-fab color="primary" class="button" (click)="openEditListDialog(list)">
+                            <mat-icon>build</mat-icon>
                     </button>
                 </mat-list-item>
             </mat-list>

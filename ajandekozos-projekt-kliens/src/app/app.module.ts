@@ -17,6 +17,7 @@ import { PresentsViewComponent } from './components/presents-view/presents-view.
 import { CommentsViewComponent } from './components/comments-view/comments-view.component';
 import { AddwishlistViewComponent } from './components/wishlist-view/addwishlist-view/addwishlist-view.component';
 import { AddpresentViewComponent } from './components/presents-view/addpresent-view/addpresent-view.component';
+import { EditWishlistDialogComponent } from './components/wishlist-view/edit-wishlist-dialog/edit-wishlist-dialog.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { AddpresentViewComponent } from './components/presents-view/addpresent-v
     PresentsViewComponent,
     CommentsViewComponent,
     AddwishlistViewComponent,
-    AddpresentViewComponent
+    AddpresentViewComponent,
+    EditWishlistDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -41,6 +43,7 @@ import { AddpresentViewComponent } from './components/presents-view/addpresent-v
     UiModule,
     HttpClientModule
   ],
+  entryComponents: [EditWishlistDialogComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,17 @@
+<form [formGroup]="form" (ngSubmit)="submit(form)">
+
+    <h1 mat-dialog-title>Edit Wishlist</h1>
+
+    <mat-dialog-content>
+      <mat-form-field>
+        <input matInput formControlName="title" placeholder="Edit title">
+      </mat-form-field>
+      <p>Current title: {{data.title}}</p>
+    </mat-dialog-content>
+
+    <mat-dialog-actions>
+      <button mat-button type="submit">Edit</button>
+      <button mat-button type="button" mat-dialog-close>Cancel</button>
+    </mat-dialog-actions>
+
+  </form>
