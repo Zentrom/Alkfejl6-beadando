@@ -20,7 +20,7 @@ export class WishlistService {
   }
 
   public deleteWishList(listId: number): Observable<any> {
-    return this.httpClient.delete(api + 'user/wishlists/' + listId);
+    return this.httpClient.delete(api + 'user/wishlists/' + listId, {responseType: 'text'});
   }
 
   public updateWishList(wishlist: WishList): Observable<WishList> {
@@ -36,7 +36,7 @@ export class WishlistService {
   }
 
   public adminDeleteUsersWishList(friendId: number, listId: number): Observable<any> {
-    return this.httpClient.delete(api + 'user/friends/' + friendId + '/wishlists/' + listId);
+    return this.httpClient.delete(api + 'user/friends/' + friendId + '/wishlists/' + listId, {responseType: 'text'});
   }
 
   public adminUpdateUsersWishList(friendId: number, wishlist: WishList): Observable<WishList> {

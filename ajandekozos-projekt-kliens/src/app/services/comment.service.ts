@@ -24,7 +24,7 @@ export class CommentService {
   }
 
   public deleteComment(friendId: number, friendListId: number, presentId: number, commentId: number): Observable<any> {
-    return this.httpClient.delete(api + 'user/friends/' + friendId + '/wishlists/' + friendListId + '/presents/' + presentId + '/comments/' + commentId);
+    return this.httpClient.delete(api + 'user/friends/' + friendId + '/wishlists/' + friendListId + '/presents/' + presentId + '/comments/' + commentId, {responseType: 'text'});
   }
 
   public readComment(friendId: number, friendListId: number, presentId: number, commentId: number): Observable<Comment> {

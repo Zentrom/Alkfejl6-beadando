@@ -21,7 +21,7 @@ export class PresentService {
   }
 
   public deletePresent(listId: number, presentId: number): Observable<any> {
-    return this.httpClient.delete(api + 'user/wishlists/' + listId + '/presents/' + presentId);
+    return this.httpClient.delete(api + 'user/wishlists/' + listId + '/presents/' + presentId, {responseType: 'text'});
   }
 
   public updatePresent(listId: number, present: Present): Observable<Present> {
@@ -49,7 +49,7 @@ export class PresentService {
   }
 
   public deleteUserPresent(friendId: number, listId: number, userListId: number): Observable<any> {
-    return this.httpClient.delete(api + 'user/friends/' + friendId + '/wishlists/' + listId + '/presents/' + userListId);
+    return this.httpClient.delete(api + 'user/friends/' + friendId + '/wishlists/' + listId + '/presents/' + userListId, {responseType: 'text'});
   }
 
 

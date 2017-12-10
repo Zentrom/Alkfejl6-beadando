@@ -1,17 +1,25 @@
+
 <app-addwishlist-view (createList)="addList($event)">
-</app-addwishlist-view>
-
-<mat-card class="wishlistview">
-    <mat-card-title>
-        <h3>Wishlists</h3>
-    </mat-card-title>
-
-    <mat-card-content>
-      <mat-list>
-          <mat-list-item *ngFor="let list of wishlists" routerLink="/user/wishlists/{{list.id}}/presents">
-            Title: {{list.title}} Id: {{list.id}}
-            <mat-icon class="deleteicon" (click)="removeList(list)">delete</mat-icon>
-          </mat-list-item>
-      </mat-list>
-    </mat-card-content>
-  </mat-card>
+    </app-addwishlist-view>
+        
+    <mat-card class="wishlistview">
+        <mat-card-title>
+            <h3>Wishlists</h3>
+        </mat-card-title>
+    
+        <div *ngIf="!wishlists">
+                <mat-spinner></mat-spinner>
+        </div>
+    
+        <mat-card-content>
+            <mat-list>
+                <mat-list-item *ngFor="let list of wishlists">
+                    <p  routerLink="/user/wishlists/{{list.id}}/presents">Title: {{list.title}} Id: {{list.id}}</p>
+        
+                    <button mat-mini-fab color="primary" class="deleteButton" (click)="removeList(list)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </mat-list-item>
+            </mat-list>
+        </mat-card-content>
+    </mat-card>

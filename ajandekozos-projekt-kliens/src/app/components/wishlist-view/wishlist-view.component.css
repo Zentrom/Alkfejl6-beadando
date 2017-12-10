@@ -2,3 +2,8 @@
     margin: 20px auto;
     width: 500px;
   }
+
+  .deleteButton {
+    float: right;
+    margin-left: 80px;
+  }
