@@ -96,9 +96,10 @@ public class UserService {
 
         //searchedUsers.forEach(user -> System.out.println(user.getFirstname() + " " + user.getLastname()));
 
-        List<User> filteredUsers = searchedUsers.stream().filter(x -> !alreadyFriends.contains(x)
-                && !x.getRole().equals(ADMIN)
-                && !alreadyRequested(x.getId())).collect(Collectors.toList());
+        List<User> filteredUsers = searchedUsers.stream().filter(user -> !alreadyFriends.contains(user)
+                && !user.getRole().equals(ADMIN)
+                && !user.equals(this.user)
+                && !alreadyRequested(user.getId())).collect(Collectors.toList());
 
         List<UserDTO> filteredUsersDTO = new LinkedList();
         filteredUsers.forEach(user -> filteredUsersDTO.add(new UserDTO(user.getId(), user.getFirstname(), user.getLastname())));

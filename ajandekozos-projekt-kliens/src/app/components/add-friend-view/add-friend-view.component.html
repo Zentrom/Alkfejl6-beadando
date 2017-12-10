@@ -1,32 +1,70 @@
+
+<mat-card class="searchfriendview">
+            <mat-card-title>
+                    <h3>Find friends</h3>
+            </mat-card-title>
+
+    <mat-card-content>
+            <mat-form-field>
+                <input matInput #firstname type="text" placeholder="Firstname" [(ngModel)]="firstnamevalue">
+                <button mat-button *ngIf="firstnamevalue" matSuffix mat-icon-button aria-label="Clear" (click)="firstnamevalue=''">
+                        <mat-icon>close</mat-icon>
+                </button>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput #lastname type="text" placeholder="Lastname" [(ngModel)]="lastnamevalue">
+                <button mat-button *ngIf="lastnamevalue" matSuffix mat-icon-button aria-label="Clear" (click)="lastnamevalue=''">
+                        <mat-icon>close</mat-icon>
+                </button>
+            </mat-form-field>
+            <br>
+            <button mat-raised-button color="primary"
+                (click)="searchUsers(firstname.value, lastname.value)">
+                Search
+            </button>
+        </mat-card-content>
+</mat-card>
+
 <mat-card class="addfriendview">
     <mat-card-title>
-        <h3>Find friends</h3>
+        <h3>Results</h3>
     </mat-card-title>
 
     <mat-card-content>
-        <mat-form-field>
-            <input matInput #firstname type="text" placeholder="Firstname" [(ngModel)]="firstnamevalue">
-            <button mat-button *ngIf="firstnamevalue" matSuffix mat-icon-button aria-label="Clear" (click)="firstnamevalue=''">
-                    <mat-icon>close</mat-icon>
-            </button>
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput #lastname type="text" placeholder="Lastname" [(ngModel)]="lastnamevalue">
-            <button mat-button *ngIf="lastnamevalue" matSuffix mat-icon-button aria-label="Clear" (click)="lastnamevalue=''">
-                    <mat-icon>close</mat-icon>
-            </button>
-        </mat-form-field>
-        <br>
-        <button mat-raised-button color="primary"
-            (click)="searchUsers(firstname.value, lastname.value)">
-            Search
-        </button>
+        <div *ngIf="!possibleFriends; else loaded">
+                <h4>Search users and send friendrequests!</h4>
+        </div>
 
+        <div *ngIf="possibleFriends?.length==0">
+                <h4>No results!</h4>
+        </div>
 
-        <mat-list>
-            <mat-list-item *ngFor="let user of possibleFriends">
-              {{user.firstname}} {{user.lastname}}
-            </mat-list-item>
-        </mat-list>
+        <ng-template #loaded>
+            <div class="container">
+                    <div class="col-md-12">
+                        <table class="table table-bordered table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th style="width:35%" class="text-center">Firstname</th>
+                            <th style="width:35%" class="text-center">Lastname</th>
+                            <th style="width:30%" class="text-center">&nbsp;</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let user of possibleFriends">
+                            <td>{{ user.firstname }}</td>
+                            <td>{{ user.lastname }}</td>
+                            <td>
+                            <button class="btn btn-info innerbtn">
+                                            Send request
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+        </ng-template>
+
     </mat-card-content>
 </mat-card>
