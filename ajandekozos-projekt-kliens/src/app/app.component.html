@@ -1,14 +1,23 @@
 <mat-toolbar color="primary">
-  Gifting app
-  <span class="left">
-      <button mat-button routerLink="/">Index</button>
-      <button *ngIf="authService.isLoggedIn()" mat-button routerLink="/user/wishlists">My wishlists</button>
-  </span>
-  <span class="right">
-      <button *ngIf="!authService.isLoggedIn()" mat-button routerLink="/login">Login</button>
-      <button *ngIf="!authService.isLoggedIn()" mat-button routerLink="/register">Register</button>
-      <button *ngIf="authService.isLoggedIn()" mat-button routerLink="/" (click)="authService.logout()">Logout</button>
-  </span>
+    Gifting app
+
+
+    <div *ngIf="!authService.isLoggedIn();else loggedIn">
+        <button mat-button routerLink="/">Index</button>
+        <span class="fillspace"></span>
+         <button mat-button routerLink="/login">Login</button>
+         <button mat-button routerLink="/register">Register</button>
+    </div>
+
+    <ng-template #loggedIn>
+            <button mat-button routerLink="/">Index</button>
+            <button mat-button routerLink="/user/wishlists">My wishlists</button>
+            <button mat-button routerLink="/user/newrequest">Add Friends</button>
+        <span class="fillspace"></span>
+        <button mat-button routerLink="/" (click)="authService.logout()">Logout</button>
+    </ng-template>
+
 </mat-toolbar>
+
 <router-outlet></router-outlet>
 

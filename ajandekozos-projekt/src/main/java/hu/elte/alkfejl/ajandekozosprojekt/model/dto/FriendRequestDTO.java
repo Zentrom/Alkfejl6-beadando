@@ -11,4 +11,7 @@ public class FriendRequestDTO {
     private String requesterName;
     private String requesteeName;
 
+/*    private UserDTO requester;
+    private UserDTO requestee;*/
+
 }

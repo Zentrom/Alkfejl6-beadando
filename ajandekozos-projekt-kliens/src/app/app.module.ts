@@ -18,7 +18,8 @@ import { CommentsViewComponent } from './components/comments-view/comments-view.
 import { AddwishlistViewComponent } from './components/wishlist-view/addwishlist-view/addwishlist-view.component';
 import { AddpresentViewComponent } from './components/presents-view/addpresent-view/addpresent-view.component';
 import { EditWishlistDialogComponent } from './components/wishlist-view/edit-wishlist-dialog/edit-wishlist-dialog.component';
-
+import { AddFriendViewComponent } from './components/add-friend-view/add-friend-view.component';
+import { EditPresentDialogComponent } from './components/presents-view/edit-present-dialog/edit-present-dialog.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,9 @@ import { EditWishlistDialogComponent } from './components/wishlist-view/edit-wis
     CommentsViewComponent,
     AddwishlistViewComponent,
     AddpresentViewComponent,
-    EditWishlistDialogComponent
+    EditWishlistDialogComponent,
+    AddFriendViewComponent,
+    EditPresentDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,10 @@ import { EditWishlistDialogComponent } from './components/wishlist-view/edit-wis
     UiModule,
     HttpClientModule
   ],
-  entryComponents: [EditWishlistDialogComponent],
+  entryComponents: [
+    EditWishlistDialogComponent,
+    EditPresentDialogComponent
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

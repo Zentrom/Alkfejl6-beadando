@@ -1,0 +1,32 @@
+<mat-card class="addfriendview">
+    <mat-card-title>
+        <h3>Find friends</h3>
+    </mat-card-title>
+
+    <mat-card-content>
+        <mat-form-field>
+            <input matInput #firstname type="text" placeholder="Firstname" [(ngModel)]="firstnamevalue">
+            <button mat-button *ngIf="firstnamevalue" matSuffix mat-icon-button aria-label="Clear" (click)="firstnamevalue=''">
+                    <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput #lastname type="text" placeholder="Lastname" [(ngModel)]="lastnamevalue">
+            <button mat-button *ngIf="lastnamevalue" matSuffix mat-icon-button aria-label="Clear" (click)="lastnamevalue=''">
+                    <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field>
+        <br>
+        <button mat-raised-button color="primary"
+            (click)="searchUsers(firstname.value, lastname.value)">
+            Search
+        </button>
+
+
+        <mat-list>
+            <mat-list-item *ngFor="let user of possibleFriends">
+              {{user.firstname}} {{user.lastname}}
+            </mat-list-item>
+        </mat-list>
+    </mat-card-content>
+</mat-card>

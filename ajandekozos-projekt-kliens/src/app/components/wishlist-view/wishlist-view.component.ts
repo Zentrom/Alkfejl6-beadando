@@ -55,8 +55,6 @@ export class WishlistViewComponent implements OnInit {
     });
   }
 
-
-
   ngOnInit() {
     this.wishlistService.getWishLists().subscribe((wishlists: WishList[]) => {
       this.wishlists = wishlists;

@@ -53,6 +53,7 @@ public class FriendRequestController {
     @GetMapping(ResourceConstants.SEARCH_USER_OR_CREATE_FRIENDREQUEST)
     public ResponseEntity<List<UserDTO>> listPossibleFriends(@RequestParam(name = "firstname") String firstName, @RequestParam(name = "lastname") String lastName) {
         List<UserDTO> searchedUsers = userService.findPossibleFriends(firstName, lastName);
+        searchedUsers.forEach(user -> System.out.println(user.getFirstname() + " " + user.getLastname()));
         return ResponseEntity.ok(searchedUsers);
     }
 

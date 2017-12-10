@@ -8,14 +8,15 @@
         <h3>Presents</h3>
     </mat-card-title>
 
-    <div *ngIf="!presents">
-            <mat-spinner></mat-spinner>
+    <div *ngIf="!presents; else loaded">
+        <mat-spinner></mat-spinner>
     </div>
 
     <mat-card-content>
+    <!-- 
       <mat-list>
           <mat-list-item *ngFor="let present of presents">
-            <p routerLink="/">Name: {{present.name}} Id: {{present.id}}</p>
+            <p>Name: {{present.name}} Id: {{present.id}}</p>
             
             <button mat-mini-fab color="primary" class="deleteButton" (click)="removePresent(present)">
                     <mat-icon>delete</mat-icon>
@@ -24,6 +25,46 @@
 
 
       </mat-list>
+        -->
+
+
+
+      <ng-template #loaded>
+            <div class="container">
+                    <div class="col-md-12">
+                        <table class="table table-bordered table-striped table-hover">
+                      <thead>
+                        <tr>
+                          <th style="width:40%" class="text-center">Name</th>
+                          <th style="width:20%" class="text-center">Price</th>
+                          <th style="width:20%" class="text-center">Link</th>
+                          <th style="width:10%" class="text-center">&nbsp;</th>
+                          <th style="width:10%" class="text-center">&nbsp;</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let present of presents">
+                          <td>{{ present.name }}</td>
+                          <td>{{ present.price }}</td>
+                          <td><button class="btn btn-info innerbtn" (click)="goToUrl(present.link)">Link</button></td>
+                          <td>
+                            <button class="btn btn-info innerbtn" (click)="openEditPresentDialog(present)">
+                                         <i class="fa fa-edit"></i>
+                                </button>
+                          </td>
+                          <td>
+                            <button class="btn btn-danger innerbtn"
+                                        (click)="removePresent(present)">
+                                         <i class="fa fa-times"></i>
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    </div>
+                </div>
+     </ng-template>
+
     </mat-card-content>
 
 </mat-card>

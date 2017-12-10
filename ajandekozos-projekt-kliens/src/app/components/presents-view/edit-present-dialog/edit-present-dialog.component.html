@@ -1,0 +1,27 @@
+<form [formGroup]="form" (ngSubmit)="submit(form)">
+    
+      <h1 mat-dialog-title>Edit Present</h1>
+  
+      <mat-dialog-content>
+        <mat-form-field>
+          <input matInput formControlName="name" placeholder="Edit name">
+        </mat-form-field>
+        <p>Current title: {{data.name}}</p>
+
+        <mat-form-field>
+            <input matInput formControlName="price" placeholder="Edit price" type="number">
+          </mat-form-field>
+          <p>Current price: {{data.price}}</p>
+
+          <mat-form-field>
+              <input matInput formControlName="link" placeholder="Edit link" type="url">
+            </mat-form-field>
+            <p>Current link: {{data.link}}</p>
+      </mat-dialog-content>
+  
+      <mat-dialog-actions>
+        <button mat-button type="submit">Edit</button>
+        <button mat-button type="button" mat-dialog-close>Cancel</button>
+      </mat-dialog-actions>
+    
+</form>

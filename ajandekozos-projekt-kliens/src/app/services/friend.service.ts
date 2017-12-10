@@ -5,7 +5,7 @@ import { api } from '../config/api';
 import { UserDTO } from '../model/userdto';
 
 @Injectable()
-export class UserService {
+export class FriendService {
 
   constructor(
     private httpClient: HttpClient

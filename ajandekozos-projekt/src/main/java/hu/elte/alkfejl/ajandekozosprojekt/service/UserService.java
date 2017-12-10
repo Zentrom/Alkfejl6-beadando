@@ -85,7 +85,7 @@ public class UserService {
     }
 
     private boolean alreadyRequested(int requesteeId) {
-        return friendRequestRepository.findByRequesteeIdAndRequesterId(requesteeId, user.getId()) != null;
+        return friendRequestRepository.findByRequesteeIdAndRequesterId(requesteeId, user.getId()) == null;
     }
 
     @Transactional
@@ -94,12 +94,14 @@ public class UserService {
         user = userRepository.findOne(user.getId());
         List<User> alreadyFriends = user.getFriends();
 
+        //searchedUsers.forEach(user -> System.out.println(user.getFirstname() + " " + user.getLastname()));
+
         List<User> filteredUsers = searchedUsers.stream().filter(x -> !alreadyFriends.contains(x)
                 && !x.getRole().equals(ADMIN)
                 && !alreadyRequested(x.getId())).collect(Collectors.toList());
 
         List<UserDTO> filteredUsersDTO = new LinkedList();
-        filteredUsers.stream().map(x -> filteredUsersDTO.add(new UserDTO(x.getId(), x.getFirstname(), x.getLastname())));
+        filteredUsers.forEach(user -> filteredUsersDTO.add(new UserDTO(user.getId(), user.getFirstname(), user.getLastname())));
 
         return filteredUsersDTO;
     }

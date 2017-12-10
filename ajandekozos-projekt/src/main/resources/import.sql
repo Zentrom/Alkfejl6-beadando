@@ -6,6 +6,7 @@ INSERT INTO USER (ID, VERSION, USERNAME, PASSWORD, FIRSTNAME, LASTNAME, EMAIL, R
 INSERT INTO USER (ID, VERSION, USERNAME, PASSWORD, FIRSTNAME, LASTNAME, EMAIL, ROLE) VALUES (5, 0, 'kosa', 'kosa', 'lajos', 'kosa', 'kosa@gmail.com', 'USER');
 INSERT INTO USER (ID, VERSION, USERNAME, PASSWORD, FIRSTNAME, LASTNAME, EMAIL, ROLE) VALUES (6, 0, 'javor', 'javor', 'erika', 'javor', 'javor@gmail.com', 'USER');
 INSERT INTO USER (ID, VERSION, USERNAME, PASSWORD, FIRSTNAME, LASTNAME, EMAIL, ROLE) VALUES (7, 0, 'nincsbaratteszt', 'nincslista', 'nofriends', 'nolists', 'nofriendsorlists@gmail.com', 'USER');
+INSERT INTO USER (ID, VERSION, USERNAME, PASSWORD, FIRSTNAME, LASTNAME, EMAIL, ROLE) VALUES (8, 0, 'nincsbaratteszt2', 'nincslista2', 'nofriends2', 'nolists2', 'nofriendsorlists2@gmail.com', 'USER');
 
 INSERT INTO FRIENDS (USER_ID, FRIEND_ID) VALUES (1, 2);
 INSERT INTO FRIENDS (USER_ID, FRIEND_ID) VALUES (1, 3);

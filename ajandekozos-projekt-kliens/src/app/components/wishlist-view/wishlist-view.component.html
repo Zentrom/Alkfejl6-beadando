@@ -1,17 +1,18 @@
 
 <app-addwishlist-view (createList)="addList($event)">
-    </app-addwishlist-view>
+</app-addwishlist-view>
         
     <mat-card class="wishlistview">
         <mat-card-title>
             <h3>Wishlists</h3>
         </mat-card-title>
     
-        <div *ngIf="!wishlists">
+        <div *ngIf="!wishlists; else loaded">
                 <mat-spinner></mat-spinner>
         </div>
-    
-        <mat-card-content>
+
+ 
+            <!-- 
             <mat-list>
                 <mat-list-item *ngFor="let list of wishlists">
                     <p  routerLink="/user/wishlists/{{list.id}}/presents">Title: {{list.title}} Id: {{list.id}}</p>
@@ -25,5 +26,50 @@
                     </button>
                 </mat-list-item>
             </mat-list>
+             -->
+        <mat-card-content> 
+            
+            <ng-template #loaded>
+                    <div class="container">
+                            <div class="col-md-12">
+                                <table class="table table-bordered table-striped table-hover">
+                              <thead>
+                                <tr>
+                                  <th style="width:10%" class="text-center">ID</th>
+                                  <th style="width:60%" class="text-center">Title</th>
+                                  <th style="width:10%" class="text-center">&nbsp;</th>
+                                  <th style="width:10%" class="text-center">&nbsp;</th>
+                                  <th style="width:10%" class="text-center">&nbsp;</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let list of wishlists">
+                                  <td>{{ list.id }}</td>
+                                  <td>{{ list.title }}</td>
+                                  <td>
+                                    <button class="btn btn-info innerbtn"
+                                                  (click)="openEditListDialog(list)">
+                                                 <i class="fa fa-edit"></i>
+                                        </button>
+                                  </td>
+                                  <td>
+                                    <button class="btn btn-danger innerbtn"
+                                                 (click)="removeList(list)">
+                                                 <i class="fa fa-times"></i>
+                                    </button>
+                                  </td>
+                                  <td>
+                                        <button class="btn btn-info innerbtn"
+                                            routerLink="/user/wishlists/{{list.id}}/presents">
+                                                     <i class="fa fa-chevron-right"></i>
+                                        </button>
+                                </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                            </div>
+                        </div>
+             </ng-template>
         </mat-card-content>
+
     </mat-card>
