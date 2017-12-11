@@ -85,7 +85,7 @@ public class UserService {
     }
 
     private boolean alreadyRequested(int requesteeId) {
-        return friendRequestRepository.findByRequesteeIdAndRequesterId(requesteeId, user.getId()) == null;
+        return friendRequestRepository.findByRequesteeIdAndRequesterId(requesteeId, user.getId()).isPresent();
     }
 
     @Transactional

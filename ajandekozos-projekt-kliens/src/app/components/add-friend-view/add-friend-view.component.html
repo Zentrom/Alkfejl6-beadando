@@ -45,17 +45,20 @@
                         <table class="table table-bordered table-striped table-hover">
                         <thead>
                         <tr>
-                            <th style="width:35%" class="text-center">Firstname</th>
-                            <th style="width:35%" class="text-center">Lastname</th>
+                            <th style="width:10%" class="text-center">Id</th>
+                            <th style="width:30%" class="text-center">Firstname</th>
+                            <th style="width:30%" class="text-center">Lastname</th>
                             <th style="width:30%" class="text-center">&nbsp;</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr *ngFor="let user of possibleFriends">
+                            <td>{{ user.id }}</td>
                             <td>{{ user.firstname }}</td>
                             <td>{{ user.lastname }}</td>
                             <td>
-                            <button class="btn btn-info innerbtn">
+                            <button class="btn btn-info innerbtn"
+                                        (click)="sendFriendRequest(user.id)">
                                             Send request
                                 </button>
                             </td>

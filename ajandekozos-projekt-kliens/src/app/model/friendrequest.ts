@@ -1,3 +1,5 @@
+import { UserDTO } from './userdto';
+
 export enum Status {
     PENDING, ACCEPTED, DECLINED
 }
@@ -5,10 +7,8 @@ export enum Status {
 export class FriendRequest {
     constructor(
         public id: number,
-        public requesterId: number,
-        public requesteeId: number,
-        public requesterName: string,
-        public requesteeName: string,
+        public requester: UserDTO,
+        public requestee: UserDTO,
         public status: Status
     ) {}
 }

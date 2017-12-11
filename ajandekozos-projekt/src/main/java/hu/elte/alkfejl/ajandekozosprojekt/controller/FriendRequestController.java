@@ -60,8 +60,8 @@ public class FriendRequestController {
 
     @Role(USER)
     @PostMapping(ResourceConstants.SEARCH_USER_OR_CREATE_FRIENDREQUEST)
-    public ResponseEntity<FriendRequestDTO> createFriendRequest(@RequestBody FriendRequestDTO friendRequestDTO) {
-        FriendRequestDTO saved = friendRequestService.create(friendRequestDTO.getRequesteeId(), userService.getUser());
+    public ResponseEntity<FriendRequestDTO> createFriendRequest(@RequestBody int requesteeId) {
+        FriendRequestDTO saved = friendRequestService.create(requesteeId, userService.getUser());
         return ResponseEntity.ok(saved);
     }
 
