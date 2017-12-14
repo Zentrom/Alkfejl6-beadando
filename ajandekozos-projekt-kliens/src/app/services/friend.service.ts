@@ -11,7 +11,7 @@ export class FriendService {
     private httpClient: HttpClient
   ) {}
 
-  public getFriends(): Observable<UserDTO[]> {
+  public listFriends(): Observable<UserDTO[]> {
     return this.httpClient.get<UserDTO[]>(api + 'user/friends');
   }
 

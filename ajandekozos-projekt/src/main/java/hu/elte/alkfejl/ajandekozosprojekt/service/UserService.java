@@ -71,14 +71,22 @@ public class UserService {
 
     public List<UserDTO> listFriends() {
         user = userRepository.findOne(user.getId());
+      
         List<UserDTO> friendsDTO = new LinkedList();
 
         if (ADMIN.equals(user.getRole())) {
             List<User> users = (List) userRepository.findAll();
             users.remove(user);
-            users.stream().map(x -> friendsDTO.add(new UserDTO(x.getId(), x.getFirstname(), x.getLastname())));
+            //users.stream().map(x -> friendsDTO.add(new UserDTO(x.getId(), x.getFirstname(), x.getLastname())));
+            friendsDTO=users.stream().map(x ->(new UserDTO(x.getId(), x.getFirstname(), x.getLastname()))).collect(Collectors.toList());
         } else {
-            user.getFriends().stream().map(x -> friendsDTO.add(new UserDTO(x.getId(), x.getFirstname(), x.getLastname())));
+            //user.getFriends().stream().map(x -> friendsDTO.add(new UserDTO(x.getId(), x.getFirstname(), x.getLastname())));
+            friendsDTO=user.getFriends().stream().map(x -> (new UserDTO(x.getId(), x.getFirstname(), x.getLastname()))).collect(Collectors.toList());
+            /*System.out.println("vlmi");
+            for(UserDTO cucc : friendsDTO){
+                System.out.println("vlmi");
+                System.out.println(cucc.getFirstname());
+            }*/
         }
 
         return friendsDTO;

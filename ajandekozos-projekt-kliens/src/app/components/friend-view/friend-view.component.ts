@@ -17,7 +17,7 @@ export class FriendViewComponent implements OnInit {
   ) {}
 
   public searchUsers(firstname: string, lastname: string): void {
-    this.friendService.getFriends().subscribe((filteredUsers: UserDTO[]) => {
+    this.friendService.listFriends().subscribe((filteredUsers: UserDTO[]) => {
       this.possibleFriends = filteredUsers;
       filteredUsers.forEach(user => {
         console.log(user.firstname + " " + user.lastname);
