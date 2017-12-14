@@ -46,7 +46,11 @@ public class UserController {
 
     @PostMapping(ResourceConstants.USER_REGISTER)
     public ResponseEntity<User> register(@RequestBody User user) {
-        return ResponseEntity.ok(userService.register(user));
+        try {
+            return ResponseEntity.ok(userService.register(user));
+        } catch (UserNotValidException e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @Role({ADMIN, USER})

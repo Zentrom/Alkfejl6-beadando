@@ -6,6 +6,7 @@ export class BreadcrumbService {
   public listId: number;
   public presentName: string;
   public presentId: number;
+  public userName: string;
 
   constructor() { }
 

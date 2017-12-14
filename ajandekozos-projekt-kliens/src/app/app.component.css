@@ -2,3 +2,10 @@
   flex: 1 1 auto;
 }
 
+.active {
+  color: #EF5350;
+}
+
+mat-button {
+  text-decoration: none;
+}
