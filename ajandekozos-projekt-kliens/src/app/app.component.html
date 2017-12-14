@@ -11,9 +11,9 @@
 
     <ng-template #loggedIn>
             <button mat-button routerLink="/"  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Index</button>
-            <button mat-button routerLink="/user/wishlists">My Wishlists</button>
-            <button mat-button routerLink="/user/friends">My Friends</button>
-            <button mat-button routerLink="/user/newrequest">Add Friends</button>
+            <button mat-button routerLink="/user/wishlists" routerLinkActive="active">My Wishlists</button>
+            <button mat-button routerLink="/user/friends" routerLinkActive="active">My Friends</button>
+            <button mat-button routerLink="/user/newrequest" routerLinkActive="active">Add Friends</button>
         <span class="fillspace"></span>
         <button mat-button routerLink="/" (click)="authService.logout()">Logout</button>
     </ng-template>

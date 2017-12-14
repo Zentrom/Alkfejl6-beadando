@@ -16,7 +16,7 @@ export class FriendService {
   }
 
   public deleteFriendOrUser(userId: number): Observable<any> {
-    return this.httpClient.delete(api + 'user/friends/' + userId);
+    return this.httpClient.delete(api + 'user/friends/' + userId, {responseType: 'text'});
   }
 
 }

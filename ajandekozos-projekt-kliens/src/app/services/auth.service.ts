@@ -41,7 +41,7 @@ export class AuthService {
   public logout(): void {
     this.http.get(api + 'user/logout', {responseType: 'text'}).subscribe(() => {
       AuthService.user = null;
-      this.router.navigate(['/']);
+      this.router.navigate(['']);
     });
   }
 
