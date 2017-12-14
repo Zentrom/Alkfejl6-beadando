@@ -21,6 +21,7 @@ import { EditWishlistDialogComponent } from './components/wishlist-view/edit-wis
 import { AddFriendViewComponent } from './components/add-friend-view/add-friend-view.component';
 import { EditPresentDialogComponent } from './components/presents-view/edit-present-dialog/edit-present-dialog.component';
 import { BreadcrumbService } from './services/breadcrumb.service';
+import { FriendViewComponent } from './components/friend-view/friend-view.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { BreadcrumbService } from './services/breadcrumb.service';
     EditWishlistDialogComponent,
     AddFriendViewComponent,
     EditPresentDialogComponent,
+    FriendViewComponent,
   ],
   imports: [
     BrowserModule,

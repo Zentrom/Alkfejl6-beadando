@@ -7,6 +7,7 @@ import { IndexViewComponent} from '../../components/index-view/index-view.compon
 import { WishlistViewComponent} from '../../components/wishlist-view/wishlist-view.component';
 import { PresentsViewComponent} from '../../components/presents-view/presents-view.component';
 import { AddFriendViewComponent } from '../../components/add-friend-view/add-friend-view.component';
+import { FriendViewComponent} from '../../components/friend-view/friend-view.component';
 
  const appRoutes: Routes = [
   { path: '', component: IndexViewComponent },
@@ -14,6 +15,7 @@ import { AddFriendViewComponent } from '../../components/add-friend-view/add-fri
   { path: 'register', component: RegisterViewComponent },
   { path: 'user/wishlists', component: WishlistViewComponent },
   { path: 'user/wishlists/:listId/presents', component: PresentsViewComponent },
+  { path: 'user/friends', component: FriendViewComponent },
   { path: 'user/newrequest', component: AddFriendViewComponent },
 ];
 
