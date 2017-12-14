@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import {MatSnackBar} from '@angular/material';
 
 import { UserDTO } from '../../model/userdto';
 import { FriendrequestService } from '../../services/friendrequest.service';
+import { FriendRequest } from '../../model/friendrequest';
 
 @Component({
   selector: 'app-add-friend-view',
@@ -14,7 +16,20 @@ export class AddFriendViewComponent implements OnInit {
 
   constructor(
     private friendrequestService: FriendrequestService,
+    public snackBar: MatSnackBar
   ) {}
+
+  public sendFriendRequest(requestee: UserDTO): void {
+    this.friendrequestService.createFriendRequest(requestee.id).subscribe((newFriendRequest: FriendRequest) => {
+        //this.possibleFriends.filter(user => user.id !== requesteeId);
+        var index = this.possibleFriends.indexOf(requestee);
+        this.possibleFriends.splice(index, 1);  
+    });
+
+    this.snackBar.open('Request sent to: ' + requestee.firstname + ' ' + requestee.lastname, 'Dismiss', {
+      duration: 3000
+    });
+  }
 
   public searchUsers(firstname: string, lastname: string): void {
     this.friendrequestService.listPossibleFriends(firstname, lastname).subscribe((filteredUsers: UserDTO[]) => {

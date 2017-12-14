@@ -54,9 +54,16 @@
                         <tr *ngFor="let present of presents">
                           <td>{{ present.name }}</td>
                           <td>{{ present.price }} Ft</td>
-                          <td><button class="btn btn-info innerbtn" (click)="goToUrl(present.link)">Link</button></td>
                           <td>
-                            <button class="btn btn-info innerbtn" (click)="openEditPresentDialog(present)">
+                            <div *ngIf="present.link;else hasLink">
+                            <button class="btn btn-primary innerbtn" (click)="goToUrl(present.link)">Link</button>
+                            </div>
+                            <ng-template #hasLink>
+                              <button class="btn btn-danger innerbtn">Link</button>
+                            </ng-template>
+                          </td>
+                          <td>
+                            <button class="btn btn-warning innerbtn" (click)="openEditPresentDialog(present)">
                                          <i class="fa fa-edit"></i>
                                 </button>
                           </td>

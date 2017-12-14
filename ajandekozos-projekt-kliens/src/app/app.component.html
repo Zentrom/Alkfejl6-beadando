@@ -3,14 +3,14 @@
 
 
     <div *ngIf="!authService.isLoggedIn();else loggedIn">
-        <button mat-button routerLink="/">Index</button>
+        <button mat-button routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Index</button>
         <span class="fillspace"></span>
-         <button mat-button routerLink="/login">Login</button>
-         <button mat-button routerLink="/register">Register</button>
+         <button mat-button routerLink="/login"  routerLinkActive="active">Login</button>
+         <button mat-button routerLink="/register"  routerLinkActive="active">Register</button>
     </div>
 
     <ng-template #loggedIn>
-            <button mat-button routerLink="/">Index</button>
+            <button mat-button routerLink="/"  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Index</button>
             <button mat-button routerLink="/user/wishlists">My Wishlists</button>
             <button mat-button routerLink="/user/friends">My Friends</button>
             <button mat-button routerLink="/user/newrequest">Add Friends</button>

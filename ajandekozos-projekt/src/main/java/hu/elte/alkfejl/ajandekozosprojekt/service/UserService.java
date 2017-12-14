@@ -53,7 +53,10 @@ public class UserService {
         }
     }
 
-    public User register(User user) {
+    public User register(User user) throws UserNotValidException {
+        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
+            throw new UserNotValidException();
+        }
         user.setRole(USER);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         this.user = userRepository.save(user);
@@ -77,23 +80,16 @@ public class UserService {
         if (ADMIN.equals(user.getRole())) {
             List<User> users = (List) userRepository.findAll();
             users.remove(user);
-            //users.stream().map(x -> friendsDTO.add(new UserDTO(x.getId(), x.getFirstname(), x.getLastname())));
-            friendsDTO=users.stream().map(x ->(new UserDTO(x.getId(), x.getFirstname(), x.getLastname()))).collect(Collectors.toList());
+            users.stream().forEach(x -> friendsDTO.add(new UserDTO(x.getId(), x.getFirstname(), x.getLastname())));
         } else {
-            //user.getFriends().stream().map(x -> friendsDTO.add(new UserDTO(x.getId(), x.getFirstname(), x.getLastname())));
-            friendsDTO=user.getFriends().stream().map(x -> (new UserDTO(x.getId(), x.getFirstname(), x.getLastname()))).collect(Collectors.toList());
-            /*System.out.println("vlmi");
-            for(UserDTO cucc : friendsDTO){
-                System.out.println("vlmi");
-                System.out.println(cucc.getFirstname());
-            }*/
+            user.getFriends().stream().forEach(x -> friendsDTO.add(new UserDTO(x.getId(), x.getFirstname(), x.getLastname())));
         }
 
         return friendsDTO;
     }
 
     private boolean alreadyRequested(int requesteeId) {
-        return friendRequestRepository.findByRequesteeIdAndRequesterId(requesteeId, user.getId()) == null;
+        return friendRequestRepository.findByRequesteeIdAndRequesterId(requesteeId, user.getId()).isPresent();
     }
 
     @Transactional

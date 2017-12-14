@@ -29,8 +29,8 @@ export class FriendrequestService {
     return this.httpClient.get<UserDTO[]>(api + 'user/newrequest', {params: {firstname, lastname}});
   }
 
-  public createFriendRequest(friendRequest: FriendRequest): Observable<FriendRequest> {
-    return this.httpClient.post<FriendRequest>(api + 'user/newrequest', friendRequest);
+  public createFriendRequest(requesteeId: number): Observable<FriendRequest> {
+    return this.httpClient.post<FriendRequest>(api + 'user/newrequest', requesteeId);
   }
 
 }
