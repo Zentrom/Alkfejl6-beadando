@@ -34,7 +34,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
             return true;
         }
         // check role
-        if (userService.isLoggedIn() && routeRoles.contains(user.getRole())) {
+        if (user != null && routeRoles.contains(user.getRole())) {
             return true;
         }
         response.setStatus(401);

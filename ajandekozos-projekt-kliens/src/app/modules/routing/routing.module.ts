@@ -9,26 +9,34 @@ import { PresentsViewComponent} from '../../components/presents-view/presents-vi
 import { AddFriendViewComponent } from '../../components/add-friend-view/add-friend-view.component';
 import { FriendViewComponent} from '../../components/friend-view/friend-view.component';
 import { IncomingRequestsViewComponent} from '../../components/incoming-requests-view/incoming-requests-view.component';
+import { AuthService } from '../../services/auth.service';
+import { RouteGuardService } from '../../services/route-guard.service';
 
  const appRoutes: Routes = [
-  { path: '', component: IndexViewComponent },
-  { path: 'login', component: LoginViewComponent },
-  { path: 'register', component: RegisterViewComponent },
-  { path: 'user/wishlists', component: WishlistViewComponent },
-  { path: 'user/wishlists/:listId/presents', component: PresentsViewComponent },
-  { path: 'user/friends', component: FriendViewComponent },
-  { path: 'user/newrequest', component: AddFriendViewComponent },
-  { path: 'user/friendrequests', component: IncomingRequestsViewComponent },
+  { path: '',
+      canActivateChild: [RouteGuardService], 
+      children: [
+        { path: '', component: IndexViewComponent},
+        { path: 'login', component: LoginViewComponent },
+        { path: 'register', component: RegisterViewComponent },
+        { path: 'user/wishlists', component: WishlistViewComponent, data: { roles: ['USER', 'ADMIN'] }},
+        { path: 'user/wishlists/:listId/presents', component: PresentsViewComponent, data: { roles: ['USER', 'ADMIN'] } },
+        { path: 'user/friends', component: FriendViewComponent, data: { roles: ['USER', 'ADMIN'] } },
+        { path: 'user/newrequest', component: AddFriendViewComponent, data: { roles: ['USER', 'ADMIN'] } },
+        { path: 'user/friendrequests', component: IncomingRequestsViewComponent, data: { roles: ['USER', 'ADMIN'] } },
+        { path: '**', component: IndexViewComponent }
+      ]}
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes, { useHash: true })
   ],
   exports: [
     RouterModule
   ],
-  declarations: []
+  declarations: [],
+  providers: [RouteGuardService, AuthService]
 })
 
 export class RoutingModule { }

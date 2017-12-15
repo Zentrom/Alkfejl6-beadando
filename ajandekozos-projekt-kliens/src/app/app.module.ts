@@ -5,10 +5,9 @@ import {RouterModule} from '@angular/router'
 import { HttpClientModule } from '@angular/common/http'; 
 import {AppComponent} from './app.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {HttpModule} from "@angular/http";
+
 import { RoutingModule} from './modules/routing/routing.module';
 import { UiModule} from "./modules/ui/ui.module";
-
 import { LoginViewComponent } from './components/login-view/login-view.component';
 import { RegisterViewComponent } from './components/register-view/register-view.component';
 import { IndexViewComponent } from './components/index-view/index-view.component';
@@ -45,7 +44,6 @@ import { IncomingRequestsViewComponent } from './components/incoming-requests-vi
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule,
     RoutingModule,
     BrowserAnimationsModule,
     UiModule,

@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 @Injectable()
 export class AuthService {
   private static user: User = null;
+  public isAdmin: boolean = false;
+  public userFullName: string;
 
   constructor(
     private http: HttpClient,
@@ -19,6 +21,7 @@ export class AuthService {
     this.http.post(api + '/login', { username, password }).subscribe((user) => {
       AuthService.user = user as User;
       result.next(true);
+      
     }, (error) => {
       AuthService.user = null as User;
       result.next(false);
@@ -50,7 +53,7 @@ export class AuthService {
   }
 
   public syncLoginStatus(): void {
-    this.http.get(api).subscribe((user) => {
+    this.http.get(api + 'user').subscribe((user) => {
       if (user) {
         AuthService.user = user as User;
       } else {

@@ -25,14 +25,13 @@ public class UserController {
         this.userService = userService;
     }
 
-    // TODO kellenek ide a Role-ok?
-    @Role({ADMIN, USER})
     @GetMapping(ResourceConstants.USER)
-    public ResponseEntity<User> user() {
+    public ResponseEntity getUser() {
         if (userService.isLoggedIn()) {
             return ResponseEntity.ok(userService.getUser());
+        } else {
+            return ResponseEntity.ok(false);
         }
-        return ResponseEntity.badRequest().build();
     }
 
     @PostMapping(ResourceConstants.USER_LOGIN)
@@ -40,8 +39,8 @@ public class UserController {
         try {
             return ResponseEntity.ok(userService.login(user));
         } catch (UserNotValidException e) {
-            return ResponseEntity.badRequest().build();
-    }
+            return ResponseEntity.status(403).build();
+        }
     }
 
     @PostMapping(ResourceConstants.USER_REGISTER)
@@ -49,7 +48,7 @@ public class UserController {
         try {
             return ResponseEntity.ok(userService.register(user));
         } catch (UserNotValidException e) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.status(403).build();
         }
     }
 
