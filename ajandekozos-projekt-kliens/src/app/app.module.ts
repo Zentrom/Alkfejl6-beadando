@@ -22,6 +22,7 @@ import { AddFriendViewComponent } from './components/add-friend-view/add-friend-
 import { EditPresentDialogComponent } from './components/presents-view/edit-present-dialog/edit-present-dialog.component';
 import { BreadcrumbService } from './services/breadcrumb.service';
 import { FriendViewComponent } from './components/friend-view/friend-view.component';
+import { IncomingRequestsViewComponent } from './components/incoming-requests-view/incoming-requests-view.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { FriendViewComponent } from './components/friend-view/friend-view.compon
     AddFriendViewComponent,
     EditPresentDialogComponent,
     FriendViewComponent,
+    IncomingRequestsViewComponent,
   ],
   imports: [
     BrowserModule,

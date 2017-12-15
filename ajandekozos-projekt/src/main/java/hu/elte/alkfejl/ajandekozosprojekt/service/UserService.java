@@ -43,8 +43,6 @@ public class UserService {
     public User login(User user) throws UserNotValidException {
         Optional<User> dbUser = userRepository.findByUsername(user.getUsername());
 
-        System.out.println(passwordEncoder.encode(user.getPassword()));
-
         if(dbUser.isPresent() && passwordEncoder.matches(user.getPassword(), dbUser.get().getPassword())) {
             this.user = dbUser.get();
             return this.user;
@@ -97,8 +95,6 @@ public class UserService {
         List<User> searchedUsers = userRepository.findAllByFirstnameContainingAndLastnameContaining(firstName, lastName);
         user = userRepository.findOne(user.getId());
         List<User> alreadyFriends = user.getFriends();
-
-        //searchedUsers.forEach(user -> System.out.println(user.getFirstname() + " " + user.getLastname()));
 
         List<User> filteredUsers = searchedUsers.stream().filter(user -> !alreadyFriends.contains(user)
                 && !user.getRole().equals(ADMIN)

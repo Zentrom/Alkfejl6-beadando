@@ -8,10 +8,6 @@
     width: 750px;
   }
 
-  mat-spinner {
-    margin: 0 auto;
-  }
- 
  .container {
    max-width: 100%; 
    display: block;
@@ -26,3 +22,7 @@
    margin:auto;
    display:block;
  }
+
+ #showall {
+  margin-left: 10px;
+}

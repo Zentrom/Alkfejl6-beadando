@@ -13,6 +13,7 @@ import {
   MatIconModule, 
   MatProgressSpinnerModule,
   MatDialogModule,
+  MatTabsModule
 } from '@angular/material';
 import {CdkTableModule} from '@angular/cdk/table';
 import {NgModule} from "@angular/core";
@@ -21,12 +22,12 @@ import {NgModule} from "@angular/core";
   imports: [MatFormFieldModule, MatInputModule, MatButtonModule, 
     MatToolbarModule, MatTableModule, MatSelectModule, MatTooltipModule, 
     CdkTableModule, MatCardModule, MatListModule, MatRadioModule,MatSnackBarModule,MatIconModule,
-    MatProgressSpinnerModule, MatDialogModule
+    MatProgressSpinnerModule, MatDialogModule, MatTabsModule
   ],
   exports: [MatFormFieldModule, MatInputModule, MatButtonModule,
     MatToolbarModule, MatTableModule, MatSelectModule, MatTooltipModule, 
     CdkTableModule, MatCardModule, MatListModule, MatRadioModule,MatSnackBarModule,MatIconModule,
-    MatProgressSpinnerModule, MatDialogModule
+    MatProgressSpinnerModule, MatDialogModule, MatTabsModule
   ]
 })
 export class UiModule {

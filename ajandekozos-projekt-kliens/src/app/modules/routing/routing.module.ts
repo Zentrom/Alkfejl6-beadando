@@ -8,6 +8,7 @@ import { WishlistViewComponent} from '../../components/wishlist-view/wishlist-vi
 import { PresentsViewComponent} from '../../components/presents-view/presents-view.component';
 import { AddFriendViewComponent } from '../../components/add-friend-view/add-friend-view.component';
 import { FriendViewComponent} from '../../components/friend-view/friend-view.component';
+import { IncomingRequestsViewComponent} from '../../components/incoming-requests-view/incoming-requests-view.component';
 
  const appRoutes: Routes = [
   { path: '', component: IndexViewComponent },
@@ -17,6 +18,7 @@ import { FriendViewComponent} from '../../components/friend-view/friend-view.com
   { path: 'user/wishlists/:listId/presents', component: PresentsViewComponent },
   { path: 'user/friends', component: FriendViewComponent },
   { path: 'user/newrequest', component: AddFriendViewComponent },
+  { path: 'user/friendrequests', component: IncomingRequestsViewComponent },
 ];
 
 @NgModule({

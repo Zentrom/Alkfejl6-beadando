@@ -13,6 +13,7 @@ import { FriendRequest } from '../../model/friendrequest';
 })
 export class AddFriendViewComponent implements OnInit {
   private possibleFriends: UserDTO[];
+  private error: string;
 
   constructor(
     private friendrequestService: FriendrequestService,
@@ -21,7 +22,6 @@ export class AddFriendViewComponent implements OnInit {
 
   public sendFriendRequest(requestee: UserDTO): void {
     this.friendrequestService.createFriendRequest(requestee.id).subscribe((newFriendRequest: FriendRequest) => {
-        //this.possibleFriends.filter(user => user.id !== requesteeId);
         var index = this.possibleFriends.indexOf(requestee);
         this.possibleFriends.splice(index, 1);  
     });
@@ -31,13 +31,18 @@ export class AddFriendViewComponent implements OnInit {
     });
   }
 
-  public searchUsers(firstname: string, lastname: string): void {
-    this.friendrequestService.listPossibleFriends(firstname, lastname).subscribe((filteredUsers: UserDTO[]) => {
-      this.possibleFriends = filteredUsers;
-      filteredUsers.forEach(user => {
-        console.log(user.firstname + " " + user.lastname);
+  public searchUsers(showall: boolean = false, firstname: string = "", lastname: string = ""): void {
+    if ( !firstname.trim() && !lastname.trim() && !showall ) {
+      this.error = "Please enter something!";
+    } else {
+      this.error = "";
+      this.friendrequestService.listPossibleFriends(firstname, lastname).subscribe((filteredUsers: UserDTO[]) => {
+        this.possibleFriends = filteredUsers;
+        //filteredUsers.forEach(user => {
+        //  console.log(user.firstname + " " + user.lastname);
+        //});
       });
-    });
+    }
   }
 
   ngOnInit() {

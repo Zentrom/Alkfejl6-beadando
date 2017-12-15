@@ -41,14 +41,6 @@ public class FriendRequestController {
         return ResponseEntity.ok().build();
     }
 
-    // TODO kell ez a metódus?
-    @Role(USER)
-    @GetMapping(ResourceConstants.FRIEND_REQUESTID)
-    public ResponseEntity<FriendRequestDTO> readRequest(@PathVariable int friendRequestId) {
-        FriendRequestDTO found = friendRequestService.findById(friendRequestId);
-        return ResponseEntity.ok(found);
-    }
-
     @Role(USER)
     @GetMapping(ResourceConstants.SEARCH_USER_OR_CREATE_FRIENDREQUEST)
     public ResponseEntity<List<UserDTO>> listPossibleFriends(@RequestParam(name = "firstname") String firstName, @RequestParam(name = "lastname") String lastName) {
