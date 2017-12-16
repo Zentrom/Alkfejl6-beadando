@@ -19,7 +19,8 @@
             <div class="container">
                     <div class="col-md-12">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a routerLink="/user/wishlists"><i class="fa fa-arrow-left" aria-hidden="true"></i> Wishlists</a></li>
+                            <li class="breadcrumb-item"><a routerLink="/user/friends"><i class="fa fa-arrow-left" aria-hidden="true"></i> Friends</a></li>
+                            <li class="breadcrumb-item"><a routerLink="/user/friends/{{breadCrumbService.listId}}/wishlists"><i class="fa fa-arrow-left" aria-hidden="true"></i>{{breadCrumbService.friendName}}</a></li>
                             <li class="breadcrumb-item active">{{breadCrumbService.listTitle}}</li>
                           </ol>
 

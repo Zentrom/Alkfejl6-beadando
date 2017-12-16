@@ -7,6 +7,7 @@ export class BreadcrumbService {
   public presentName: string;
   public presentId: number;
   public userName: string;
+  public friendName: string;
 
   constructor(
 

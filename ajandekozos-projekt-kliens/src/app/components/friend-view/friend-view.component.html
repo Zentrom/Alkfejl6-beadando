@@ -63,7 +63,7 @@
                              <td>
                                 <button class="btn btn-info innerbtn"
                                 routerLink="/user/friends/{{user.id}}/wishlists"
-                                (click)="friendWishlist(user.id)">
+                                (click)="setBreadcrumbs(user.firstname, user.lastname)">
                                          View Wishlists
                                 </button>
                              </td>

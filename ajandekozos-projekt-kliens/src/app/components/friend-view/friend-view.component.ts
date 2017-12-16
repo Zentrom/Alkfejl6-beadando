@@ -4,6 +4,7 @@ import { UserDTO } from '../../model/userdto';
 import { FriendService } from '../../services/friend.service';
 import { WishlistService } from '../../services/wishlist.service';
 import { WishList } from '../../model/wishlist';
+import { BreadcrumbService } from '../../services/breadcrumb.service';
 
 @Component({
   selector: 'app-friend-view',
@@ -18,7 +19,8 @@ export class FriendViewComponent implements OnInit {
 
   constructor(
     private friendService: FriendService,
-    private wishlistService: WishlistService
+    private wishlistService: WishlistService,
+    private breadCrumbService: BreadcrumbService
   ) {}
 
   /*public searchUsers(firstname: string, lastname: string): void {
@@ -51,10 +53,10 @@ export class FriendViewComponent implements OnInit {
     });
   }
 
-  public friendWishlist(userId: number): void {
-      this.wishlistService.listFriendsLists(userId).subscribe((friendsLists: WishList[]) =>{
-        //this.wishlists= friendsLists; NEMJOMÁSCOMPONENTKELL
-      });
+  public setBreadcrumbs(firstname: string, lastname: string): void {
+    this.breadCrumbService.friendName = firstname + " " + lastname;
+    console.log("BENT VAGYOk");
+    console.log(this.breadCrumbService.friendName);
   }
 
   ngOnInit() {

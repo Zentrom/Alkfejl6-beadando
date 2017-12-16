@@ -75,8 +75,7 @@ export class FriendWishlistViewComponent implements OnInit {
     
     this.wishlistService.listFriendsLists(this.userId).subscribe((friendsLists: WishList[]) =>{
       this.wishlists = friendsLists;
-    });
-    
+    });    
   }
   
 }
