@@ -10,6 +10,6 @@ public class CommentDTO {
     private int id;
     private String text;
     private Date timeStamp;
-    private String authorName;
+    private UserDTO author;
 
 }

@@ -1,10 +1,10 @@
-import { User } from './user';
+import { UserDTO } from './userdto';
 
 export class Comment {
     constructor(
         public id: number,
         public text: string,
         public timeStamp: Date,
-        public authorName: string
+        public author: UserDTO
     ) {}
 }

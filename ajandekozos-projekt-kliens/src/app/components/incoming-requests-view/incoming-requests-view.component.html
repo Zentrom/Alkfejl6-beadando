@@ -62,7 +62,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let request of filteredRequests">
+                <tr *ngFor="let request of filteredRequests | paginate: { itemsPerPage: 5, currentPage: p }">
                     <td>{{ request.id }}</td>
                     <td>{{ request.requester.firstname }}</td>
                     <td>{{ request.requester.lastname }}</td>
@@ -83,6 +83,7 @@
             </table>
             </div>
     </div>
+    <pagination-controls (pageChange)="p =$event"></pagination-controls>
     </div>
 
 </mat-card-content>

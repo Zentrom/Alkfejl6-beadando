@@ -31,7 +31,7 @@ export class WishlistService {
     return this.httpClient.get<WishList>(api + 'user/wishlists/' + wishlistId);
   }
 
-  public listFriendsLists(friendId: number): Observable<WishList[]> {
+  public listFriendsOrUsersLists(friendId: number): Observable<WishList[]> {
     return this.httpClient.get<WishList[]>(api + 'user/friends/' + friendId + '/wishlists');
   }
 

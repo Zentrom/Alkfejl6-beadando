@@ -57,7 +57,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let user of possibleFriends">
+                        <tr *ngFor="let user of possibleFriends | paginate: { itemsPerPage: 5, currentPage: p }">
                             <td>{{ user.id }}</td>
                             <td>{{ user.firstname }}</td>
                             <td>{{ user.lastname }}</td>
@@ -72,6 +72,7 @@
                     </table>
                     </div>
                 </div>
+            <pagination-controls (pageChange)="p =$event"></pagination-controls>
         </div>
 
     </mat-card-content>

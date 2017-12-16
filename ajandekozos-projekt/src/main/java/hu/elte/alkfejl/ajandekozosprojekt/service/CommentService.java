@@ -4,6 +4,7 @@ import hu.elte.alkfejl.ajandekozosprojekt.model.Comment;
 import hu.elte.alkfejl.ajandekozosprojekt.model.Present;
 import hu.elte.alkfejl.ajandekozosprojekt.model.User;
 import hu.elte.alkfejl.ajandekozosprojekt.model.dto.CommentDTO;
+import hu.elte.alkfejl.ajandekozosprojekt.model.dto.UserDTO;
 import hu.elte.alkfejl.ajandekozosprojekt.repository.CommentRepository;
 import hu.elte.alkfejl.ajandekozosprojekt.repository.PresentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class CommentService {
             commentDTO.setId(comment.getId());
             commentDTO.setText(comment.getText());
             commentDTO.setTimeStamp(comment.getTimestamp());
-            commentDTO.setAuthorName(comment.getUser().getFirstname() + " " + comment.getUser().getLastname());
+            commentDTO.setAuthor(new UserDTO(comment.getUser().getId(), comment.getUser().getFirstname(), comment.getUser().getLastname()));
 
             commentsDTO.add(commentDTO);
         }
@@ -55,7 +56,7 @@ public class CommentService {
         foundDTO.setId(found.getId());
         foundDTO.setText(found.getText());
         foundDTO.setTimeStamp(found.getTimestamp());
-        foundDTO.setAuthorName(found.getUser().getFirstname() + " " + found.getUser().getLastname());
+        foundDTO.setAuthor(new UserDTO(found.getUser().getId(), found.getUser().getFirstname(), found.getUser().getLastname()));
 
         return foundDTO;
     }
@@ -82,7 +83,7 @@ public class CommentService {
         savedDTO.setId(saved.getId());
         savedDTO.setText(saved.getText());
         savedDTO.setTimeStamp(saved.getTimestamp());
-        savedDTO.setAuthorName(user.getFirstname() + " " + user.getLastname());
+        savedDTO.setAuthor(new UserDTO(saved.getUser().getId(), saved.getUser().getFirstname(), saved.getUser().getLastname()));
 
         return savedDTO;
     }

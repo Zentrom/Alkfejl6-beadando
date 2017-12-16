@@ -19,10 +19,6 @@ export class UsersViewComponent implements OnInit {
     public snackBar: MatSnackBar
   ) {}
 
-  public confirm(user: UserDTO): string {
-    return "Delete user: " + user.firstname + " " + user.lastname + "?";
-  }
-
   public deleteUser(user: UserDTO): void {
       this.adminService.deleteUser(user.id).subscribe(() => {
         var index = this.users.indexOf(user);
