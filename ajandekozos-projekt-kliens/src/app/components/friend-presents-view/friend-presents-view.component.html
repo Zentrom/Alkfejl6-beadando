@@ -1,0 +1,69 @@
+<app-addpresent-view (createPresent)="addPresent($event)">
+</app-addpresent-view>
+
+
+
+<mat-card class="presentsview">
+    <mat-card-title>
+        <h3>Presents</h3>
+    </mat-card-title>
+
+    <div *ngIf="!presents; else loaded">
+        <mat-spinner></mat-spinner>
+    </div>
+
+
+    <mat-card-content>
+
+      <ng-template #loaded>
+            <div *ngIf="presents.length === 0; else atleastone">
+                <h5 class="text-center">No presents yet!</h5>
+            </div>
+            
+            <ng-template #atleastone>
+            <div class="container">
+                    <div class="col-md-12">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a routerLink="/user/wishlists"><i class="fa fa-arrow-left" aria-hidden="true"></i> Wishlists</a></li>
+                            <li class="breadcrumb-item active">{{breadCrumbService.listTitle}}</li>
+                          </ol>
+
+                        <table class="table table-bordered table-striped table-hover">
+                      <thead>
+                        <tr>
+                          <th style="width:46%" class="text-center">Name</th>
+                          <th style="width:15%" class="text-center">Price</th>
+                          <th style="width:15%" class="text-center">Link</th>
+                          <th style="width:12%" class="text-center">Edit</th>
+                          <th style="width:12%" class="text-center">Delete</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let present of presents">
+                          <td>{{ present.name }}</td>
+                          <td>{{ present.price }} Ft</td>
+                          <td> 
+                            <button [ngClass]="getButtonClass(present)" [disabled]=!present.link (click)="goToUrl(present.link)">Link</button>                   
+                          </td>
+                          <td>
+                            <button class="btn btn-warning innerbtn" (click)="openEditPresentDialog(present)">
+                                         <i class="fa fa-edit"></i>
+                                </button>
+                          </td>
+                          <td>
+                            <button class="btn btn-danger innerbtn"
+                                        (click)="removePresent(present)">
+                                         <i class="fa fa-times"></i>
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    </div>
+                </div>
+              </ng-template>
+     </ng-template>
+
+    </mat-card-content>
+
+</mat-card>

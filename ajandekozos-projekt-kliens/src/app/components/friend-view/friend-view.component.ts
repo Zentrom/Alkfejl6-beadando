@@ -2,19 +2,23 @@ import { Component, OnInit } from '@angular/core';
 
 import { UserDTO } from '../../model/userdto';
 import { FriendService } from '../../services/friend.service';
+import { WishlistService } from '../../services/wishlist.service';
+import { WishList } from '../../model/wishlist';
 
 @Component({
   selector: 'app-friend-view',
   templateUrl: './friend-view.component.html',
   styleUrls: ['./friend-view.component.css'],
-  providers: [FriendService]
+  providers: [FriendService,WishlistService]
 })
 export class FriendViewComponent implements OnInit {
+  private wishlists: WishList[];
   private possibleFriends: UserDTO[];
   private error : string;
 
   constructor(
     private friendService: FriendService,
+    private wishlistService: WishlistService
   ) {}
 
   /*public searchUsers(firstname: string, lastname: string): void {
@@ -41,10 +45,16 @@ export class FriendViewComponent implements OnInit {
   }
 
   public removeFriend(user: UserDTO): void {  
-    this.friendService.deleteFriendOrUser(user.id).subscribe(() => {
+    this.friendService.deleteFriend(user.id).subscribe(() => {
       var index = this.possibleFriends.indexOf(user);
       this.possibleFriends.splice(index, 1);  
     });
+  }
+
+  public friendWishlist(userId: number): void {
+      this.wishlistService.listFriendsLists(userId).subscribe((friendsLists: WishList[]) =>{
+        //this.wishlists= friendsLists; NEMJOMÁSCOMPONENTKELL
+      });
   }
 
   ngOnInit() {

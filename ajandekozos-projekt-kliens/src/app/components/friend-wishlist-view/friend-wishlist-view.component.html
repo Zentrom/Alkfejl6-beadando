@@ -1,0 +1,45 @@
+<mat-card class="wishlistview">
+  <mat-card-title>
+      <h3>Wishlists</h3>
+  </mat-card-title>
+
+  <div *ngIf="!wishlists; else loaded">
+          <mat-spinner></mat-spinner>
+  </div>
+
+  <mat-card-content> 
+      
+      <ng-template #loaded>
+          <div *ngIf="wishlists.length === 0; else atleastone">
+              <h5 class="text-center">No lists yet!</h5>
+          </div>
+          <ng-template #atleastone>
+              <div class="container">
+                      <div class="col-md-12">
+                          <table class="table table-bordered table-striped table-hover">
+                        <thead>
+                          <tr>
+                            <th style="width:70%" class="text-center">Title</th>
+                            <th style="width:30%" class="text-center">Open</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let list of wishlists">
+                            <td>{{ list.title }}</td>
+                            <td>
+                                  <button class="btn btn-info innerbtn"
+                                      routerLink="api/user/friends/{{user.Id}}/wishlists/{{list.id}}/presents"
+                                      (click)="setBreadcrumbs(list.id, list.title)">
+                                               <i class="fa fa-chevron-right"></i>
+                                  </button>
+                          </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      </div>
+                  </div>
+                </ng-template>
+       </ng-template>
+  </mat-card-content>
+
+</mat-card>

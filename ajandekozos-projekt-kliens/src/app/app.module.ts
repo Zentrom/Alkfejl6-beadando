@@ -24,6 +24,8 @@ import { FriendViewComponent } from './components/friend-view/friend-view.compon
 import { IncomingRequestsViewComponent } from './components/incoming-requests-view/incoming-requests-view.component';
 import { AuthService } from './services/auth.service';
 import { UsersViewComponent } from './components/admin/users-view/users-view.component';
+import { FriendWishlistViewComponent } from './components/friend-wishlist-view/friend-wishlist-view.component';
+import { FriendPresentsViewComponent } from './components/friend-presents-view/friend-presents-view.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,8 @@ import { UsersViewComponent } from './components/admin/users-view/users-view.com
     FriendViewComponent,
     IncomingRequestsViewComponent,
     UsersViewComponent,
+    FriendWishlistViewComponent,
+    FriendPresentsViewComponent,
   ],
   imports: [
     BrowserModule,

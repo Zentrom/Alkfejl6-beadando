@@ -61,9 +61,11 @@
                              <td>{{ user.firstname }}</td>
                              <td>{{ user.lastname }}</td>
                              <td>
-                             <button class="btn btn-info innerbtn">
-                                             View Wishlist
-                                 </button>
+                                <button class="btn btn-info innerbtn"
+                                routerLink="/user/friends/{{user.id}}/wishlists"
+                                (click)="friendWishlist(user.id)">
+                                         View Wishlists
+                                </button>
                              </td>
                              <td>
                               <button class="btn btn-danger innerbtn"

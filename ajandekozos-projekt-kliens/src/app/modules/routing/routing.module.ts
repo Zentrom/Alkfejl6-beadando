@@ -12,6 +12,7 @@ import { IncomingRequestsViewComponent} from '../../components/incoming-requests
 import { AuthService } from '../../services/auth.service';
 import { RouteGuardService } from '../../services/route-guard.service';
 import { UsersViewComponent } from '../../components/admin/users-view/users-view.component';
+import { FriendWishlistViewComponent } from '../../components/friend-wishlist-view/friend-wishlist-view.component';
 
  const appRoutes: Routes = [
   { path: '',
@@ -23,6 +24,7 @@ import { UsersViewComponent } from '../../components/admin/users-view/users-view
         { path: 'user/wishlists', component: WishlistViewComponent, data: { roles: ['USER', 'ADMIN'] }},
         { path: 'user/wishlists/:listId/presents', component: PresentsViewComponent, data: { roles: ['USER', 'ADMIN'] } },
         { path: 'user/friends', component: FriendViewComponent, data: { roles: ['USER', 'ADMIN'] } },
+        { path: 'user/friends/:userId/wishlists', component: FriendWishlistViewComponent, data: { roles: ['USER', 'ADMIN'] } },
         { path: 'user/newrequest', component: AddFriendViewComponent, data: { roles: ['USER', 'ADMIN'] } },
         { path: 'user/friendrequests', component: IncomingRequestsViewComponent, data: { roles: ['USER', 'ADMIN'] } },
         { path: 'users', component: UsersViewComponent, data: { roles: ['ADMIN'] }, pathMatch: 'full' },
