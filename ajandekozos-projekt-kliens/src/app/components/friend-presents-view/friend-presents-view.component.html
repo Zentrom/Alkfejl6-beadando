@@ -1,8 +1,3 @@
-<app-addpresent-view (createPresent)="addPresent($event)">
-</app-addpresent-view>
-
-
-
 <mat-card class="presentsview">
     <mat-card-title>
         <h3>Presents</h3>
@@ -34,8 +29,7 @@
                           <th style="width:46%" class="text-center">Name</th>
                           <th style="width:15%" class="text-center">Price</th>
                           <th style="width:15%" class="text-center">Link</th>
-                          <th style="width:12%" class="text-center">Edit</th>
-                          <th style="width:12%" class="text-center">Delete</th>
+                          <th style="width:24%" class="text-center">Comments</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -46,15 +40,9 @@
                             <button [ngClass]="getButtonClass(present)" [disabled]=!present.link (click)="goToUrl(present.link)">Link</button>                   
                           </td>
                           <td>
-                            <button class="btn btn-warning innerbtn" (click)="openEditPresentDialog(present)">
+                            <button class="btn btn-warning innerbtn" routerLink="/user/friends/{{friendId}}/wishlists/{{friendListId}}/presents/{{friendPresentId}}/comments">
                                          <i class="fa fa-edit"></i>
                                 </button>
-                          </td>
-                          <td>
-                            <button class="btn btn-danger innerbtn"
-                                        (click)="removePresent(present)">
-                                         <i class="fa fa-times"></i>
-                            </button>
                           </td>
                         </tr>
                       </tbody>

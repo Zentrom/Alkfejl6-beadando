@@ -26,7 +26,9 @@ export class CommentsViewComponent implements OnInit {
   ) {} 
 
   ngOnInit() {
-    this.presentId = parseInt(this.activatedRoute.snapshot.paramMap.get('presentId'));
+    this.presentId = parseInt(this.activatedRoute.snapshot.paramMap.get('friendPresentId'));
+    this.friendListId = parseInt(this.activatedRoute.snapshot.paramMap.get('friendListId'));
+    this.friendId = parseInt(this.activatedRoute.snapshot.paramMap.get('friendId'));
 
     this.commentService.getComments(this.friendId, this.friendListId, this.presentId).subscribe((comments: Comment[]) => {
       this.comments = comments;

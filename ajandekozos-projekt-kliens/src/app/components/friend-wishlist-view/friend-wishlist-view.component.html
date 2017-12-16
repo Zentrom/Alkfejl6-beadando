@@ -28,7 +28,7 @@
                             <td>{{ list.title }}</td>
                             <td>
                                   <button class="btn btn-info innerbtn"
-                                      routerLink="api/user/friends/{{user.Id}}/wishlists/{{list.id}}/presents"
+                                      routerLink="/user/friends/{{userId}}/wishlists/{{list.id}}/presents"
                                       (click)="setBreadcrumbs(list.id, list.title)">
                                                <i class="fa fa-chevron-right"></i>
                                   </button>

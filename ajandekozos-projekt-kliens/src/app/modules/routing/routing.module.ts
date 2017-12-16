@@ -13,6 +13,8 @@ import { AuthService } from '../../services/auth.service';
 import { RouteGuardService } from '../../services/route-guard.service';
 import { UsersViewComponent } from '../../components/admin/users-view/users-view.component';
 import { FriendWishlistViewComponent } from '../../components/friend-wishlist-view/friend-wishlist-view.component';
+import { FriendPresentsViewComponent } from '../../components/friend-presents-view/friend-presents-view.component'; 
+import { CommentsViewComponent } from '../../components/comments-view/comments-view.component';
 
  const appRoutes: Routes = [
   { path: '',
@@ -25,6 +27,8 @@ import { FriendWishlistViewComponent } from '../../components/friend-wishlist-vi
         { path: 'user/wishlists/:listId/presents', component: PresentsViewComponent, data: { roles: ['USER', 'ADMIN'] } },
         { path: 'user/friends', component: FriendViewComponent, data: { roles: ['USER', 'ADMIN'] } },
         { path: 'user/friends/:userId/wishlists', component: FriendWishlistViewComponent, data: { roles: ['USER', 'ADMIN'] } },
+        { path: 'user/friends/:friendId/wishlists/:friendListId/presents', component: FriendPresentsViewComponent, data: { roles: ['USER', 'ADMIN'] } },
+        { path: 'user/friends/:friendId/wishlists/:friendListId/presents/:friendPresentId/comments', component: CommentsViewComponent, data: { roles: ['USER', 'ADMIN'] } },        
         { path: 'user/newrequest', component: AddFriendViewComponent, data: { roles: ['USER', 'ADMIN'] } },
         { path: 'user/friendrequests', component: IncomingRequestsViewComponent, data: { roles: ['USER', 'ADMIN'] } },
         { path: 'users', component: UsersViewComponent, data: { roles: ['ADMIN'] }, pathMatch: 'full' },

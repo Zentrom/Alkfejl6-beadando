@@ -15,12 +15,14 @@ import { BreadcrumbService } from '../../services/breadcrumb.service';
   selector: 'app-friend-presents-view',
   templateUrl: './friend-presents-view.component.html',
   styleUrls: ['./friend-presents-view.component.css'],
+  providers: [PresentService]
   //encapsulation: ViewEncapsulation.None
 })
 
 export class FriendPresentsViewComponent implements OnInit {
   private presents: Present[];
-  public listId: number;
+  private listId: number;
+  private friendId: number;
   //private editPresentDialogRef: MatDialogRef<EditPresentDialogComponent>;
   private isDialogOpen: boolean;
 
@@ -90,7 +92,9 @@ export class FriendPresentsViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.listId = parseInt(this.activatedRoute.snapshot.paramMap.get('listId'));
+    this.listId = parseInt(this.activatedRoute.snapshot.paramMap.get('friendListId'));
+    this.friendId = parseInt(this.activatedRoute.snapshot.paramMap.get('friendId'));
+    //console.log(this.listId);
     this.presentService.getPresents(this.listId).subscribe((presents: Present[]) => {
       this.presents = presents;
     });
