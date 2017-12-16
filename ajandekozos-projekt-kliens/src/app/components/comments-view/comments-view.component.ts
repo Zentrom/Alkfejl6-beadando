@@ -2,15 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
+import { Present } from '../../model/present';
 import { User } from '../../model/user';
 import { Comment } from '../../model/comment';
 import { CommentService } from '../../services/comment.service';
+import { PresentService } from '../../services/present.service';
 
 @Component({
   selector: 'app-comments-view',
   templateUrl: './comments-view.component.html',
   styleUrls: ['./comments-view.component.css'],
-  providers: [AuthService, CommentService]
+  providers: [AuthService, CommentService, PresentService]
 })
 
 export class CommentsViewComponent implements OnInit {
@@ -18,17 +20,26 @@ export class CommentsViewComponent implements OnInit {
   private friendId: number;
   private friendListId: number;
   private presentId: number;
+  private present: Present;
 
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private commentService: CommentService
+    private commentService: CommentService,
+    private presentService: PresentService
   ) {} 
+
+
 
   ngOnInit() {
     this.presentId = parseInt(this.activatedRoute.snapshot.paramMap.get('friendPresentId'));
     this.friendListId = parseInt(this.activatedRoute.snapshot.paramMap.get('friendListId'));
     this.friendId = parseInt(this.activatedRoute.snapshot.paramMap.get('friendId'));
+    //this.present= null;
+
+    this.presentService.readPresent(this.friendListId,this.presentId).subscribe((pres: Present) => {
+        this.present= pres;
+    });
 
     this.commentService.getComments(this.friendId, this.friendListId, this.presentId).subscribe((comments: Comment[]) => {
       this.comments = comments;
