@@ -63,7 +63,7 @@ public class WishListController {
 
     @Role({ADMIN, USER})
     @GetMapping(ResourceConstants.FRIEND_LISTS)
-    public ResponseEntity<Iterable<WishList>> listFriendsLists(@PathVariable int friendId) {
+    public ResponseEntity<Iterable<WishList>> listFriendsOrUsersLists(@PathVariable int friendId) {
         Iterable<WishList> friendsLists = wishListService.findAllByUserId(friendId);
         return ResponseEntity.ok(friendsLists);
     }
@@ -89,5 +89,6 @@ public class WishListController {
         WishList saved = wishListService.create(wishList);
         return ResponseEntity.ok(saved);
     }*/
+
 
 }

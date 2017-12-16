@@ -25,7 +25,7 @@ export class WishlistViewComponent implements OnInit {
     private router: Router,
     private wishlistService: WishlistService,
     private breadcrumbService: BreadcrumbService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {} 
 
   public addList(wishlist: WishList): void {
@@ -71,6 +71,7 @@ export class WishlistViewComponent implements OnInit {
     this.wishlistService.getWishLists().subscribe((wishlists: WishList[]) => {
       this.wishlists = wishlists;
     });
+    
   }
   
 }

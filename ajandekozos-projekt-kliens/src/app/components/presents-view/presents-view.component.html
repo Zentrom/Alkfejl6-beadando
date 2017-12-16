@@ -39,7 +39,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr *ngFor="let present of presents">
+                        <tr *ngFor="let present of presents | paginate: { itemsPerPage: 5, currentPage: p }">
                           <td>{{ present.name }}</td>
                           <td>{{ present.price }} Ft</td>
                           <td> 
@@ -51,9 +51,16 @@
                                 </button>
                           </td>
                           <td>
-                            <button class="btn btn-danger innerbtn"
-                                        (click)="removePresent(present)">
-                                         <i class="fa fa-times"></i>
+                            <button
+                              class="btn btn-danger innerbtn"
+                              mwlConfirmationPopover
+                              title="Confirmation"
+                              cancelButtonType="btn btn-danger"
+                              confirmButtonType="btn btn-info"
+                              message="Delete present: {{present.name}}?"
+                              placement="left"
+                              (confirm)="removePresent(present)">
+                              <i class="fa fa-times"></i>
                             </button>
                           </td>
                         </tr>
@@ -61,6 +68,7 @@
                     </table>
                     </div>
                 </div>
+                <pagination-controls (pageChange)="p =$event"></pagination-controls>
               </ng-template>
      </ng-template>
 

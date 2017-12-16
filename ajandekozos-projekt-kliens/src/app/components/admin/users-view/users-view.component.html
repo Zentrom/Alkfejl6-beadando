@@ -37,7 +37,7 @@
 
 <mat-card-content>
 <div *ngIf="!users">
-        <h5 class="text-center">You manage users here</h5>
+        <h5 class="text-center">You can manage the users here</h5>
 </div>
 
 <div *ngIf="users?.length==0">
@@ -57,7 +57,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let user of users">
+                <tr *ngFor="let user of users | paginate: { itemsPerPage: 5, currentPage: p }">
                     <td>{{ user.id }}</td>
                     <td>{{ user.firstname }}</td>
                     <td>{{ user.lastname }}</td>
@@ -79,6 +79,7 @@
             </table>
             </div>
         </div>
+        <pagination-controls (pageChange)="p =$event"></pagination-controls>
 </div>
 
 </mat-card-content>
