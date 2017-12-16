@@ -4,12 +4,12 @@
   
       <mat-dialog-content>
         <mat-form-field>
-          <input matInput formControlName="name" placeholder="Edit name">
+          <input matInput formControlName="name" placeholder="Edit name" [required]="true">
         </mat-form-field>
         <p>Current title: {{data.name}}</p>
 
         <mat-form-field>
-            <input matInput formControlName="price" placeholder="Edit price" type="number">
+            <input matInput formControlName="price" placeholder="Edit price" min="1" type="number" [required]="true">
           </mat-form-field>
           <p>Current price: {{data.price}}</p>
 

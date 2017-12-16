@@ -4,7 +4,7 @@
 
     <mat-dialog-content>
       <mat-form-field>
-        <input matInput formControlName="title" placeholder="Edit title">
+        <input matInput formControlName="title" placeholder="Edit title" [required]="true">
       </mat-form-field>
       <p>Current title: {{data.title}}</p>
     </mat-dialog-content>

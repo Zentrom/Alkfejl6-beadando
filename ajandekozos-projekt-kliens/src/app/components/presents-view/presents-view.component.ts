@@ -63,7 +63,7 @@ export class PresentsViewComponent implements OnInit {
     }
 
     this.editPresentDialogRef.afterClosed().pipe(
-      filter(result => result && result.name.trim() && result.price))
+      filter(result => result && result.name.trim() && result.price > 0))
       .subscribe(result => {
         present.name = result.name;
         present.price = result.price;

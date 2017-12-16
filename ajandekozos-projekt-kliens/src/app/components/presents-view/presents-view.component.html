@@ -8,7 +8,6 @@
         <h3>Presents</h3>
     </mat-card-title>
 
-
     <div *ngIf="!presents; else loaded">
         <mat-spinner></mat-spinner>
     </div>
@@ -17,11 +16,15 @@
     <mat-card-content>
 
       <ng-template #loaded>
+            <div *ngIf="presents.length === 0; else atleastone">
+                <h5 class="text-center">No presents yet!</h5>
+            </div>
+            
+            <ng-template #atleastone>
             <div class="container">
                     <div class="col-md-12">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><i class="fa fa-arrow-left" aria-hidden="true"></i></li>
-                            <li class="breadcrumb-item"><a routerLink="/user/wishlists">Wishlists</a></li>
+                            <li class="breadcrumb-item"><a routerLink="/user/wishlists"><i class="fa fa-arrow-left" aria-hidden="true"></i> Wishlists</a></li>
                             <li class="breadcrumb-item active">{{breadCrumbService.listTitle}}</li>
                           </ol>
 
@@ -58,6 +61,7 @@
                     </table>
                     </div>
                 </div>
+              </ng-template>
      </ng-template>
 
     </mat-card-content>
