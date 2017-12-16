@@ -5,15 +5,14 @@ import { User } from '../model/user';
 import { api } from '../config/api';
 import { Router } from '@angular/router';
 
+
 @Injectable()
 export class AuthService {
   private static user: User = null;
-  public isAdmin: boolean = false;
-  public userFullName: string;
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
   ) {}
 
   public login(username: string, password: string): Observable<boolean> {
@@ -21,6 +20,8 @@ export class AuthService {
     this.http.post(api + '/login', { username, password }).subscribe((user) => {
       AuthService.user = user as User;
       result.next(true);
+
+      localStorage.setItem("isAdmin", AuthService.user.role === "ADMIN" ? "true" : "false");
       
     }, (error) => {
       AuthService.user = null as User;
@@ -44,7 +45,8 @@ export class AuthService {
   public logout(): void {
     this.http.get(api + 'user/logout', {responseType: 'text'}).subscribe(() => {
       AuthService.user = null;
-      this.router.navigate(['']);
+      this.router.navigate(['/login']);
+      localStorage.removeItem("isAdmin");
     });
   }
 
@@ -75,4 +77,5 @@ export class AuthService {
     }
     return undefined;
   }
+
 }

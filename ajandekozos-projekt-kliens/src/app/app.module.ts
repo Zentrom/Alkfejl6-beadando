@@ -22,6 +22,8 @@ import { EditPresentDialogComponent } from './components/presents-view/edit-pres
 import { BreadcrumbService } from './services/breadcrumb.service';
 import { FriendViewComponent } from './components/friend-view/friend-view.component';
 import { IncomingRequestsViewComponent } from './components/incoming-requests-view/incoming-requests-view.component';
+import { AuthService } from './services/auth.service';
+import { UsersViewComponent } from './components/admin/users-view/users-view.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,7 @@ import { IncomingRequestsViewComponent } from './components/incoming-requests-vi
     EditPresentDialogComponent,
     FriendViewComponent,
     IncomingRequestsViewComponent,
+    UsersViewComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,7 +56,7 @@ import { IncomingRequestsViewComponent } from './components/incoming-requests-vi
     EditWishlistDialogComponent,
     EditPresentDialogComponent
   ],
-  providers: [BreadcrumbService],
+  providers: [BreadcrumbService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -1,5 +1,3 @@
-    <!-- <button mat-raised-button (click)="moveBack()">Go back</button>        -->
-
 <app-addpresent-view (createPresent)="addPresent($event)">
 </app-addpresent-view>
 
@@ -17,25 +15,12 @@
 
 
     <mat-card-content>
-    <!-- 
-      <mat-list>
-          <mat-list-item *ngFor="let present of presents">
-            <p>Name: {{present.name}} Id: {{present.id}}</p>
-            
-            <button mat-mini-fab color="primary" class="deleteButton" (click)="removePresent(present)">
-                    <mat-icon>delete</mat-icon>
-            </button>
-          </mat-list-item>
-
-
-      </mat-list>
-        -->
-
 
       <ng-template #loaded>
             <div class="container">
                     <div class="col-md-12">
                         <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><i class="fa fa-arrow-left" aria-hidden="true"></i></li>
                             <li class="breadcrumb-item"><a routerLink="/user/wishlists">Wishlists</a></li>
                             <li class="breadcrumb-item active">{{breadCrumbService.listTitle}}</li>
                           </ol>
@@ -54,13 +39,8 @@
                         <tr *ngFor="let present of presents">
                           <td>{{ present.name }}</td>
                           <td>{{ present.price }} Ft</td>
-                          <td>
-                            <div *ngIf="present.link;else hasLink">
-                            <button class="btn btn-primary innerbtn" (click)="goToUrl(present.link)">Link</button>
-                            </div>
-                            <ng-template #hasLink>
-                              <button class="btn btn-danger innerbtn">Link</button>
-                            </ng-template>
+                          <td> 
+                            <button [ngClass]="getButtonClass(present)" [disabled]=!present.link (click)="goToUrl(present.link)">Link</button>                   
                           </td>
                           <td>
                             <button class="btn btn-warning innerbtn" (click)="openEditPresentDialog(present)">

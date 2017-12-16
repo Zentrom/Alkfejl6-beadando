@@ -22,6 +22,7 @@ export class PresentsViewComponent implements OnInit {
   private presents: Present[];
   public listId: number;
   private editPresentDialogRef: MatDialogRef<EditPresentDialogComponent>;
+  private isDialogOpen: boolean;
 
   constructor(
     private router: Router,
@@ -32,11 +33,16 @@ export class PresentsViewComponent implements OnInit {
     private dialog: MatDialog
   ) {} 
 
-  /*
-  public moveBack(): void {
-    this.location.back();
+
+
+  public getButtonClass(present: Present): string {
+    if (present.link) {
+      return "btn btn-primary innerbtn";
+    }
+
+    return "btn btn-danger innerbtn";
   }
-*/
+  
   public goToUrl(url: string): void {
     if (!/^http[s]?:\/\//.test(url)) {
       url = 'http://' + url;
@@ -45,26 +51,29 @@ export class PresentsViewComponent implements OnInit {
   }
 
   public openEditPresentDialog(present: Present): void {
-    this.editPresentDialogRef = this.dialog.open(EditPresentDialogComponent, {
-      data: {
-        name: present ? present.name : '',
-        price: present ? present.price: '',
-        link: present.link? present.link: '',
-      }
-    });
+    if (!this.isDialogOpen) {
+      this.editPresentDialogRef = this.dialog.open(EditPresentDialogComponent, {
+        data: {
+          name: present ? present.name : '',
+          price: present ? present.price: '',
+          link: present.link? present.link: '',
+        }
+      });
+      this.isDialogOpen = true;
+    }
 
     this.editPresentDialogRef.afterClosed().pipe(
-      filter(result => result))
+      filter(result => result && result.name.trim() && result.price))
       .subscribe(result => {
         present.name = result.name;
         present.price = result.price;
         present.link = result.link;
-        console.log(present.name);
-        console.log(present.price);
-        console.log(present.link);
         this.presentService.updatePresent(this.listId, present).subscribe((updatedPresent) => {
         });
     });
+    this.isDialogOpen = false;
+
+    
   }
 
   public addPresent(present: Present): void {

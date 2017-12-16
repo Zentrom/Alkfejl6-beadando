@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+
 import { AuthService } from './services/auth.service';
+import { BreadcrumbService } from './services/breadcrumb.service';
+import 'rxjs/add/operator/take';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +11,14 @@ import { AuthService } from './services/auth.service';
   providers: [AuthService]
 })
 export class AppComponent implements OnInit {
+
   constructor (
-    private authService: AuthService
+    private authService: AuthService,
   ) {}
+
+  isAdmin(): boolean {
+    return localStorage.getItem("isAdmin") == 'true';
+  }
 
   ngOnInit() {
     this.authService.syncLoginStatus();

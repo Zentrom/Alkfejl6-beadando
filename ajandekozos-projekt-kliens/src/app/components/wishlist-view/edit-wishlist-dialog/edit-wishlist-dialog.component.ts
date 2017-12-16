@@ -24,7 +24,7 @@ export class EditWishlistDialogComponent implements OnInit {
   }
 
   public submit(form) {
-    this.dialogRef.close(`${form.value.title}`);
+    this.dialogRef.close({title: `${form.value.title}`});
   }
 
 }

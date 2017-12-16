@@ -1,25 +1,40 @@
-<mat-toolbar color="primary">
-    Gifting app
+<div *ngIf="!authService.isLoggedIn();else loggedIn">
+<mat-toolbar color="primary">     
+                Gifting app
+    <button mat-button routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Index</button>
+    <span class="fillspace"></span>
+        <button mat-button routerLink="/login"  routerLinkActive="active">Login</button>
+        <button mat-button routerLink="/register"  routerLinkActive="active">Register</button>
+</mat-toolbar>
+</div>
 
-
-    <div *ngIf="!authService.isLoggedIn();else loggedIn">
-        <button mat-button routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Index</button>
-        <span class="fillspace"></span>
-         <button mat-button routerLink="/login"  routerLinkActive="active">Login</button>
-         <button mat-button routerLink="/register"  routerLinkActive="active">Register</button>
+<ng-template #loggedIn>
+    <div *ngIf="isAdmin();else notAdmin">
+        <mat-toolbar color="primary">
+                        Gifting app
+            <button mat-button routerLink="/"  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Index</button>
+            <button mat-button routerLink="/users" routerLinkActive="active">Users</button>
+            <span class="fillspace"></span>
+            <button mat-button routerLink="/" (click)="authService.logout()">Logout</button>
+            <i class="fa fa-user-circle" aria-hidden="true"></i>            
+        </mat-toolbar>
     </div>
 
-    <ng-template #loggedIn>
+    <ng-template #notAdmin>
+        <mat-toolbar color="primary">
+                        Gifting app
             <button mat-button routerLink="/"  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Index</button>
             <button mat-button routerLink="/user/wishlists" routerLinkActive="active">My Wishlists</button>
             <button mat-button routerLink="/user/friends" routerLinkActive="active">My Friends</button>
             <button mat-button routerLink="/user/newrequest" routerLinkActive="active">Add Friends</button>
             <button mat-button routerLink="/user/friendrequests" routerLinkActive="active">Incoming requests</button>
-        <span class="fillspace"></span>
-        <button mat-button routerLink="/" (click)="authService.logout()">Logout</button>
+            <span class="fillspace"></span>
+            <button mat-button routerLink="/" (click)="authService.logout()">Logout</button>
+            <i class="fa fa-user-circle" aria-hidden="true"></i>            
+        </mat-toolbar>
     </ng-template>
+</ng-template>
 
-</mat-toolbar>
 
 <router-outlet></router-outlet>
 

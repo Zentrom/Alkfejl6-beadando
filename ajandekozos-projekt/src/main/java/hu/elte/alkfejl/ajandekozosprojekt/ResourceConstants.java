@@ -2,6 +2,8 @@ package hu.elte.alkfejl.ajandekozosprojekt;
 
 public class ResourceConstants {
 
+    public static final String ISADMIN = "api/isadmin";
+
     public static final String USER = "api/user";
     public static final String USER_LOGIN = "api/login";
     public static final String USER_REGISTER = "api/register";

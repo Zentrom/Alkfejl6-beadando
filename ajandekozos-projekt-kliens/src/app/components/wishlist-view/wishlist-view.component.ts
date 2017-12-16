@@ -19,6 +19,7 @@ import { BreadcrumbService } from '../../services/breadcrumb.service';
 export class WishlistViewComponent implements OnInit {
   private wishlists: WishList[];
   private editWishlistDialogRef: MatDialogRef<EditWishlistDialogComponent>;
+  private isDialogOpen: boolean;
 
   constructor(
     private router: Router,
@@ -41,20 +42,24 @@ export class WishlistViewComponent implements OnInit {
   }
 
   public openEditListDialog(wishlist: WishList): void {
-    this.editWishlistDialogRef = this.dialog.open(EditWishlistDialogComponent, {
-      hasBackdrop: false,
-      data: {
-        title: wishlist ? wishlist.title : ''
-      }
-    });
+    if (!this.isDialogOpen) {
+      this.editWishlistDialogRef = this.dialog.open(EditWishlistDialogComponent, {
+        data: {
+          title: wishlist ? wishlist.title : ''
+        }
+      });
+      this.isDialogOpen = true;
+    }
+  
 
     this.editWishlistDialogRef.afterClosed().pipe(
-      filter(title => title))
-      .subscribe(title => {
-        wishlist.title = title;
+      filter(result => result && result.title.trim()))
+      .subscribe(result => {
+        wishlist.title = result.title;
         this.wishlistService.updateWishList(wishlist).subscribe((updatedWishlist) => {
         });
     });
+    this.isDialogOpen = false;
   }
 
   public setBreadcrumbs(listId: number, listTitle: string): void {

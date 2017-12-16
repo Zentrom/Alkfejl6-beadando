@@ -130,7 +130,7 @@ public class PresentService {
         currentPresent.setPrice(present.getPrice());
         currentPresent.setLink(present.getLink());
 
-        Present updated = presentRepository.save(present);
+        Present updated = presentRepository.save(currentPresent);
         PresentDTO updatedDTO = new PresentDTO();
         updatedDTO.setId(updated.getId());
         updatedDTO.setName(updated.getName());

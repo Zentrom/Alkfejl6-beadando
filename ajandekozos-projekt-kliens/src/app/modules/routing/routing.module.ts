@@ -11,12 +11,13 @@ import { FriendViewComponent} from '../../components/friend-view/friend-view.com
 import { IncomingRequestsViewComponent} from '../../components/incoming-requests-view/incoming-requests-view.component';
 import { AuthService } from '../../services/auth.service';
 import { RouteGuardService } from '../../services/route-guard.service';
+import { UsersViewComponent } from '../../components/admin/users-view/users-view.component';
 
  const appRoutes: Routes = [
   { path: '',
       canActivateChild: [RouteGuardService], 
       children: [
-        { path: '', component: IndexViewComponent},
+        { path: '', component: IndexViewComponent, pathMatch: 'full'},
         { path: 'login', component: LoginViewComponent },
         { path: 'register', component: RegisterViewComponent },
         { path: 'user/wishlists', component: WishlistViewComponent, data: { roles: ['USER', 'ADMIN'] }},
@@ -24,6 +25,7 @@ import { RouteGuardService } from '../../services/route-guard.service';
         { path: 'user/friends', component: FriendViewComponent, data: { roles: ['USER', 'ADMIN'] } },
         { path: 'user/newrequest', component: AddFriendViewComponent, data: { roles: ['USER', 'ADMIN'] } },
         { path: 'user/friendrequests', component: IncomingRequestsViewComponent, data: { roles: ['USER', 'ADMIN'] } },
+        { path: 'users', component: UsersViewComponent, data: { roles: ['ADMIN'] }, pathMatch: 'full' },
         { path: '**', component: IndexViewComponent }
       ]}
 ];
