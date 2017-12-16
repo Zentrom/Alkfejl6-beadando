@@ -42,7 +42,7 @@ public class UserService {
 
     public User login(User user) throws UserNotValidException {
         Optional<User> dbUser = userRepository.findByUsername(user.getUsername());
-
+        //System.out.println(passwordEncoder.encode(user.getPassword()));
         if(dbUser.isPresent() && passwordEncoder.matches(user.getPassword(), dbUser.get().getPassword())) {
             this.user = dbUser.get();
             return this.user;
@@ -57,6 +57,7 @@ public class UserService {
         }
         user.setRole(USER);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        //System.out.println(passwordEncoder.encode(user.getPassword()));
         this.user = userRepository.save(user);
 
         return user;
@@ -70,9 +71,8 @@ public class UserService {
         user = null;
     }
 
-    public List<UserDTO> listFriends() {
-        user = userRepository.findOne(user.getId());
-      
+    public List<UserDTO> listFriends(String firstName,String lastName) {
+        /*user = userRepository.findOne(user.getId());
         List<UserDTO> friendsDTO = new LinkedList();
 
         if (ADMIN.equals(user.getRole())) {
@@ -81,9 +81,20 @@ public class UserService {
             users.stream().forEach(x -> friendsDTO.add(new UserDTO(x.getId(), x.getFirstname(), x.getLastname())));
         } else {
             user.getFriends().stream().forEach(x -> friendsDTO.add(new UserDTO(x.getId(), x.getFirstname(), x.getLastname())));
-        }
+        }*/
+        List<User> searchedUsers = userRepository.findAllByFirstnameContainingAndLastnameContaining(firstName, lastName);
+        user = userRepository.findOne(user.getId());
+        List<User> alreadyFriends = user.getFriends();
 
-        return friendsDTO;
+        List<User> filteredUsers = searchedUsers.stream().filter(user -> alreadyFriends.contains(user)
+                && !user.getRole().equals(ADMIN)
+                && !user.equals(this.user)
+                && !alreadyRequested(user.getId())).collect(Collectors.toList());
+
+        List<UserDTO> filteredUsersDTO = new LinkedList();
+        filteredUsers.forEach(user -> filteredUsersDTO.add(new UserDTO(user.getId(), user.getFirstname(), user.getLastname())));
+
+        return filteredUsersDTO;
     }
 
     private boolean alreadyRequested(int requesteeId) {

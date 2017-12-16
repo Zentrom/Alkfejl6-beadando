@@ -61,8 +61,8 @@ public class UserController {
 
     @Role({ADMIN, USER})
     @GetMapping(ResourceConstants.FRIENDS)
-    public ResponseEntity<List<UserDTO>> listFriends() {
-        List<UserDTO> friends = userService.listFriends();
+    public ResponseEntity<List<UserDTO>> listFriends(@RequestParam(name = "firstname") String firstName, @RequestParam(name = "lastname") String lastName) {
+        List<UserDTO> friends = userService.listFriends(firstName,lastName);
         return ResponseEntity.ok(friends);
     }
 

@@ -11,18 +11,33 @@ import { FriendService } from '../../services/friend.service';
 })
 export class FriendViewComponent implements OnInit {
   private possibleFriends: UserDTO[];
+  private error : string;
 
   constructor(
     private friendService: FriendService,
   ) {}
 
-  public searchUsers(firstname: string, lastname: string): void {
+  /*public searchUsers(firstname: string, lastname: string): void {
     this.friendService.listFriends().subscribe((filteredUsers: UserDTO[]) => {
       this.possibleFriends = filteredUsers;
       filteredUsers.forEach(user => {
         console.log(user.firstname + " " + user.lastname);
       });
     });
+  }*/
+
+  public searchUsers(showall: boolean = false, firstname: string = "", lastname: string = ""): void {
+    if ( !firstname.trim() && !lastname.trim() && !showall ) {
+      this.error = "Please enter something!";
+    } else {
+      this.error = "";
+      this.friendService.listFriends(firstname, lastname).subscribe((filteredUsers: UserDTO[]) => {
+        this.possibleFriends = filteredUsers;
+        //filteredUsers.forEach(user => {
+        //  console.log(user.firstname + " " + user.lastname);
+        //});
+      });
+    }
   }
 
   public removeFriend(user: UserDTO): void {  
