@@ -72,16 +72,6 @@ public class UserService {
     }
 
     public List<UserDTO> listFriends(String firstName,String lastName) {
-        /*user = userRepository.findOne(user.getId());
-        List<UserDTO> friendsDTO = new LinkedList();
-
-        if (ADMIN.equals(user.getRole())) {
-            List<User> users = (List) userRepository.findAll();
-            users.remove(user);
-            users.stream().forEach(x -> friendsDTO.add(new UserDTO(x.getId(), x.getFirstname(), x.getLastname())));
-        } else {
-            user.getFriends().stream().forEach(x -> friendsDTO.add(new UserDTO(x.getId(), x.getFirstname(), x.getLastname())));
-        }*/
         List<User> searchedUsers = userRepository.findAllByFirstnameContainingAndLastnameContaining(firstName, lastName);
         user = userRepository.findOne(user.getId());
         List<User> alreadyFriends = user.getFriends();
@@ -96,6 +86,21 @@ public class UserService {
 
         return filteredUsersDTO;
     }
+
+    public List<UserDTO> listUsers(String firstName,String lastName) {
+        List<User> searchedUsers = userRepository.findAllByFirstnameContainingAndLastnameContaining(firstName, lastName);
+
+        List<User> filteredUsers = searchedUsers.stream().filter(user ->
+                !user.getRole().equals(ADMIN)
+                && !alreadyRequested(user.getId())).collect(Collectors.toList());
+
+        List<UserDTO> filteredUsersDTO = new LinkedList();
+        filteredUsers.forEach(user -> filteredUsersDTO.add(new UserDTO(user.getId(), user.getFirstname(), user.getLastname())));
+
+        return filteredUsersDTO;
+    }
+
+
 
     private boolean alreadyRequested(int requesteeId) {
         return friendRequestRepository.findByRequesteeIdAndRequesterId(requesteeId, user.getId()).isPresent();
@@ -135,11 +140,4 @@ public class UserService {
         userRepository.save(friend);
     }
 
-    public void deleteFriendOrUser(int friendId) {
-        if (user.getRole().equals(ADMIN)) {
-            deleteUser(friendId);
-        } else {
-            deleteFriend(friendId);
-        }
-    }
 }

@@ -16,7 +16,9 @@
           <mat-form-field>
               <input matInput formControlName="link" placeholder="Edit link" type="url">
             </mat-form-field>
-            <p>Current link: {{data.link}}</p>
+            <br>
+            <div *ngIf="data.link; else nolink">Current link: <a href="#" (click)="goToUrl(data.link)" target="_blank">link</a></div>
+            <ng-template #nolink>Current link: none</ng-template>
       </mat-dialog-content>
   
       <mat-dialog-actions>

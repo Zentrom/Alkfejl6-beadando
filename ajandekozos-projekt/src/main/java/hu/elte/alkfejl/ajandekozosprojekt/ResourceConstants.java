@@ -2,8 +2,7 @@ package hu.elte.alkfejl.ajandekozosprojekt;
 
 public class ResourceConstants {
 
-    public static final String ISADMIN = "api/isadmin";
-
+    //User
     public static final String USER = "api/user";
     public static final String USER_LOGIN = "api/login";
     public static final String USER_REGISTER = "api/register";
@@ -28,8 +27,12 @@ public class ResourceConstants {
     public static final String COMMENTS = "api/user/friends/{friendId}/wishlists/{friendListId}/presents/{friendPresentId}/comments";
     public static final String COMMENTID = "api/user/friends/{friendId}/wishlists/{friendListId}/presents/{friendPresentId}/comments/{commentId}";
 
-    public static final String DELETE_FRIEND_OR_USER = "api/user/friends/{friendId}";
+    public static final String DELETE_FRIEND = "api/user/friends/{friendId}";
     public static final String DELETE_OR_UPDATE_USER_LIST = "api/user/friends/{friendId}/wishlists/{userListId}";
+
+    //Admin
+    public static final String USERS = "api/users";
+    public static final String USERSID = "api/users/{userId}";
 
 
 }
