@@ -14,6 +14,17 @@ export class EditPresentDialogComponent implements OnInit {
       private dialogRef: MatDialogRef<EditPresentDialogComponent>,
       @Inject(MAT_DIALOG_DATA) private data
     ) { }
+
+    public goToUrl(url: string): void {
+      if (!/^http[s]?:\/\//.test(url)) {
+        url = 'http://' + url;
+      }
+      window.open(url, "_blank");
+    }
+
+    public submit(form) {
+      this.dialogRef.close({name: `${form.value.name}`, price: `${form.value.price}`, link: `${form.value.link}`});
+    }
   
     ngOnInit() {
       this.form = this.formBuilder.group({
@@ -22,10 +33,6 @@ export class EditPresentDialogComponent implements OnInit {
         price: '',
         link: ''
       });
-    }
-  
-    public submit(form) {
-      this.dialogRef.close({name: `${form.value.name}`, price: `${form.value.price}`, link: `${form.value.link}`});
     }
   
   }

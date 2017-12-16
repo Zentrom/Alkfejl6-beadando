@@ -1,3 +1,87 @@
-<p>
-  users-view works!
-</p>
+<mat-card class="searchusersview">
+    <mat-card-title>
+            <h3>Search users</h3>
+    </mat-card-title>
+
+<mat-card-content>
+    <mat-form-field>
+        <input matInput #firstname type="text" placeholder="Firstname" [(ngModel)]="firstnamevalue">
+        <button mat-button *ngIf="firstnamevalue" matSuffix mat-icon-button aria-label="Clear" (click)="firstnamevalue=''">
+                <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput #lastname type="text" placeholder="Lastname" [(ngModel)]="lastnamevalue">
+        <button mat-button *ngIf="lastnamevalue" matSuffix mat-icon-button aria-label="Clear" (click)="lastnamevalue=''">
+                <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+    <br>
+    <div *ngIf="error">{{error}}</div>
+    <br>
+    <button mat-raised-button color="primary"
+        (click)="searchUsers(false, firstname.value, lastname.value); ">
+        Search
+    </button>
+    <button mat-raised-button color="primary" id="showall"
+    (click)="searchUsers(true); firstnamevalue=''; lastnamevalue=''">
+    Show all
+    </button>
+</mat-card-content>
+</mat-card>
+
+<mat-card class="usersview">
+<mat-card-title>
+<h3>Results</h3>
+</mat-card-title>
+
+<mat-card-content>
+<div *ngIf="!users">
+        <h5 class="text-center">You manage users here</h5>
+</div>
+
+<div *ngIf="users?.length==0">
+        <h5 class="text-center">No results!</h5>
+</div>
+
+<div *ngIf="users?.length > 0">
+    <div class="container">
+            <div class="col-md-12">
+                <table class="table table-bordered table-striped table-hover">
+                <thead>
+                <tr>
+                    <th style="width:10%" class="text-center">Id</th>
+                    <th style="width:43%" class="text-center">Firstname</th>
+                    <th style="width:43%" class="text-center">Lastname</th>
+                    <th style="width:14%" class="text-center">Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let user of users">
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.firstname }}</td>
+                    <td>{{ user.lastname }}</td>
+                    <td>
+                        <button
+                            class="btn btn-danger innerbtn"
+                            mwlConfirmationPopover
+                            title="Confirmation"
+                            cancelButtonType="btn btn-danger"
+                            confirmButtonType="btn btn-info"
+                            message="Delete user: {{user.firstname}} {{user.lastname}}?"
+                            placement="left"
+                            (confirm)="deleteUser(user)">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+</div>
+
+</mat-card-content>
+</mat-card>
+
+

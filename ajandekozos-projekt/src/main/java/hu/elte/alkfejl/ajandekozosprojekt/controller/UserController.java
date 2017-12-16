@@ -67,9 +67,25 @@ public class UserController {
     }
 
     @Role({ADMIN, USER})
-    @DeleteMapping(ResourceConstants.DELETE_FRIEND_OR_USER)
-    public ResponseEntity deleteFriendOrUser(@PathVariable int friendId) {
-        userService.deleteFriendOrUser(friendId);
+    @DeleteMapping(ResourceConstants.DELETE_FRIEND)
+    public ResponseEntity deleteFriend(@PathVariable int friendId) {
+        userService.deleteFriend(friendId);
         return ResponseEntity.ok().build();
     }
+
+    @Role(ADMIN)
+    @GetMapping(ResourceConstants.USERS)
+    public ResponseEntity<List<UserDTO>> listUsers(@RequestParam(name = "firstname") String firstName, @RequestParam(name = "lastname") String lastName) {
+        List<UserDTO> users = userService.listUsers(firstName, lastName);
+        return ResponseEntity.ok(users);
+    }
+
+    @Role(ADMIN)
+    @DeleteMapping(ResourceConstants.USERSID)
+    public ResponseEntity deleteUser(@PathVariable int userId) {
+        userService.deleteUser(userId);
+        return ResponseEntity.ok().build();
+    }
+
+
 }

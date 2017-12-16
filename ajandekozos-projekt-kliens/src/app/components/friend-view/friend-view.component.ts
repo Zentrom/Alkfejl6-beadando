@@ -41,7 +41,7 @@ export class FriendViewComponent implements OnInit {
   }
 
   public removeFriend(user: UserDTO): void {  
-    this.friendService.deleteFriendOrUser(user.id).subscribe(() => {
+    this.friendService.deleteFriend(user.id).subscribe(() => {
       var index = this.possibleFriends.indexOf(user);
       this.possibleFriends.splice(index, 1);  
     });

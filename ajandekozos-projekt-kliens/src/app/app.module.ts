@@ -5,6 +5,7 @@ import {RouterModule} from '@angular/router'
 import { HttpClientModule } from '@angular/common/http'; 
 import {AppComponent} from './app.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {ConfirmationPopoverModule} from 'angular-confirmation-popover';
 
 import { RoutingModule} from './modules/routing/routing.module';
 import { UiModule} from "./modules/ui/ui.module";
@@ -50,7 +51,10 @@ import { UsersViewComponent } from './components/admin/users-view/users-view.com
     RoutingModule,
     BrowserAnimationsModule,
     UiModule,
-    HttpClientModule
+    HttpClientModule,
+    ConfirmationPopoverModule.forRoot({
+      confirmButtonType: 'danger' // set defaults here
+    })
   ],
   entryComponents: [
     EditWishlistDialogComponent,

@@ -15,8 +15,7 @@ export class FriendrequestService {
   public getFriendRequests(): Observable<FriendRequest[]> {
     return this.httpClient.get<FriendRequest[]>(api + 'user/friendrequests');
   }
-
-  // itt a status igazából egy szám (0 vagy 1) csak számként nem lehet paraméterben átküldeni
+  
   public processRequests(requestId: number, status: string): Observable<any> {
       return this.httpClient.delete(api + 'user/friendrequests/' + requestId, {params: {status}, responseType: 'text'});
   }
