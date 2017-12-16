@@ -13,7 +13,7 @@
         <div *ngIf="nameError">{{nameError}}</div>
         <br>
         <mat-form-field>
-            <input matInput #presentPrice type="number" placeholder="Price" min="1" [(ngModel)]="price">
+            <input matInput #presentPrice type="number" placeholder="Price" min="1" [(ngModel)]="price" [required]="true">
             <span matSuffix> Ft</span>
         </mat-form-field> 
         <div *ngIf="priceError">{{priceError}}</div>
@@ -26,11 +26,11 @@
         </mat-form-field>
         <br> 
         <button mat-raised-button color="primary"
-            (click)="clickButton(presentName.value, presentPrice.value, presentLink.value); presetname='';link=''; price=1">
+            (click)="clickButton(presentName.value, presentPrice.value, presentLink.value); presetname='';link=''; price=''">
             Add Present
         </button>
         <button id="reset" mat-raised-button color="primary"
-            (click)="presetname='';link=''; price=1; nameError=''; priceError=''">
+            (click)="presetname='';link=''; price=''; nameError=''; priceError=''">
              Reset
         </button>
     </mat-card-content>

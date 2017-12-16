@@ -14,6 +14,10 @@
         <mat-card-content> 
             
             <ng-template #loaded>
+                <div *ngIf="wishlists.length === 0; else atleastone">
+                    <h5 class="text-center">No lists yet!</h5>
+                </div>
+                <ng-template #atleastone>
                     <div class="container">
                             <div class="col-md-12">
                                 <table class="table table-bordered table-striped table-hover">
@@ -52,6 +56,7 @@
                             </table>
                             </div>
                         </div>
+                      </ng-template>
              </ng-template>
         </mat-card-content>
 
