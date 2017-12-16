@@ -5,21 +5,33 @@
 
     <mat-card-content>
         <mat-form-field>
-            <input matInput #presentName type="text" placeholder="Preset name">
+            <input matInput #presentName type="text" placeholder="Preset name" [(ngModel)]="presetname" [required]="true">
+            <button mat-button *ngIf="presetname" matSuffix mat-icon-button aria-label="Clear" (click)="presetname=''">
+                    <mat-icon>close</mat-icon>
+            </button>
         </mat-form-field>
+        <div *ngIf="nameError">{{nameError}}</div>
         <br>
         <mat-form-field>
-            <input matInput #presentPrice type="number" placeholder="Price">
+            <input matInput #presentPrice type="number" placeholder="Price" min="1" [(ngModel)]="price">
             <span matSuffix> Ft</span>
         </mat-form-field> 
+        <div *ngIf="priceError">{{priceError}}</div>
         <br>
         <mat-form-field>
-            <input matInput #presentLink type="url" placeholder="Url">
+            <input matInput #presentLink type="url" placeholder="Url" [(ngModel)]="link">
+            <button mat-button *ngIf="link" matSuffix mat-icon-button aria-label="Clear" (click)="link=''">
+                    <mat-icon>close</mat-icon>
+            </button>
         </mat-form-field>
         <br> 
         <button mat-raised-button color="primary"
-            (click)="clickButton(presentName.value, presentPrice.value, presentLink.value)">
+            (click)="clickButton(presentName.value, presentPrice.value, presentLink.value); presetname='';link=''; price=1">
             Add Present
+        </button>
+        <button id="reset" mat-raised-button color="primary"
+            (click)="presetname='';link=''; price=1; nameError=''; priceError=''">
+             Reset
         </button>
     </mat-card-content>
 

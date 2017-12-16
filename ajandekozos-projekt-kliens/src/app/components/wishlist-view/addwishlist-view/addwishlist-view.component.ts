@@ -14,7 +14,7 @@ export class AddwishlistViewComponent implements OnInit {
   private error: string = '';
 
   public clickButton(title: string): void {
-    if (title.length > 0) {
+    if (title.trim().length > 0) {
       this.error = '';
       this.createList.emit(new WishList(title));
     } else {

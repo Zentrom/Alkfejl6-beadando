@@ -5,7 +5,7 @@
 
     <mat-card-content>
         <mat-form-field>
-            <input matInput #listnameinput type="text" placeholder="List name" [(ngModel)]="value">
+            <input matInput #listnameinput type="text" placeholder="List name" [(ngModel)]="value" [required]="true">
             <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
                     <mat-icon>close</mat-icon>
             </button>
@@ -16,6 +16,10 @@
             (click)="clickButton(listnameinput.value)">
             Creat list
         </button>
+        <button id="reset" mat-raised-button color="primary"
+        (click)="value=''; error=''">
+         Reset
+    </button>
     </mat-card-content>
 
 </mat-card>

@@ -11,10 +11,28 @@ export class AddpresentViewComponent implements OnInit {
   @Output()
   public createPresent: EventEmitter<Present> = new EventEmitter();
 
+  private nameError: string = "";
+  private priceError: string = "";  
+
   public clickButton(name: string, price: number, link: string): void {
-    const isHidden = false;
-    this.createPresent.emit(new Present(name, price, link, isHidden));
-  }
+    if (name.trim().length > 0 && price >= 1) {
+      this.nameError = "";
+      this.priceError = "";
+      const isHidden = false;
+      this.createPresent.emit(new Present(name, price, link, isHidden));
+    } else {
+      if (price <= 0) {
+        this.priceError = "Price must be a positive number!";
+      } else {
+        this.priceError = "";
+      }
+      if (name.trim().length === 0) {
+        this.nameError = "Please enter something!";     
+      } else {
+        this.nameError = "";
+      }
+    }
+  } 
 
   constructor() { }
 
