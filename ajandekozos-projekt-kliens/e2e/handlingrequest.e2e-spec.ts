@@ -2,15 +2,22 @@ import { browser, by, element } from 'protractor';
 import { getPath } from './getpath';
 
 describe('Handling Friend-requests functionality', () => {
-    beforeAll(() => {
+    beforeEach(() => {
         browser.get('');
-        element(by.css('input[type="text"]')).sendKeys('negrut');
-        element(by.css('input[type="password"]')).sendKeys('gyere');
+        element(by.buttonText('Login')).click();
+        element(by.id('us')).sendKeys('negrut');
+        element(by.id('pw')).sendKeys('gyere');
         element(by.id('bejelentkezes')).click();
+        
     });
+  // browser.manage().timeouts().pageLoadTimeout(40000);
+  // browser.manage().timeouts().implicitlyWait(25000);
 
-    it('should navigate to the incoming requests page', () => {    
-        element(by.buttonText('Incoming requests')).click();
+    it('should navigate to the incoming requests page', () => { 
+        
+        getPath();
+        element(by.id('inc')).click();
+        //element(by.buttonText('Incoming requests')).click();
         expect(getPath()).toEqual('/user/friendrequests');
     });
 

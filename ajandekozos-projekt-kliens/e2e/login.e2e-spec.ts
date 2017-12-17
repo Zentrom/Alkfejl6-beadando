@@ -18,6 +18,7 @@ describe('Login functionality', () => {
     });
 
     it('should fail to login for invalid credentials', () => {
+        element(by.buttonText('Login')).click();
         element(by.css('input[type="text"]')).sendKeys('éasklduélasukdtzél@léasdkélasku.aléskdj');
         element(by.css('input[type="password"]')).sendKeys('éasklduélasukdtzé');
         element(by.id('bejelentkezes')).click();
@@ -25,6 +26,7 @@ describe('Login functionality', () => {
     });
 
     it('should log in for valid credentials', () => {
+        element(by.buttonText('Login')).click();
         element(by.css('input[type="text"]')).sendKeys('negrut');
         element(by.css('input[type="password"]')).sendKeys('gyere');
         element(by.id('bejelentkezes')).click();

@@ -1,4 +1,4 @@
-import { AppPage } from './app.po';
+/*import { AppPage } from './app.po';
 
 describe('ajandekozos-projekt-kliens App', () => {
   let page: AppPage;
@@ -12,3 +12,4 @@ describe('ajandekozos-projekt-kliens App', () => {
     expect(page.getParagraphText()).toEqual('Welcome to app!');
   });
 });
+*/
