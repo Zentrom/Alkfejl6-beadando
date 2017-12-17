@@ -45,6 +45,7 @@ public class PresentService {
             presentDTO.setUser(present.getUser() != null ?
                                 new UserDTO(present.getId(), present.getUser().getFirstname(), present.getUser().getLastname())
                                 : null);
+            presentDTO.setHidden(present.isHidden());
 
             presentsDTO.add(presentDTO);
         }

@@ -10,7 +10,7 @@ import { User } from '../../model/user';
   selector: 'app-login-view',
   templateUrl: './login-view.component.html',
   styleUrls: ['./login-view.component.css'],
-  providers: [AuthService]
+  providers: []
 })
 export class LoginViewComponent implements OnInit {
   private error: string = '';

@@ -9,7 +9,7 @@
 </div>
 
 <ng-template #loggedIn>
-    <div *ngIf="isAdmin();else notAdmin">
+    <div *ngIf="authService.isUserAdmin();else notAdmin">
         <mat-toolbar color="primary">
                         Gifting app
             <button mat-button routerLink="/"  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Index</button>

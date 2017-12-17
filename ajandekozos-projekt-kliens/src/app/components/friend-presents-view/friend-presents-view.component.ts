@@ -8,28 +8,29 @@ import { filter } from 'rxjs/operators';
 import { User } from '../../model/user';
 import { Present } from '../../model/present';
 import { PresentService } from '../../services/present.service';
-//import { EditPresentDialogComponent } from './edit-present-dialog/edit-present-dialog.component';
+import { EditPresentDialogComponent } from '../presents-view/edit-present-dialog/edit-present-dialog.component';
 import { BreadcrumbService } from '../../services/breadcrumb.service';
+import { UserDTO } from '../../model/userdto';
 
 @Component({
   selector: 'app-friend-presents-view',
   templateUrl: './friend-presents-view.component.html',
   styleUrls: ['./friend-presents-view.component.css'],
   providers: [PresentService]
-  //encapsulation: ViewEncapsulation.None
 })
 
 export class FriendPresentsViewComponent implements OnInit {
   private presents: Present[];
-  private listId: number;
+  private friendListId: number;
   private friendId: number;
-  //private editPresentDialogRef: MatDialogRef<EditPresentDialogComponent>;
+  private editPresentDialogRef: MatDialogRef<EditPresentDialogComponent>;
   private isDialogOpen: boolean;
 
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private presentService: PresentService,
+    private authService: AuthService,
     private breadCrumbService: BreadcrumbService,
     private location: Location,
     private dialog: MatDialog
@@ -41,7 +42,6 @@ export class FriendPresentsViewComponent implements OnInit {
     if (present.link) {
       return "btn btn-primary innerbtn";
     }
-
     return "btn btn-danger innerbtn";
   }
   
@@ -52,7 +52,7 @@ export class FriendPresentsViewComponent implements OnInit {
     window.open(url, "_blank");
   }
 
-  /*public openEditPresentDialog(present: Present): void {
+  public openEditPresentDialog(present: Present): void {
     if (!this.isDialogOpen) {
       this.editPresentDialogRef = this.dialog.open(EditPresentDialogComponent, {
         data: {
@@ -70,38 +70,43 @@ export class FriendPresentsViewComponent implements OnInit {
         present.name = result.name;
         present.price = result.price;
         present.link = result.link;
-        this.presentService.updatePresent(this.listId, present).subscribe((updatedPresent) => {
+        this.presentService.updatePresent(this.friendListId, present).subscribe((updatedPresent) => {
         });
     });
     this.isDialogOpen = false;
-
-    
-  }*/
+  }
 
   public addPresent(present: Present): void {
-    this.presentService.addPresent(this.listId, present).subscribe((newPresent) => {
-      this.presents.push(newPresent);
-    });
+    this.presentService.addNewPresentForFriendOrUser(this.friendId, this.friendListId, present).subscribe((newHiddenPresent: Present) => {
+      this.presents.push(newHiddenPresent);
+    })
   }
 
   public removePresent(present: Present): void {  
-    this.presentService.deletePresent(this.listId, present.id).subscribe(() => {
+    this.presentService.deletePresent(this.friendListId, present.id).subscribe(() => {
       var index = this.presents.indexOf(present);
       this.presents.splice(index, 1);   
     })
   }
 
-  public setBreadcrumbs(presentId: number,presentTitle: string): void {
-    this.breadCrumbService.presentId = presentId;
-    this.breadCrumbService.presentName = presentTitle;
+  public setBuyer(present: Present) {
+    if (present.user === null) {
+      var buyer: UserDTO = new UserDTO(this.authService.getUser().id, this.authService.getUser().firstname, this.authService.getUser().lastname);
+      present.user = buyer;
+      console.log("NEM VOLT BUYER");
+    } else {
+      console.log("VOLT BUYER");
+    }
+
+    //this.presentService.updatePresent().subscribe(() = >);
   }
 
   ngOnInit() {
-    this.listId = parseInt(this.activatedRoute.snapshot.paramMap.get('friendListId'));
+    this.friendListId = parseInt(this.activatedRoute.snapshot.paramMap.get('friendListId'));
     this.friendId = parseInt(this.activatedRoute.snapshot.paramMap.get('friendId'));
-    //console.log(this.listId);
-    this.presentService.getPresents(this.listId).subscribe((presents: Present[]) => {
-      this.presents = presents;
+
+    this.presentService.listPresentsOfFriendsOrUsersList(this.friendId, this.friendListId).subscribe((friendsPresents: Present[]) => {
+      this.presents = friendsPresents;
     });
   }
     

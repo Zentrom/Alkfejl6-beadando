@@ -55,8 +55,6 @@ export class FriendViewComponent implements OnInit {
 
   public setBreadcrumbs(firstname: string, lastname: string): void {
     this.breadCrumbService.friendName = firstname + " " + lastname;
-    console.log("BENT VAGYOk");
-    console.log(this.breadCrumbService.friendName);
   }
 
   ngOnInit() {

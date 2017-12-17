@@ -17,10 +17,6 @@ export class AppComponent implements OnInit {
     private breadCrumbService: BreadcrumbService
   ) {}
 
-  isAdmin(): boolean {
-    return localStorage.getItem("isAdmin") == 'true';
-  }
-
   ngOnInit() {
     this.authService.syncLoginStatus();
   }

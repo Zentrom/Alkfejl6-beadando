@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { filter } from 'rxjs/operators';
 
@@ -13,7 +12,7 @@ import { BreadcrumbService } from '../../services/breadcrumb.service';
   selector: 'app-wishlist-view',
   templateUrl: './wishlist-view.component.html',
   styleUrls: ['./wishlist-view.component.css'],
-  providers: [AuthService, WishlistService]
+  providers: [WishlistService]
 })
 
 export class WishlistViewComponent implements OnInit {
@@ -62,8 +61,7 @@ export class WishlistViewComponent implements OnInit {
     this.isDialogOpen = false;
   }
 
-  public setBreadcrumbs(listId: number, listTitle: string): void {
-    this.breadcrumbService.listId = listId;
+  public setBreadcrumbs(listTitle: string): void {
     this.breadcrumbService.listTitle = listTitle;
   }
 

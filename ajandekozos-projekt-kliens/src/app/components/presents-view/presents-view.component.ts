@@ -15,7 +15,7 @@ import { BreadcrumbService } from '../../services/breadcrumb.service';
   selector: 'app-presents-view',
   templateUrl: './presents-view.component.html',
   styleUrls: ['./presents-view.component.css'],
-  providers: [AuthService, PresentService]
+  providers: [PresentService]
 })
 
 export class PresentsViewComponent implements OnInit {
@@ -72,8 +72,6 @@ export class PresentsViewComponent implements OnInit {
         });
     });
     this.isDialogOpen = false;
-
-    
   }
 
   public addPresent(present: Present): void {

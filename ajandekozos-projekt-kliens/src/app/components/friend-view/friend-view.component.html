@@ -1,6 +1,6 @@
 <mat-card class="searchfriendview">
     <mat-card-title>
-            <h3>My Friends Search</h3>
+            <h3>Search friends</h3>
     </mat-card-title>
 
 <mat-card-content>
@@ -37,7 +37,7 @@
  
      <mat-card-content>
          <div *ngIf="!possibleFriends">
-                 <h5 class="text-center">Search friends!</h5>
+                 <h5 class="text-center">Search among your friends!</h5>
          </div>
  
          <div *ngIf="possibleFriends?.length==0">
@@ -50,21 +50,21 @@
                          <table class="table table-bordered table-striped table-hover">
                          <thead>
                          <tr>
-                             <th style="width:30%" class="text-center">Firstname</th>
-                             <th style="width:30%" class="text-center">Lastname</th>
-                             <th style="width:25%" class="text-center">&nbsp;</th>
+                             <th style="width:35%" class="text-center">Firstname</th>
+                             <th style="width:35%" class="text-center">Lastname</th>
+                             <th style="width:15%" class="text-center">Lists</th>
                              <th style="width:15%" class="text-center">Delete</th>
                          </tr>
                          </thead>
                          <tbody>
-                         <tr *ngFor="let user of possibleFriends">
+                         <tr *ngFor="let user of possibleFriends | paginate: { itemsPerPage: 5, currentPage: p }">
                              <td>{{ user.firstname }}</td>
                              <td>{{ user.lastname }}</td>
                              <td>
                                 <button class="btn btn-info innerbtn"
                                 routerLink="/user/friends/{{user.id}}/wishlists"
                                 (click)="setBreadcrumbs(user.firstname, user.lastname)">
-                                         View Wishlists
+                                    <i class="fa fa-chevron-right"></i>
                                 </button>
                              </td>
                              <td>
@@ -78,6 +78,7 @@
                      </table>
                      </div>
                  </div>
+                 <pagination-controls (pageChange)="p =$event"></pagination-controls>
          </div>
  
      </mat-card-content>

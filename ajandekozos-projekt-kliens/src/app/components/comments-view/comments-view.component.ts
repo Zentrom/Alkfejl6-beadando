@@ -14,7 +14,7 @@ import { UserDTO } from '../../model/userdto';
   selector: 'app-comments-view',
   templateUrl: './comments-view.component.html',
   styleUrls: ['./comments-view.component.css'],
-  providers: [AuthService,PresentService,CommentService]
+  providers: [CommentService]
 })
 
 export class CommentsViewComponent implements OnInit {

@@ -73,8 +73,8 @@ public class PresentController {
 
     @Role({ADMIN, USER})
     @PostMapping(ResourceConstants.FRIEND_PRESENTS)
-    public ResponseEntity<PresentDTO> addNewPresentForFriendOrUser(@PathVariable int wishListId, @RequestBody PresentDTO present) {
-        PresentDTO saved = presentService.create(wishListId, present);
+    public ResponseEntity<PresentDTO> addNewPresentForFriendOrUser(@PathVariable int friendListId, @RequestBody PresentDTO present) {
+        PresentDTO saved = presentService.create(friendListId, present);
         return ResponseEntity.ok(saved);
     }
 
