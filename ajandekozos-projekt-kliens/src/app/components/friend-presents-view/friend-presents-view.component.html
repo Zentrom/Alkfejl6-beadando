@@ -41,7 +41,8 @@
                             <button [ngClass]="getButtonClass(present)" [disabled]=!present.link (click)="goToUrl(present.link)">Link</button>                   
                           </td>
                           <td>
-                            <button class="btn btn-warning innerbtn" routerLink="/user/friends/{{friendId}}/wishlists/{{listId}}/presents/{{present.id}}/comments">
+                            <button class="btn btn-warning innerbtn" routerLink="/user/friends/{{friendId}}/wishlists/{{listId}}/presents/{{present.id}}/comments"
+                            (click)="setBreadcrumbs(listid)">
                                          <i class="fa fa-edit"></i>
                                 </button>
                           </td>

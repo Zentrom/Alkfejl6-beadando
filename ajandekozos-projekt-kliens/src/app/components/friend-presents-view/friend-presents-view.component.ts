@@ -91,6 +91,11 @@ export class FriendPresentsViewComponent implements OnInit {
     })
   }
 
+  public setBreadcrumbs(listId: number): void {
+    this.breadCrumbService.listId = this.listId;
+    //this.breadCrumbService.listTitle = this.listTitle;
+  }
+
   ngOnInit() {
     this.listId = parseInt(this.activatedRoute.snapshot.paramMap.get('friendListId'));
     this.friendId = parseInt(this.activatedRoute.snapshot.paramMap.get('friendId'));
