@@ -7,7 +7,7 @@ import { User } from '../../model/user';
   selector: 'app-register-view',
   templateUrl: './register-view.component.html',
   styleUrls: ['./register-view.component.css'],
-  providers: [AuthService]
+  providers: []
 })
 export class RegisterViewComponent implements OnInit {
   private error: string = '';

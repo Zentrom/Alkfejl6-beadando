@@ -10,7 +10,7 @@ import { CommentService } from '../../services/comment.service';
   selector: 'app-comments-view',
   templateUrl: './comments-view.component.html',
   styleUrls: ['./comments-view.component.css'],
-  providers: [AuthService, CommentService]
+  providers: [CommentService]
 })
 
 export class CommentsViewComponent implements OnInit {

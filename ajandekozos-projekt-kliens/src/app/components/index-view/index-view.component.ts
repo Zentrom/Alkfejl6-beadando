@@ -5,7 +5,7 @@ import { AuthService } from '../../services/auth.service';
   selector: 'app-index-view',
   templateUrl: './index-view.component.html',
   styleUrls: ['./index-view.component.css'],
-  providers: [AuthService]
+  providers: []
 })
 export class IndexViewComponent implements OnInit {
 

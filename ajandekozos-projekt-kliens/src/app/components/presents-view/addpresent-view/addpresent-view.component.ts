@@ -11,6 +11,9 @@ export class AddpresentViewComponent implements OnInit {
   @Output()
   public createPresent: EventEmitter<Present> = new EventEmitter();
 
+  @Input()
+  public isHidden: boolean;
+
   private nameError: string = "";
   private priceError: string = "";  
 
@@ -18,8 +21,8 @@ export class AddpresentViewComponent implements OnInit {
     if (name.trim().length > 0 && price >= 1) {
       this.nameError = "";
       this.priceError = "";
-      const isHidden = false;
-      this.createPresent.emit(new Present(name, price, link, isHidden));
+      console.log("ADD PRESENT: " + this.isHidden);
+      this.createPresent.emit(new Present(name, price, link, this.isHidden));
     } else {
       if (price <= 0) {
         this.priceError = "Price must be a positive number!";

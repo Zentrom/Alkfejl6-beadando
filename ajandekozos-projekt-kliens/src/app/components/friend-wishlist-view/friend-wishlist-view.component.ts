@@ -65,8 +65,7 @@ export class FriendWishlistViewComponent implements OnInit {
     this.isDialogOpen = false;
   }
 */
-  public setBreadcrumbs(listId: number, listTitle: string): void {
-    this.breadcrumbService.listId = listId;
+  public setBreadcrumbs(listTitle: string): void {
     this.breadcrumbService.listTitle = listTitle;
   }
 

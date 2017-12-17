@@ -16,10 +16,6 @@ export class AppComponent implements OnInit {
     private authService: AuthService,
   ) {}
 
-  isAdmin(): boolean {
-    return localStorage.getItem("isAdmin") == 'true';
-  }
-
   ngOnInit() {
     this.authService.syncLoginStatus();
   }

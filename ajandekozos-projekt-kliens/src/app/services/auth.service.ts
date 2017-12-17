@@ -4,15 +4,18 @@ import { Observable, Subject } from 'rxjs';
 import { User } from '../model/user';
 import { api } from '../config/api';
 import { Router } from '@angular/router';
+import { BreadcrumbService } from './breadcrumb.service';
 
 
 @Injectable()
 export class AuthService {
   private static user: User = null;
+  private static isAdmin: boolean;
 
   constructor(
     private http: HttpClient,
     private router: Router,
+    private breadCrumbService: BreadcrumbService,
   ) {}
 
   public login(username: string, password: string): Observable<boolean> {
@@ -21,8 +24,7 @@ export class AuthService {
       AuthService.user = user as User;
       result.next(true);
 
-      localStorage.setItem("isAdmin", AuthService.user.role === "ADMIN" ? "true" : "false");
-      
+      AuthService.isAdmin = AuthService.user.role === "ADMIN" ? true: false;
     }, (error) => {
       AuthService.user = null as User;
       result.next(false);
@@ -35,6 +37,8 @@ export class AuthService {
     this.http.post(api + '/register', { username, password, firstname, lastname, email }).subscribe((user) => {
       AuthService.user = user as User;
       result.next(true);
+
+      AuthService.isAdmin = AuthService.user.role === "ADMIN" ? true: false;
     }, (error) => {
       AuthService.user = null as User;
       result.next(false);
@@ -46,7 +50,6 @@ export class AuthService {
     this.http.get(api + 'user/logout', {responseType: 'text'}).subscribe(() => {
       AuthService.user = null;
       this.router.navigate(['/login']);
-      localStorage.removeItem("isAdmin");
     });
   }
 
@@ -58,8 +61,11 @@ export class AuthService {
     this.http.get(api + 'user').subscribe((user) => {
       if (user) {
         AuthService.user = user as User;
+
+        AuthService.isAdmin = AuthService.user.role === "ADMIN" ? true: false;
       } else {
         AuthService.user = null;
+        AuthService.isAdmin = false;
       }
     });
   }
@@ -76,6 +82,14 @@ export class AuthService {
       return AuthService.user.role;
     }
     return undefined;
+  }
+
+  public isUserAdmin(): boolean {
+    return AuthService.isAdmin;
+  }
+
+  public getUser(): User {
+    return AuthService.user;
   }
 
 }
