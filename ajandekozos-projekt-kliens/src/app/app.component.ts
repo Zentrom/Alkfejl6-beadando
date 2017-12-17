@@ -14,6 +14,7 @@ export class AppComponent implements OnInit {
 
   constructor (
     private authService: AuthService,
+    private breadCrumbService: BreadcrumbService
   ) {}
 
   isAdmin(): boolean {

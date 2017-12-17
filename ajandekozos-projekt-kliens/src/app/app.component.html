@@ -16,7 +16,7 @@
             <button mat-button routerLink="/users" routerLinkActive="active">Users</button>
             <span class="fillspace"></span>
             <button mat-button routerLink="/" (click)="authService.logout()">Logout</button>
-            <i class="fa fa-user-circle" aria-hidden="true"></i>            
+            <i class="fa fa-user-circle" matTooltip="Logged in as {{breadCrumbService.userName}}" aria-hidden="true"></i>            
         </mat-toolbar>
     </div>
 
@@ -30,7 +30,7 @@
             <button mat-button routerLink="/user/friendrequests" routerLinkActive="active">Incoming requests</button>
             <span class="fillspace"></span>
             <button mat-button routerLink="/" (click)="authService.logout()">Logout</button>
-            <i class="fa fa-user-circle" aria-hidden="true"></i>            
+            <i class="fa fa-user-circle" matTooltip="Logged in as {{breadCrumbService.userName}}" aria-hidden="true"></i>            
         </mat-toolbar>
     </ng-template>
 </ng-template>

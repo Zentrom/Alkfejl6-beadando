@@ -1,6 +1,7 @@
 <mat-card class="indexview">
     <mat-card-title>
-        <h3 class="center">Welcome!</h3>
+        <h3 class="center" *ngIf="!authService.isLoggedIn()">Welcome!</h3>
+        <h3 class="center" *ngIf="authService.isLoggedIn()">Welcome back {{getHomeName()}}!</h3>
     </mat-card-title>
 
     <mat-card-content>

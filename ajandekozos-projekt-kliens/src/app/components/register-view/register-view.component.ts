@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { BreadcrumbService } from '../../services/breadcrumb.service';
 import { User } from '../../model/user';
 
 @Component({
@@ -14,6 +15,7 @@ export class RegisterViewComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
+    private breadCrumbService: BreadcrumbService,
     private router: Router
   ) {}
 
@@ -24,6 +26,7 @@ export class RegisterViewComponent implements OnInit {
     this.authService.register(username, password, firstname, lastname, email).subscribe((success: boolean) => {
       if (success) {
         this.router.navigate(['/']);
+        this.breadCrumbService.userName=username;
       } else {
         this.error = 'Error: something went wrong!';
       }
