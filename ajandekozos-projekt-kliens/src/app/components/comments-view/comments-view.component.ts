@@ -18,7 +18,6 @@ import { UserDTO } from '../../model/userdto';
 })
 
 export class CommentsViewComponent implements OnInit {
-  private present: Present;
   private comments: Comment[];
   private friendId: number;
   private friendListId: number;
@@ -33,24 +32,14 @@ export class CommentsViewComponent implements OnInit {
     private authService: AuthService,
     private commentService: CommentService
   ) {} 
-
-  getPresentName(){
-    this.presentService.readPresent(this.friendListId,this.presentId).subscribe((present: Present) => {
-      this.present= present;
-    });
-  }
-
+  
   convertToDateString(wilcommen: Comment): string{
     this.date=new Date(wilcommen.timeStamp);
     return this.date.toDateString();
   }
 
   public postComment(commentText: string): void{
-    //console.log(this.breadCrumbService.userName);
-    
-    //ez itt lehet furán néz ki,de működik!!!!!!
-    var tmpComment = new Comment(100,commentText,new Date()
-    ,new UserDTO(432,"fsfdsf","ggrdgdrdrg"));
+    var tmpComment = new Comment(null ,commentText, null, null);
     this.commentService.addComment(this.friendId,this.friendListId,this.presentId,tmpComment).subscribe((newComment:Comment) => {
       this.comments.push(newComment);
     });
@@ -64,15 +53,10 @@ export class CommentsViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    //this.present= null;
     this.comments= null;
     this.presentId = parseInt(this.activatedRoute.snapshot.paramMap.get('friendPresentId'));
     this.friendListId = parseInt(this.activatedRoute.snapshot.paramMap.get('friendListId'));
     
-    //console.log(this.presentId);
-    this.getPresentName();
-    //this.breadCrumbService.presentName=this.present.name;
-    //this.setBread();
     this.friendId = parseInt(this.activatedRoute.snapshot.paramMap.get('friendId'));
     
     //var ts = new Date(1420844400000);

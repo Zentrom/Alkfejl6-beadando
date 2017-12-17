@@ -1,6 +1,7 @@
 .wishlistview {
     margin: 20px auto;
     width: 750px;
+    margin-top: 150px;
   }
 
  mat-spinner {

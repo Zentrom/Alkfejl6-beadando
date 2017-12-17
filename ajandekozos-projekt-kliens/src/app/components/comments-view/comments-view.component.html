@@ -1,26 +1,33 @@
-<mat-card class="commentsview">
+<app-add-comment-view (createComment)="postComment($event)"></app-add-comment-view>
 
-    <div *ngIf="!present; else loaded">
-        <mat-spinner></mat-spinner>
-    </div>
+
+
+<mat-card class="commentsview">
     
     <mat-card-title>
-        <ng-template #loaded>
-        <h3>Comments on {{present.name}}</h3>
-        </ng-template>
+        <h3>Comments on {{breadCrumbService.presentName}}</h3>
     </mat-card-title>
 
+    <div *ngIf="!comments; else loaded">
+        <mat-spinner></mat-spinner>
+    </div>
+
     <mat-card-content>
+        <ng-template #loaded>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a routerLink="/user/friends"><i class="fa fa-arrow-left" aria-hidden="true"></i> Friends</a></li>
+                <li class="breadcrumb-item"><a routerLink="/user/friends/{{friendId}}/wishlists"><i class="fa fa-arrow-left" aria-hidden="true"></i> {{breadCrumbService.friendName}}</a></li>
+                <li class="breadcrumb-item"><a routerLink="/user/friends/{{friendId}}/wishlists/{{friendListId}}/presents"><i class="fa fa-arrow-left" aria-hidden="true"></i> {{breadCrumbService.listTitle}}</a></li>                            
+                <li class="breadcrumb-item active">{{breadCrumbService.presentName}}</li>
+             </ol>
+
+            <div *ngIf="comments.length === 0; else atleastone">
+                <h5 class="text-center">No comments yet!</h5>
+            </div>
+
+            <ng-template #atleastone>
             <div class="container">
                     <div class="col-md-12">
-
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a routerLink="/user/friends"><i class="fa fa-arrow-left" aria-hidden="true"></i> Friends</a></li>
-                            <li class="breadcrumb-item"><a routerLink="/user/friends/{{friendId}}/wishlists"><i class="fa fa-arrow-left" aria-hidden="true"></i> {{breadCrumbService.friendName}}</a></li>
-                            <li class="breadcrumb-item"><a routerLink="/user/friends/{{friendId}}/wishlists/{{friendListId}}/presents"><i class="fa fa-arrow-left" aria-hidden="true"></i> {{breadCrumbService.listTitle}}</a></li>                            
-                            <li class="breadcrumb-item active">{{breadCrumbService.presentName}}</li>
-                          </ol>
-
                         <table class="table table-bordered table-striped table-hover">
                       <thead>
                         <tr>
@@ -57,14 +64,9 @@
                     </table>
                     </div>
                 </div>
-                <pagination-controls (pageChange)="p =$event"></pagination-controls>
-                <div>
-                    <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Leave a comment" type="text" #commentInput>
-                   </mat-form-field>
-                   <button class="postcomment" mat-raised-button color="primary"
-                    (click)="postComment(commentInput.value)">Post Comment</button>                   
-                </div>
+                <pagination-controls (pageChange)="p =$event"></pagination-controls>      
+            </ng-template>
+          </ng-template>
     </mat-card-content>
 
 </mat-card>

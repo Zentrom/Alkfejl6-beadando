@@ -18,10 +18,10 @@ export class AddpresentViewComponent implements OnInit {
   private priceError: string = "";  
 
   public clickButton(name: string, price: number, link: string): void {
-    if (name.trim().length > 0 && price >= 1) {
+    if (name && price && name.trim().length > 0 && price >= 1) {
       this.nameError = "";
       this.priceError = "";
-      if (link.trim().length === 0) {
+      if (link && link.trim().length === 0) {
         link = null;
       }
       this.createPresent.emit(new Present(name, price, link, this.isHidden));
@@ -31,7 +31,7 @@ export class AddpresentViewComponent implements OnInit {
       } else {
         this.priceError = "";
       }
-      if (name.trim().length === 0) {
+      if (!name || name.trim().length === 0) {
         this.nameError = "Please enter something!";     
       } else {
         this.nameError = "";

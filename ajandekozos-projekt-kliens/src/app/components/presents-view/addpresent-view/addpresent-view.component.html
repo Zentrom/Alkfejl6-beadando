@@ -5,7 +5,7 @@
 
     <mat-card-content>
         <mat-form-field>
-            <input matInput #presentName type="text" placeholder="Preset name" [(ngModel)]="presetname" [required]="true">
+            <input matInput type="text" placeholder="Preset name" [(ngModel)]="presetname" [required]="true">
             <button mat-button *ngIf="presetname" matSuffix mat-icon-button aria-label="Clear" (click)="presetname=''">
                     <mat-icon>close</mat-icon>
             </button>
@@ -19,14 +19,14 @@
         <div *ngIf="priceError">{{priceError}}</div>
         <br>
         <mat-form-field>
-            <input matInput #presentLink type="url" placeholder="Url" [(ngModel)]="link">
+            <input matInput type="url" placeholder="Url" [(ngModel)]="link">
             <button mat-button *ngIf="link" matSuffix mat-icon-button aria-label="Clear" (click)="link=''">
                     <mat-icon>close</mat-icon>
             </button>
         </mat-form-field>
         <br> 
         <button mat-raised-button color="primary"
-            (click)="clickButton(presentName.value, presentPrice.value, presentLink.value); presetname='';link=''; price=''">
+            (click)="clickButton(presetname, price, link); presetname='';link=''; price=''">
             Add Present
         </button>
         <button id="reset" mat-raised-button color="primary"

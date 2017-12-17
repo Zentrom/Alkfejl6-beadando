@@ -1,0 +1,22 @@
+<mat-card class="addform">
+    <mat-card-title>
+        <h3>Add new comment</h3>
+    </mat-card-title>
+
+    <mat-card-content>
+        <mat-form-field class="full-width">
+            <textarea class="comment" matInput placeholder="Leave a comment" #commentInput [(ngModel)]="commentinput"></textarea>
+       </mat-form-field>
+       <div *ngIf="error">{{error}}</div>
+       <br>
+        <button class="postcomment" mat-raised-button color="primary"
+        (click)="postComment(commentinput); commentinput=''">
+        Post Comment
+      </button>     
+
+      <button id="reset" mat-raised-button color="primary"
+          (click)="commentinput=''">
+         Reset
+      </button>
+    </mat-card-content>
+</mat-card>

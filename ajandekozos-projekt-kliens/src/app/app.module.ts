@@ -29,6 +29,7 @@ import { UsersViewComponent } from './components/admin/users-view/users-view.com
 import { FriendWishlistViewComponent } from './components/friend-wishlist-view/friend-wishlist-view.component';
 import { FriendPresentsViewComponent } from './components/friend-presents-view/friend-presents-view.component';
 import { SearchByNameViewComponent } from './components/search-by-name-view/search-by-name-view.component';
+import { AddCommentViewComponent } from './components/comments-view/add-comment-view/add-comment-view.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { SearchByNameViewComponent } from './components/search-by-name-view/sear
     FriendWishlistViewComponent,
     FriendPresentsViewComponent,
     SearchByNameViewComponent,
+    AddCommentViewComponent,
   ],
   imports: [
     BrowserModule,

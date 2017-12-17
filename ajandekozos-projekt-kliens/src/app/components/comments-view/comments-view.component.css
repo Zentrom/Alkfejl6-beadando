@@ -1,11 +1,6 @@
 .commentsview {
     margin: 20px auto;
-    width: 80%;
-  }
-
-  .wishlistview {
-    margin: 20px auto;
-    width: 750px;
+    width: 60%;
   }
 
  mat-spinner {
@@ -27,14 +22,24 @@ table {
   display:block;
 }
 
-.example-full-width {
-  width: 100%;
-}
-
-.postcomment{
-  margin-left:80%;
-}
-
 .breadcrumb {
   background-color: white;
+}
+
+.addform {
+  margin: 20px auto;
+  width: 500px;
+}
+
+#reset {
+  margin-left: 10px;
+}
+
+.full-width {
+  width: 450px;
+}
+
+.comment {
+  max-height: 250px;
+  min-height: 50px;
 }

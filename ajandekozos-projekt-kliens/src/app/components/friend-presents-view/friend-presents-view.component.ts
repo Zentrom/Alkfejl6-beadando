@@ -103,8 +103,8 @@ export class FriendPresentsViewComponent implements OnInit {
     return present.user && !(present.user.id === this.authService.getUser().id);
   }
 
-  public setBreadcrumbs(presentTitle: string): void {
-    this.breadCrumbService.presentName = presentTitle;
+  public setBreadcrumbs(presentName: string): void {
+    this.breadCrumbService.presentName = presentName;
   }
 
   ngOnInit() {

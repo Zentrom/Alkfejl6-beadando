@@ -4,4 +4,5 @@ export class UserDTO {
         public firstname: string,
         public lastname: string,
     ) {}
+    
   }
