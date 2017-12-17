@@ -24,7 +24,7 @@ export class UsersViewComponent implements OnInit {
         this.users.splice(index, 1);  
       });
   
-      this.snackBar.open('User: ' + user.firstname + ' ' + user.lastname + 'was deleted', 'Dismiss', {
+      this.snackBar.open('User: ' + user.firstname + ' ' + user.lastname + ' was deleted', 'Dismiss', {
         duration: 3000
       });
   }

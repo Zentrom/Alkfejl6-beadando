@@ -33,9 +33,9 @@ export class CommentsViewComponent implements OnInit {
     private commentService: CommentService
   ) {} 
   
-  convertToDateString(wilcommen: Comment): string{
-    this.date=new Date(wilcommen.timeStamp);
-    return this.date.toDateString();
+  convertToDateString(comment: Comment): string{
+    this.date=new Date(comment.timeStamp);
+    return this.date.toLocaleString();
   }
 
   public postComment(commentText: string): void{
@@ -56,21 +56,11 @@ export class CommentsViewComponent implements OnInit {
     this.comments= null;
     this.presentId = parseInt(this.activatedRoute.snapshot.paramMap.get('friendPresentId'));
     this.friendListId = parseInt(this.activatedRoute.snapshot.paramMap.get('friendListId'));
-    
     this.friendId = parseInt(this.activatedRoute.snapshot.paramMap.get('friendId'));
     
-    //var ts = new Date(1420844400000);
-   // console.log(ts.toDateString());
-    // this.getCommentDate();
     this.commentService.getComments(this.friendId, this.friendListId, this.presentId).subscribe((comments: Comment[]) => {
       this.comments = comments;
-      //for(let i: number=0;i<this.comments.length;i++){
-     //   this.comments.timeStamp[i]=(new Date(this.comments[i].timeStamp)).toDateString();
-     // }
-      //console.log(this.comments[0].timeStamp);
-      //console.log(this.date.toLocaleDateString());
     });
-    
   }
     
 }

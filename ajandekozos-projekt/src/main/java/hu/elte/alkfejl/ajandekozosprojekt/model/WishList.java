@@ -23,7 +23,6 @@ public class WishList extends BaseEntity {
     private String title;
 
     @JsonIgnore
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "wishList", cascade = CascadeType.ALL)
     private List<Present> presents;
 
