@@ -16,7 +16,7 @@ export class IndexViewComponent implements OnInit {
   ) { }
 
   getHomeName(): string{
-    return this.breadCrumbService.userName;
+    return this.authService.getUser().firstname + " " + this.authService.getUser().lastname;
   }
 
   ngOnInit() {

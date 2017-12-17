@@ -36,7 +36,6 @@ export class LoginViewComponent implements OnInit {
     this.authService.login(username, password).subscribe((success: boolean) => {
       if (success) {
         this.router.navigate(['/']);
-        this.breadCrumbService.userName=username;
         this.openSnackBar("Logged in as:",username);
       } else {
         this.error = 'Error: Wrong username or password!';

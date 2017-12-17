@@ -26,7 +26,6 @@ export class RegisterViewComponent implements OnInit {
     this.authService.register(username, password, firstname, lastname, email).subscribe((success: boolean) => {
       if (success) {
         this.router.navigate(['/']);
-        this.breadCrumbService.userName=username;
       } else {
         this.error = 'Error: something went wrong!';
       }
