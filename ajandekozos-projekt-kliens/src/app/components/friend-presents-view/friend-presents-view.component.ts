@@ -91,9 +91,9 @@ export class FriendPresentsViewComponent implements OnInit {
     })
   }
 
-  public setBreadcrumbs(listId: number): void {
-    this.breadCrumbService.listId = this.listId;
-    //this.breadCrumbService.listTitle = this.listTitle;
+  public setBreadcrumbs(presentId: number,presentTitle: string): void {
+    this.breadCrumbService.presentId = presentId;
+    this.breadCrumbService.presentName = presentTitle;
   }
 
   ngOnInit() {

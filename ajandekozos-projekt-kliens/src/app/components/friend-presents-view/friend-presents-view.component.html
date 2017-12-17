@@ -42,8 +42,8 @@
                           </td>
                           <td>
                             <button class="btn btn-warning innerbtn" routerLink="/user/friends/{{friendId}}/wishlists/{{listId}}/presents/{{present.id}}/comments"
-                            (click)="setBreadcrumbs(listid)">
-                                         <i class="fa fa-edit"></i>
+                            (click)="setBreadcrumbs(present.id,present.name)">
+                                         <i class="fa fa-comment"></i>
                                 </button>
                           </td>
                         </tr>

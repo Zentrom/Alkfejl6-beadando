@@ -27,3 +27,10 @@ table {
   display:block;
 }
 
+.example-full-width {
+  width: 100%;
+}
+
+.postcomment{
+  margin-left:80%;
+}

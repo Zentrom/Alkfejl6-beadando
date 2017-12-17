@@ -13,29 +13,58 @@
     <mat-card-content>
             <div class="container">
                     <div class="col-md-12">
+
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a routerLink="/user/friends"><i class="fa fa-arrow-left" aria-hidden="true"></i> Friends</a></li>
+                            <li class="breadcrumb-item"><a routerLink="/user/friends/{{breadCrumbService.listId}}/wishlists"><i class="fa fa-arrow-left" aria-hidden="true"></i>{{breadCrumbService.friendName}}</a></li>
+                            <li class="breadcrumb-item"><a routerLink="/user/friends/{{breadCrumbService.listId}}/wishlists/{{breadCrumbService.listId}}/presents"><i class="fa fa-arrow-left" aria-hidden="true"></i>{{breadCrumbService.listTitle}}</a></li>                            
+                            <li class="breadcrumb-item active">{{breadCrumbService.presentName}}</li>
+                          </ol>
+
                         <table class="table table-bordered table-striped table-hover">
                       <thead>
                         <tr>
                           <th style="width:15%" class="text-center">By</th>
                           <th style="width:15%" class="text-center">Date</th>
-                          <th style="width:70%" class="text-center">Text</th>
+                          <th style="width:60%" class="text-center">Text</th>
+                          <th *ngIf="isAdmin" style="width:10%" class="text-center">Delete</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr *ngFor="let comment of comments | paginate: { itemsPerPage: 5, currentPage: p }">
                           <td>{{ comment.author.firstname }}</td>
                           <td>
-                            {{comment.timestamp}}
+                            {{convertToDateString(comment)}}
                           </td>
                           <td>
                             {{comment.text}}
                           </td>
+                          <td *ngIf="isAdmin">
+                              <button
+                                  class="btn btn-danger innerbtn"
+                                  mwlConfirmationPopover
+                                  title="Confirmation"
+                                  cancelButtonType="btn btn-danger"
+                                  confirmButtonType="btn btn-info"
+                                  message="Delete list: {{list.title}}?"
+                                  placement="left"
+                                  (confirm)="removeComment(comment)">
+                                  <i class="fa fa-times"></i>
+                              </button>
+                            </td>
                         </tr>
                       </tbody>
                     </table>
                     </div>
                 </div>
                 <pagination-controls (pageChange)="p =$event"></pagination-controls>
+                <div>
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Leave a comment" type="text" #commentInput>
+                   </mat-form-field>
+                   <button class="postcomment" mat-raised-button color="primary"
+                    (click)="postComment(commentInput.value)">Post Comment</button>                   
+                </div>
     </mat-card-content>
 
 </mat-card>
