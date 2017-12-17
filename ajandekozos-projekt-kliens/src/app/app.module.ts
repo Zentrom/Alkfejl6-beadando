@@ -28,6 +28,7 @@ import { AuthService } from './services/auth.service';
 import { UsersViewComponent } from './components/admin/users-view/users-view.component';
 import { FriendWishlistViewComponent } from './components/friend-wishlist-view/friend-wishlist-view.component';
 import { FriendPresentsViewComponent } from './components/friend-presents-view/friend-presents-view.component';
+import { SearchByNameViewComponent } from './components/search-by-name-view/search-by-name-view.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { FriendPresentsViewComponent } from './components/friend-presents-view/f
     UsersViewComponent,
     FriendWishlistViewComponent,
     FriendPresentsViewComponent,
+    SearchByNameViewComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,35 +1,6 @@
+<app-search-by-name-view (searchParams)="manageSearch($event.showall, $event.firstname, $event.lastname)">
+</app-search-by-name-view>
 
-<mat-card class="searchRequestView">
-    <mat-card-title>
-            <h3>Filter requests</h3>
-    </mat-card-title>
-
-    <mat-card-content>
-    <mat-form-field>
-        <input matInput #firstname type="text" placeholder="Firstname" [(ngModel)]="firstnamevalue">
-        <button mat-button *ngIf="firstnamevalue" matSuffix mat-icon-button aria-label="Clear" (click)="firstnamevalue=''">
-                <mat-icon>close</mat-icon>
-        </button>
-    </mat-form-field>
-    <mat-form-field>
-        <input matInput #lastname type="text" placeholder="Lastname" [(ngModel)]="lastnamevalue">
-        <button mat-button *ngIf="lastnamevalue" matSuffix mat-icon-button aria-label="Clear" (click)="lastnamevalue=''">
-                <mat-icon>close</mat-icon>
-        </button>
-    </mat-form-field>
-    <br>
-    <div *ngIf="error">{{error}}</div>
-    <br>
-    <button mat-raised-button color="primary" type="reset"
-      (click)="filterRequests(firstname.value, lastname.value)">
-      Filter
-    </button>
-    <button mat-raised-button color="primary" id="showall"
-        (click)="resetOriginalRequests(); firstnamevalue=''; lastnamevalue=''">
-        Show all
-    </button>
-</mat-card-content>
-</mat-card>
 
 <mat-card class="incomingrequestsview">
 <mat-card-title>

@@ -1,0 +1,28 @@
+.searchusersview {
+    margin: 20px auto;
+    width: 500px;
+  }
+  
+  .usersview {
+      margin: 20px auto;
+      width: 750px;
+    }
+  
+   .container {
+     max-width: 100%; 
+     display: block;
+   }
+   
+   table {
+     table-layout: fixed;
+     word-wrap: break-word;
+   }
+   
+   .innerbtn {
+     margin:auto;
+     display:block;
+   }
+  
+   #showall {
+    margin-left: 10px;
+  }

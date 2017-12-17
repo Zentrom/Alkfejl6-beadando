@@ -12,7 +12,6 @@ import { AdminService } from '../../../services/admin.service';
 })
 export class UsersViewComponent implements OnInit {
   private users: UserDTO[];
-  private error: string;
 
   constructor(
     private adminService: AdminService,
@@ -31,14 +30,9 @@ export class UsersViewComponent implements OnInit {
   }
 
   public searchUsers(showall: boolean = false, firstname: string = "", lastname: string = ""): void {
-    if ( !firstname.trim() && !lastname.trim() && !showall ) {
-      this.error = "Please enter something!";
-    } else {
-      this.error = "";
-      this.adminService.getUsers(firstname, lastname).subscribe((filteredUsers: UserDTO[]) => {
-        this.users = filteredUsers;
-      });
-    }
+    this.adminService.getUsers(firstname, lastname).subscribe((filteredUsers: UserDTO[]) => {
+      this.users = filteredUsers;
+    });
   }
 
   ngOnInit() {

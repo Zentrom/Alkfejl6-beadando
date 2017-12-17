@@ -61,7 +61,7 @@ export class FriendPresentsViewComponent implements OnInit {
       .subscribe(result => {
         present.name = result.name;
         present.price = result.price;
-        present.link = result.link;
+        present.link = (result.link.trim().length === 0) ? null : result.link;
         this.presentService.updatePresent(this.friendListId, present).subscribe((updatedPresent) => {
         });
     });
