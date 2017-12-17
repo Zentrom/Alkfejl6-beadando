@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
 
 import { Present } from '../../model/present';
 import { User } from '../../model/user';
@@ -8,6 +7,7 @@ import { Comment } from '../../model/comment';
 import { CommentService } from '../../services/comment.service';
 import { PresentService } from '../../services/present.service';
 import { BreadcrumbService } from '../../services/breadcrumb.service';
+import { AuthService } from '../../services/auth.service';
 import { UserDTO } from '../../model/userdto';
 
 @Component({
@@ -35,7 +35,19 @@ export class CommentsViewComponent implements OnInit {
   
   convertToDateString(comment: Comment): string{
     this.date=new Date(comment.timeStamp);
-    return this.date.toLocaleString();
+    //return this.date.toLocaleString();
+    var now = new Date();
+    //var day = this.date.getDay() < 10 ? "0" + this.date.getDay() : this.date.getDay();
+    //return  this.date.toLocaleString().slice(2, 15);
+    //return this.date.toLocaleString("eu-HUN").slice(2,19);
+
+    var year = this.date.getFullYear().toString().slice(2, 4);
+    var month = (this.date.getMonth() < 10) ? "0" + this.date.getMonth().toString() : this.date.getMonth().toString();
+    var day = (this.date.getDate() < 10) ? "0" + this.date.getDate().toString() : this.date.getDate().toString();
+    var hour = (this.date.getHours() < 10) ? "0" + this.date.getHours().toString() : this.date.getHours().toString();
+    var minutes = (this.date.getMinutes() < 10) ? "0" + this.date.getMinutes().toString() : this.date.getMinutes().toString()
+
+    return year + "." + month + "." + day + ", " + hour + ":" + minutes;
   }
 
   public postComment(commentText: string): void{

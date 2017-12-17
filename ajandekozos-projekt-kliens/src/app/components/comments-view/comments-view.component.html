@@ -31,15 +31,15 @@
                         <table class="table table-bordered table-striped table-hover">
                       <thead>
                         <tr>
-                          <th style="width:15%" class="text-center">By</th>
-                          <th style="width:15%" class="text-center">Date</th>
-                          <th style="width:60%" class="text-center">Text</th>
+                          <th style="width:12%" class="text-center">By</th>
+                          <th style="width:12%" class="text-center">Date</th>
+                          <th style="width:66%" class="text-center">Text</th>
                           <th *ngIf="authService.isUserAdmin()" style="width:10%" class="text-center">Delete</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr *ngFor="let comment of comments | paginate: { itemsPerPage: 5, currentPage: p }">
-                          <td>{{ comment.author.firstname }}</td>
+                          <td>{{comment.author.firstname}} {{comment.author.lastname}}</td>
                           <td>
                             {{convertToDateString(comment)}}
                           </td>
