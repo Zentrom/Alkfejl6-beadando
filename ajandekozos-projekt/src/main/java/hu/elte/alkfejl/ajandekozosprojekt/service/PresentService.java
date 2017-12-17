@@ -47,7 +47,7 @@ public class PresentService {
             presentDTO.setPrice(present.getPrice());
             presentDTO.setLink(present.getLink());
             presentDTO.setUser(present.getUser() != null ?
-                                new UserDTO(present.getId(), present.getUser().getFirstname(), present.getUser().getLastname())
+                                new UserDTO(present.getUser().getId(), present.getUser().getFirstname(), present.getUser().getLastname())
                                 : null);
             presentDTO.setHidden(present.isHidden());
 
@@ -106,13 +106,15 @@ public class PresentService {
         return presentDTO;
     }
 
-    public PresentDTO updatePresent(User currentUser, int presentId, PresentDTO present) {
-        if (currentUser.getRole().equals(ADMIN) || !present.isHidden()) {
+/*    public PresentDTO updatePresent(User currentUser, int presentId, PresentDTO present) {
+        if (currentUser.getRole().equals(ADMIN)) {
+            System.out.println("ADMIN V LIST OWNER");
             return updateByListOwnerOrAdmin(presentId, present);
         } else {
+            System.out.println("FRIEND");
             return updateByFriend(presentId, present);
         }
-    }
+    }*/
 
     public PresentDTO updateByListOwnerOrAdmin(int presentId, PresentDTO present) {
         Present currentPresent = presentRepository.findOne(presentId);
@@ -122,6 +124,8 @@ public class PresentService {
 
         presentRepository.save(currentPresent);
 
+        System.out.println("PRESENT ADMIN V OWNER UPDATE");
+
         return present;
     }
 
@@ -130,6 +134,8 @@ public class PresentService {
         if (present.getUser() != null) {
             User buyer = userRepository.findOne(present.getUser().getId());
             currentPresent.setUser(buyer);
+        } else {
+            currentPresent.setUser(null);
         }
 
         currentPresent.setName(present.getName());
@@ -137,6 +143,8 @@ public class PresentService {
         currentPresent.setLink(present.getLink());
 
         presentRepository.save(currentPresent);
+
+        System.out.println("PRESENT FRIEND UPDATE");
 
 
         return present;

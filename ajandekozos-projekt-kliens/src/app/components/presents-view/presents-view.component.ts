@@ -32,16 +32,6 @@ export class PresentsViewComponent implements OnInit {
     private location: Location,
     private dialog: MatDialog
   ) {} 
-
-
-
-  public getButtonClass(present: Present): string {
-    if (present.link) {
-      return "btn btn-primary innerbtn";
-    }
-
-    return "btn btn-danger innerbtn";
-  }
   
   public goToUrl(url: string): void {
     if (!/^http[s]?:\/\//.test(url)) {
@@ -67,7 +57,7 @@ export class PresentsViewComponent implements OnInit {
       .subscribe(result => {
         present.name = result.name;
         present.price = result.price;
-        present.link = result.link;
+        present.link = (result.link.trim().length === 0) ? null : result.link;
         this.presentService.updatePresent(this.listId, present).subscribe((updatedPresent) => {
         });
     });

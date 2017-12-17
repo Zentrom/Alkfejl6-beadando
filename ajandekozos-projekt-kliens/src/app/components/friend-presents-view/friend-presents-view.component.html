@@ -45,10 +45,10 @@
                           <td>{{ present.name }}</td>
                           <td>{{ present.price }} Ft</td>
                           <td> 
-                            <button [ngClass]="getButtonClass(present)" [disabled]=!present.link (click)="goToUrl(present.link)">Link</button>                   
+                            <button class="btn btn-primary innerbtn" [disabled]=!present.link (click)="goToUrl(present.link)">Link</button>                   
                           </td>
                           <td>
-                            <button class="btn btn-info innerbtn"
+                            <button [disabled]="checkBuyer(present)" class="btn btn-info innerbtn"
                                     (click)="setBuyer(present)">
                                          <div *ngIf="present.user; else nobuyer">{{present.user.firstname}} {{present.user.lastname}}</div>
                                          <ng-template #nobuyer>None</ng-template>

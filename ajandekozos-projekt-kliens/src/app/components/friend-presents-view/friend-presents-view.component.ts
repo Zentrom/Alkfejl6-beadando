@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { Location } from '@angular/common';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 import { filter } from 'rxjs/operators';
 
 import { User } from '../../model/user';
@@ -33,17 +33,9 @@ export class FriendPresentsViewComponent implements OnInit {
     private authService: AuthService,
     private breadCrumbService: BreadcrumbService,
     private location: Location,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public snackBar: MatSnackBar
   ) {} 
-
-
-
-  public getButtonClass(present: Present): string {
-    if (present.link) {
-      return "btn btn-primary innerbtn";
-    }
-    return "btn btn-danger innerbtn";
-  }
   
   public goToUrl(url: string): void {
     if (!/^http[s]?:\/\//.test(url)) {
@@ -93,15 +85,22 @@ export class FriendPresentsViewComponent implements OnInit {
     if (present.user === null) {
       var buyer: UserDTO = new UserDTO(this.authService.getUser().id, this.authService.getUser().firstname, this.authService.getUser().lastname);
       present.user = buyer;
-      this.presentService.updatePresent(this.friendListId, present).subscribe((updatedPresent: Present) => {
+      this.presentService.updateFriendPresent(this.friendId, this.friendListId, present).subscribe((updatedPresent: Present) => {
       });
-
-      console.log("NEM VOLT BUYER");
+      this.snackBar.open("You bought: " + present.name + " for your friend", "Dismiss", {
+        duration: 3000
+      })
     } else {
-      console.log("VOLT BUYER");
+      present.user = null;
+      this.presentService.updateFriendPresent(this.friendId, this.friendListId, present).subscribe((updatedPresent: Present) => {
+      });
     }
 
     //this.presentService.updatePresent().subscribe(() = >);
+  }
+
+  public checkBuyer(present: Present): boolean {
+    return present.user && !(present.user.id === this.authService.getUser().id);
   }
 
   public setBreadcrumbs(presentTitle: string): void {
