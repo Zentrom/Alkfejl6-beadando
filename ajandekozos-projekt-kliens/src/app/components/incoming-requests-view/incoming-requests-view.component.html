@@ -62,7 +62,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let request of filteredRequests | paginate: { itemsPerPage: 5, currentPage: p }">
+                <tr id="sor" *ngFor="let request of filteredRequests | paginate: { itemsPerPage: 5, currentPage: p }">
                     <td>{{ request.id }}</td>
                     <td>{{ request.requester.firstname }}</td>
                     <td>{{ request.requester.lastname }}</td>

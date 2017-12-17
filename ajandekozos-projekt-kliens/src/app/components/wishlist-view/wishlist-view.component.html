@@ -30,7 +30,7 @@
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr *ngFor="let list of wishlists | paginate: { itemsPerPage: 5, currentPage: p }">
+                                <tr id="sor" *ngFor="let list of wishlists | paginate: { itemsPerPage: 5, currentPage: p }">
                                   <td>{{ list.title }}</td>
                                   <td>
                                     <button class="btn btn-warning innerbtn"
