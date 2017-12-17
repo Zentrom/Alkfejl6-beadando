@@ -44,10 +44,6 @@ export class PresentService {
     return this.httpClient.get<Present>(api + 'user/friends/' + friendId + '/wishlists/' + friendListId + '/presents/' + presentId);
   }
 
-  public updateFriendOrUserPresent(friendId: number, friendListId: number, present: Present): Observable<Present> {
-    return this.httpClient.patch<Present>(api + 'user/friends/' + friendId + '/wishlists/' + friendListId + '/presents/' + present.id, present);
-  }
-
   public deleteUserPresent(friendId: number, listId: number, userListId: number): Observable<any> {
     return this.httpClient.delete(api + 'user/friends/' + friendId + '/wishlists/' + listId + '/presents/' + userListId, {responseType: 'text'});
   }

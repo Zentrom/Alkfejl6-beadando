@@ -6,6 +6,7 @@ import hu.elte.alkfejl.ajandekozosprojekt.model.WishList;
 import hu.elte.alkfejl.ajandekozosprojekt.model.dto.PresentDTO;
 import hu.elte.alkfejl.ajandekozosprojekt.model.dto.UserDTO;
 import hu.elte.alkfejl.ajandekozosprojekt.repository.PresentRepository;
+import hu.elte.alkfejl.ajandekozosprojekt.repository.UserRepository;
 import hu.elte.alkfejl.ajandekozosprojekt.repository.WishListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,10 +26,13 @@ public class PresentService {
 
     private WishListRepository wishListRepository;
 
+    private UserRepository userRepository;
+
     @Autowired
-    public PresentService(PresentRepository presentRepository, WishListRepository wishListRepository) {
+    public PresentService(PresentRepository presentRepository, WishListRepository wishListRepository, UserRepository userRepository) {
         this.presentRepository = presentRepository;
         this.wishListRepository = wishListRepository;
+        this.userRepository = userRepository;
     }
 
     // TODO itt hogy setteljem a buyert ha az null?
@@ -88,15 +92,6 @@ public class PresentService {
     public PresentDTO create(int wishlistId, PresentDTO presentDTO) {
         WishList wishList = wishListRepository.findById(wishlistId);
         Present present = new Present();
-/*
-        User listOwner = wishList.getUser();
-
-        if (user.getRole().equals(ADMIN) || user.equals(listOwner)) {
-            present.setHidden(false);
-        } else {
-            present.setHidden(true);
-        }
-*/
 
         present.setName(presentDTO.getName());
         present.setPrice(presentDTO.getPrice());
@@ -106,57 +101,45 @@ public class PresentService {
         present.setWishList(wishList);
         Present saved = presentRepository.save(present);
 
-        PresentDTO savedDTO = new PresentDTO();
-        savedDTO.setId(saved.getId());
-        savedDTO.setName(saved.getName());
-        savedDTO.setPrice(saved.getPrice());
-        savedDTO.setLink(saved.getLink());
-        savedDTO.setHidden(saved.isHidden());
-        //savedDTO.setUser(null);
+        presentDTO.setId(saved.getId());
 
-        return savedDTO;
+        return presentDTO;
     }
 
-    public PresentDTO updatePresent(User currentUser, int presentId, Present present) {
-        if (currentUser.getRole().equals(ADMIN)) {
+    public PresentDTO updatePresent(User currentUser, int presentId, PresentDTO present) {
+        if (currentUser.getRole().equals(ADMIN) || !present.isHidden()) {
             return updateByListOwnerOrAdmin(presentId, present);
         } else {
             return updateByFriend(presentId, present);
         }
     }
 
-    public PresentDTO updateByListOwnerOrAdmin(int presentId, Present present) {
+    public PresentDTO updateByListOwnerOrAdmin(int presentId, PresentDTO present) {
         Present currentPresent = presentRepository.findOne(presentId);
         currentPresent.setName(present.getName());
         currentPresent.setPrice(present.getPrice());
         currentPresent.setLink(present.getLink());
 
-        Present updated = presentRepository.save(currentPresent);
-        PresentDTO updatedDTO = new PresentDTO();
-        updatedDTO.setId(updated.getId());
-        updatedDTO.setName(updated.getName());
-        updatedDTO.setPrice(updated.getPrice());
-        updatedDTO.setLink(updated.getLink());
+        presentRepository.save(currentPresent);
 
-        return updatedDTO;
+        return present;
     }
 
-    public PresentDTO updateByFriend(int presentId, Present present) {
+    public PresentDTO updateByFriend(int presentId, PresentDTO present) {
         Present currentPresent = presentRepository.findOne(presentId);
-        currentPresent.setUser(present.getUser());
+        if (present.getUser() != null) {
+            User buyer = userRepository.findOne(present.getUser().getId());
+            currentPresent.setUser(buyer);
+        }
 
-        Present updated = presentRepository.save(present);
+        currentPresent.setName(present.getName());
+        currentPresent.setPrice(present.getPrice());
+        currentPresent.setLink(present.getLink());
 
-        PresentDTO updatedDTO = new PresentDTO();
-        updatedDTO.setId(updated.getId());
-        updatedDTO.setName(updated.getName());
-        updatedDTO.setPrice(updated.getPrice());
-        updatedDTO.setLink(updated.getLink());
-        updatedDTO.setUser(updated.getUser() != null ?
-                new UserDTO(updated.getId(), updated.getUser().getFirstname(), updated.getUser().getLastname())
-                : null);
+        presentRepository.save(currentPresent);
 
-        return updatedDTO;
+
+        return present;
     }
 
     public void delete(int id) {

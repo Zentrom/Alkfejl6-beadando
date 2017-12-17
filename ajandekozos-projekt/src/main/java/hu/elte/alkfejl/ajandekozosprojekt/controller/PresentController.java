@@ -49,12 +49,12 @@ public class PresentController {
         return ResponseEntity.ok().build();
     }
 
-    @Role(USER)
+/*    @Role(USER)
     @PatchMapping(ResourceConstants.PRESENTSID)
     public ResponseEntity<PresentDTO> updatePresent(@PathVariable int presentId, @RequestBody Present present) {
         PresentDTO updated = presentService.updateByListOwnerOrAdmin(presentId, present);
         return ResponseEntity.ok(updated);
-    }
+    }*/
 
     // TODO kell ez?
     @Role(USER)
@@ -86,13 +86,21 @@ public class PresentController {
         return ResponseEntity.ok(read);
     }
 
-    // TODO jó az hogy a Role-t a presentService.updatePresent-en belül nézzük?
+/*    // TODO jó az hogy a Role-t a presentService.updatePresent-en belül nézzük?
     @Role({ADMIN, USER})
     @PatchMapping(ResourceConstants.FRIEND_PRESENTID)
     public ResponseEntity<PresentDTO> updateFriendOrUserPresent(@PathVariable("friendPresentId") int presentId, @RequestBody Present present) {
         PresentDTO updated = presentService.updatePresent(userService.getUser(), presentId, present);
         return ResponseEntity.ok(updated);
+    }*/
+
+    @Role({ADMIN, USER})
+    @PatchMapping(ResourceConstants.PRESENTSID)
+    public ResponseEntity<PresentDTO> updatePresent(@PathVariable int presentId, @RequestBody PresentDTO present) {
+        PresentDTO updated = presentService.updatePresent(userService.getUser(), presentId, present);
+        return ResponseEntity.ok(updated);
     }
+
 
     @Role(ADMIN)
     @DeleteMapping(ResourceConstants.FRIEND_PRESENTID)

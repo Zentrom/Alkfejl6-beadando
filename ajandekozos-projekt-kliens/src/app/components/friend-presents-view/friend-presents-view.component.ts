@@ -93,6 +93,9 @@ export class FriendPresentsViewComponent implements OnInit {
     if (present.user === null) {
       var buyer: UserDTO = new UserDTO(this.authService.getUser().id, this.authService.getUser().firstname, this.authService.getUser().lastname);
       present.user = buyer;
+      this.presentService.updatePresent(this.friendListId, present).subscribe((updatedPresent: Present) => {
+      });
+
       console.log("NEM VOLT BUYER");
     } else {
       console.log("VOLT BUYER");

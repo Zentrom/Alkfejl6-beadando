@@ -21,7 +21,9 @@ export class AddpresentViewComponent implements OnInit {
     if (name.trim().length > 0 && price >= 1) {
       this.nameError = "";
       this.priceError = "";
-      console.log("ADD PRESENT: " + this.isHidden);
+      if (link.trim().length === 0) {
+        link = null;
+      }
       this.createPresent.emit(new Present(name, price, link, this.isHidden));
     } else {
       if (price <= 0) {
