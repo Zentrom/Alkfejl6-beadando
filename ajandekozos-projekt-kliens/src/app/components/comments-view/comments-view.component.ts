@@ -14,7 +14,7 @@ import { UserDTO } from '../../model/userdto';
   selector: 'app-comments-view',
   templateUrl: './comments-view.component.html',
   styleUrls: ['./comments-view.component.css'],
-  providers: [CommentService]
+  providers: [CommentService, PresentService]
 })
 
 export class CommentsViewComponent implements OnInit {
@@ -24,7 +24,6 @@ export class CommentsViewComponent implements OnInit {
   private friendListId: number;
   private presentId: number;
   private date: Date;
-  private isAdmin: Boolean;
 
   constructor(
     private router: Router,
@@ -46,11 +45,6 @@ export class CommentsViewComponent implements OnInit {
     return this.date.toDateString();
   }
 
-  setBread(){
-    this.breadCrumbService.presentId=this.presentId;
-    this.breadCrumbService.presentName=this.present.name;
-  }
-
   public postComment(commentText: string): void{
     //console.log(this.breadCrumbService.userName);
     
@@ -70,7 +64,6 @@ export class CommentsViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.isAdmin=this.authService.userHasRole(["ADMIN"]);
     //this.present= null;
     this.comments= null;
     this.presentId = parseInt(this.activatedRoute.snapshot.paramMap.get('friendPresentId'));

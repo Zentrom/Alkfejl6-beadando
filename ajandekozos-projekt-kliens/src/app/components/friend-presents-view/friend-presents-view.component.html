@@ -32,10 +32,10 @@
                       <thead>
                         <tr>
                           <th style="width:23%" class="text-center">Name</th>
-                          <th style="width:15%" class="text-center">Price</th>
-                          <th style="width:15%" class="text-center">Link</th>
+                          <th style="width:12%" class="text-center">Price</th>
+                          <th style="width:12%" class="text-center">Link</th>
                           <th style="width:20%" class="text-center">Bought by</th>                                          
-                          <th style="width:9%" class="text-center">Comments</th>
+                          <th style="width:15%" class="text-center">Comments</th>
                           <th style="width:9%" class="text-center">Edit</th>
                           <th style="width:9%" class="text-center">Delete</th>    
                         </tr>
@@ -55,8 +55,9 @@
                                 </button>
                           </td>
                           <td>
-                            <button class="btn btn-warning innerbtn" routerLink="/user/friends/{{friendId}}/wishlists/{{friendListId}}/presents/{{present.id}}/comments">
-                                         <i class="fa fa-edit"></i>
+                            <button class="btn btn-warning innerbtn" routerLink="/user/friends/{{friendId}}/wishlists/{{friendListId}}/presents/{{present.id}}/comments"
+                                    (click)="setBreadcrumbs(present.name)">
+                                      <i class="fa fa-comment"></i>
                                 </button>
                           </td>
                           <td>

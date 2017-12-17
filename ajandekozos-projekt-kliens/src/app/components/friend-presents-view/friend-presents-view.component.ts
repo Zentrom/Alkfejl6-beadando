@@ -101,6 +101,10 @@ export class FriendPresentsViewComponent implements OnInit {
     //this.presentService.updatePresent().subscribe(() = >);
   }
 
+  public setBreadcrumbs(presentTitle: string): void {
+    this.breadCrumbService.presentName = presentTitle;
+  }
+
   ngOnInit() {
     this.friendListId = parseInt(this.activatedRoute.snapshot.paramMap.get('friendListId'));
     this.friendId = parseInt(this.activatedRoute.snapshot.paramMap.get('friendId'));

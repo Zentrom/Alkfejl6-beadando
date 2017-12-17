@@ -34,3 +34,7 @@ table {
 .postcomment{
   margin-left:80%;
 }
+
+.breadcrumb {
+  background-color: white;
+}
