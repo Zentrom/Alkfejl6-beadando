@@ -42,7 +42,7 @@ public class PresentController {
         return ResponseEntity.ok(saved);
     }
 
-    @Role(USER)
+    @Role({ADMIN, USER})
     @DeleteMapping(ResourceConstants.PRESENTSID)
     public ResponseEntity deletePresent(@PathVariable int presentId) {
         presentService.delete(presentId);
@@ -87,7 +87,7 @@ public class PresentController {
     }
 
     // TODO jó az hogy a Role-t a presentService.updatePresent-en belül nézzük?
-    @Role(USER)
+    @Role({ADMIN, USER})
     @PatchMapping(ResourceConstants.FRIEND_PRESENTID)
     public ResponseEntity<PresentDTO> updateFriendPresent(@PathVariable("friendPresentId") int presentId, @RequestBody PresentDTO present) {
         PresentDTO updated = presentService.updateByFriend(presentId, present);

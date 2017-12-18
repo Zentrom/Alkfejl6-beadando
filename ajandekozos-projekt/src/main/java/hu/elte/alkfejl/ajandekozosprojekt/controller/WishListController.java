@@ -39,14 +39,14 @@ public class WishListController {
         return ResponseEntity.ok(saved);
     }
 
-    @Role(USER)
+    @Role({ADMIN, USER})
     @DeleteMapping(ResourceConstants.WISHLISTSID)
     public ResponseEntity deleteWishList(@PathVariable int wishlistId) {
         wishListService.delete(wishlistId);
         return ResponseEntity.ok().build();
     }
 
-    @Role(USER)
+    @Role({ADMIN, USER})
     @PatchMapping(ResourceConstants.WISHLISTSID)
     public ResponseEntity<WishList> updateWishList(@PathVariable int wishlistId, @RequestBody WishList wishList) {
         WishList updated = wishListService.update(wishlistId, wishList);

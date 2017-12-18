@@ -22,9 +22,10 @@
                 <thead>
                 <tr>
                     <th style="width:10%" class="text-center">Id</th>
-                    <th style="width:43%" class="text-center">Firstname</th>
-                    <th style="width:43%" class="text-center">Lastname</th>
-                    <th style="width:14%" class="text-center">Delete</th>
+                    <th style="width:30%" class="text-center">Firstname</th>
+                    <th style="width:30%" class="text-center">Lastname</th>
+                    <th style="width:15%" class="text-center">Lists</th>                    
+                    <th style="width:15%" class="text-center">Delete</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -32,6 +33,13 @@
                     <td>{{ user.id }}</td>
                     <td>{{ user.firstname }}</td>
                     <td>{{ user.lastname }}</td>
+                    <td>
+                        <button class="btn btn-info innerbtn"
+                                routerLink="/users/{{user.id}}/wishlists"
+                                (click)="setBreadcrumbs(user.firstname, user.lastname)">
+                            <i class="fa fa-chevron-right"></i>
+                        </button>
+                    </td>
                     <td>
                         <button
                             class="btn btn-danger innerbtn"

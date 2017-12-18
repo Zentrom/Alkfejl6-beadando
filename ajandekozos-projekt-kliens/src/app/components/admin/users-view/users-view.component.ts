@@ -3,6 +3,7 @@ import {MatSnackBar} from '@angular/material';
 
 import { UserDTO } from '../../../model/userdto';
 import { AdminService } from '../../../services/admin.service';
+import { BreadcrumbService } from '../../../services/breadcrumb.service';
 
 @Component({
   selector: 'app-users-view',
@@ -15,6 +16,7 @@ export class UsersViewComponent implements OnInit {
 
   constructor(
     private adminService: AdminService,
+    private breadcrumbService: BreadcrumbService,
     public snackBar: MatSnackBar
   ) {}
 
@@ -33,6 +35,10 @@ export class UsersViewComponent implements OnInit {
     this.adminService.getUsers(firstname, lastname).subscribe((filteredUsers: UserDTO[]) => {
       this.users = filteredUsers;
     });
+  }
+
+  public setBreadcrumbs(firstname: string, lastname: string) {
+    this.breadcrumbService.friendName = firstname + " " + lastname;
   }
 
   ngOnInit() {

@@ -35,11 +35,6 @@ export class CommentsViewComponent implements OnInit {
   
   convertToDateString(comment: Comment): string{
     this.date=new Date(comment.timeStamp);
-    //return this.date.toLocaleString();
-    var now = new Date();
-    //var day = this.date.getDay() < 10 ? "0" + this.date.getDay() : this.date.getDay();
-    //return  this.date.toLocaleString().slice(2, 15);
-    //return this.date.toLocaleString("eu-HUN").slice(2,19);
 
     var year = this.date.getFullYear().toString().slice(2, 4);
     var month = (this.date.getMonth() < 10) ? "0" + this.date.getMonth().toString() : this.date.getMonth().toString();
@@ -58,18 +53,27 @@ export class CommentsViewComponent implements OnInit {
   }
 
   public removeComment(comment: Comment): void{
-    this.commentService.deleteComment(this.friendId,this.friendListId,this.presentId,comment.id).subscribe(() => {
+    console.log("COMMENT ID: " + comment.id);
+    this.commentService.deleteComment(this.friendId, this.friendListId, this.presentId, comment.id).subscribe(() => {
       var index = this.comments.indexOf(comment);
-      this.comments.splice(index, 1);    
-    });
+      this.comments.splice(index, 1);
+      console.log("TÖRÖL COMMENT");    
+    })
+
   }
 
   ngOnInit() {
     this.comments= null;
-    this.presentId = parseInt(this.activatedRoute.snapshot.paramMap.get('friendPresentId'));
-    this.friendListId = parseInt(this.activatedRoute.snapshot.paramMap.get('friendListId'));
-    this.friendId = parseInt(this.activatedRoute.snapshot.paramMap.get('friendId'));
-    
+    if (this.authService.isUserAdmin()) {
+      this.presentId = parseInt(this.activatedRoute.snapshot.paramMap.get('presentId'));
+      this.friendListId = parseInt(this.activatedRoute.snapshot.paramMap.get('listId'));
+      this.friendId = parseInt(this.activatedRoute.snapshot.paramMap.get('userId'));
+    } else {
+      this.presentId = parseInt(this.activatedRoute.snapshot.paramMap.get('friendPresentId'));
+      this.friendListId = parseInt(this.activatedRoute.snapshot.paramMap.get('friendListId'));
+      this.friendId = parseInt(this.activatedRoute.snapshot.paramMap.get('friendId'));
+    }
+
     this.commentService.getComments(this.friendId, this.friendListId, this.presentId).subscribe((comments: Comment[]) => {
       this.comments = comments;
     });

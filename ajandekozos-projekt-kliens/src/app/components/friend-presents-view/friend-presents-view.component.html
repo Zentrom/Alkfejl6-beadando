@@ -1,7 +1,7 @@
-<app-addpresent-view [isHidden]="true" (createPresent)="addPresent($event)">
+<app-addpresent-view *ngIf="!authService.isUserAdmin()" [isHidden]="true" (createPresent)="addPresent($event)">
 </app-addpresent-view>
 
-<mat-card class="presentsview">
+<mat-card [ngClass]="{'presents-view': !authService.isUserAdmin(), 'presents-admin-view': authService.isUserAdmin()}">
     <mat-card-title>
         <h3>Presents of {{breadCrumbService.listTitle}}</h3>
     </mat-card-title>
@@ -14,10 +14,16 @@
     <mat-card-content>
 
       <ng-template #loaded>
-          <ol class="breadcrumb">
+          <ol *ngIf="!authService.isUserAdmin()" class="breadcrumb">
               <li class="breadcrumb-item"><a routerLink="/user/friends"><i class="fa fa-arrow-left" aria-hidden="true"></i>  Friends</a></li>
               <li class="breadcrumb-item"><a routerLink="/user/friends/{{friendId}}/wishlists"><i class="fa fa-arrow-left" aria-hidden="true"></i>  {{breadCrumbService.friendName}}</a></li>
               <li class="breadcrumb-item active">{{breadCrumbService.listTitle}}</li>
+            </ol>
+
+            <ol *ngIf="authService.isUserAdmin()" class="breadcrumb">
+                <li class="breadcrumb-item"><a routerLink="/users"><i class="fa fa-arrow-left" aria-hidden="true"></i>  Users</a></li>
+                <li class="breadcrumb-item"><a routerLink="/users/{{friendId}}/wishlists"><i class="fa fa-arrow-left" aria-hidden="true"></i>  {{breadCrumbService.friendName}}</a></li>
+                <li class="breadcrumb-item active">{{breadCrumbService.listTitle}}</li>
             </ol>
 
             <div *ngIf="presents.length === 0; else atleastone">
@@ -25,19 +31,20 @@
             </div>
             
             <ng-template #atleastone>
-            <div class="container">
+            <div *ngIf="!authService.isUserAdmin()">
+                <div class="container">
                     <div class="col-md-12">
 
                         <table class="table table-bordered table-striped table-hover">
                       <thead>
                         <tr>
-                          <th style="width:23%" class="text-center">Name</th>
-                          <th style="width:12%" class="text-center">Price</th>
-                          <th style="width:12%" class="text-center">Link</th>
+                          <th style="width:28%" class="text-center">Name</th>
+                          <th style="width:15%" class="text-center">Price</th>
+                          <th style="width:15%" class="text-center">Link</th>
                           <th style="width:20%" class="text-center">Bought by</th>                                          
-                          <th style="width:15%" class="text-center">Comments</th>
-                          <th style="width:9%" class="text-center">Edit</th>
-                          <th style="width:9%" class="text-center">Delete</th>    
+                          <th style="width:9%" class="text-center">&nbsp;</th>
+                          <th style="width:9%" class="text-center">&nbsp;</th>
+                          <th style="width:9%" class="text-center">&nbsp;</th>    
                         </tr>
                       </thead>
                       <tbody>
@@ -84,6 +91,93 @@
                     </table>
                     </div>
                 </div>
+            </div>
+
+
+
+            <div *ngIf="authService.isUserAdmin()">
+                <div class="container">
+                    <div class="col-md-12">
+
+                        <table class="table table-bordered table-striped table-hover">
+                      <thead>
+                        <tr>
+                          <th style="width:6%" class="text-center">Id</th>
+                          <th style="width:23%" class="text-center">Name</th>
+                          <th style="width:10%" class="text-center">Price</th>
+                          <th style="width:10%" class="text-center">Link</th>
+                          <th style="width:15%" class="text-center">Bought by</th>                                          
+                          <th style="width:12%" class="text-center">Added by</th>                                          
+                          <th style="width:8%" class="text-center">&nbsp;</th>
+                          <th style="width:8%" class="text-center">&nbsp;</th>
+                          <th style="width:8%" class="text-center">&nbsp;</th>    
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let present of presents | paginate: { itemsPerPage: 5, currentPage: p }">
+                          <td>{{ present.id }}</td>
+                          <td>{{ present.name }}</td>
+                          <td>{{ present.price }} Ft</td>
+                          <td> 
+                            <button class="btn btn-primary innerbtn" [disabled]=!present.link (click)="goToUrl(present.link)">
+                              Link
+                            </button>                   
+                          </td>
+                          <td>
+                            <button [disabled]="!present.user" class="btn btn-info innerbtn"
+                                    (click)="setBuyerNull(present)">
+                                         <div *ngIf="present.user; else nobuyer">{{present.user.firstname}} {{present.user.lastname}}</div>
+                                         <ng-template #nobuyer>None</ng-template>
+                                </button>
+                          </td>
+                          <td>
+                              <button class="btn btn-info innerbtn"
+                                    (click)="setBuyerNull(present)">
+                                          <div *ngIf="present.hidden; else nothidden">Friend</div>
+                                          <ng-template #nothidden>Owner</ng-template>
+                              </button>
+                          </td>
+                          <td>
+                            <button class="btn btn-warning innerbtn" routerLink="/users/{{friendId}}/wishlists/{{friendListId}}/presents/{{present.id}}/comments"
+                                    (click)="setBreadcrumbs(present.name)">
+                                      <i class="fa fa-comment"></i>
+                                </button>
+                          </td>
+                          <td>
+                            <button class="btn btn-warning innerbtn" (click)="openEditPresentDialog(present)">
+                                         <i class="fa fa-edit"></i>
+                                </button>
+                          </td>
+                          <td>
+                            <button
+                              class="btn btn-danger innerbtn"
+                              mwlConfirmationPopover
+                              title="Confirmation"
+                              cancelButtonType="btn btn-danger"
+                              confirmButtonType="btn btn-info"
+                              message="Delete present: {{present.name}}?"
+                              placement="left"
+                              (confirm)="removePresent(present)">
+                              <i class="fa fa-times"></i>
+                          </button>
+                        </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
+            
+
+
+
+
+
+
+
+
+
+
                 <pagination-controls (pageChange)="p =$event"></pagination-controls>
               </ng-template>
      </ng-template>

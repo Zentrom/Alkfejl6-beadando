@@ -1,4 +1,4 @@
-<app-add-comment-view (createComment)="postComment($event)"></app-add-comment-view>
+<app-add-comment-view *ngIf="!authService.isUserAdmin()" (createComment)="postComment($event)"></app-add-comment-view>
 
 
 
@@ -14,11 +14,18 @@
 
     <mat-card-content>
         <ng-template #loaded>
-            <ol class="breadcrumb">
+            <ol *ngIf="!authService.isUserAdmin()" class="breadcrumb">
                 <li class="breadcrumb-item"><a routerLink="/user/friends"><i class="fa fa-arrow-left" aria-hidden="true"></i> Friends</a></li>
                 <li class="breadcrumb-item"><a routerLink="/user/friends/{{friendId}}/wishlists"><i class="fa fa-arrow-left" aria-hidden="true"></i> {{breadCrumbService.friendName}}</a></li>
                 <li class="breadcrumb-item"><a routerLink="/user/friends/{{friendId}}/wishlists/{{friendListId}}/presents"><i class="fa fa-arrow-left" aria-hidden="true"></i> {{breadCrumbService.listTitle}}</a></li>                            
                 <li class="breadcrumb-item active">{{breadCrumbService.presentName}}</li>
+             </ol>
+
+             <ol *ngIf="authService.isUserAdmin()" class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/users"><i class="fa fa-arrow-left" aria-hidden="true"></i> Users</a></li>
+                    <li class="breadcrumb-item"><a routerLink="/users/{{friendId}}/wishlists"><i class="fa fa-arrow-left" aria-hidden="true"></i> {{breadCrumbService.friendName}}</a></li>
+                    <li class="breadcrumb-item"><a routerLink="/users/{{friendId}}/wishlists/{{friendListId}}/presents"><i class="fa fa-arrow-left" aria-hidden="true"></i> {{breadCrumbService.listTitle}}</a></li>                            
+                    <li class="breadcrumb-item active">{{breadCrumbService.presentName}}</li>
              </ol>
 
             <div *ngIf="comments.length === 0; else atleastone">
@@ -31,10 +38,10 @@
                         <table class="table table-bordered table-striped table-hover">
                       <thead>
                         <tr>
-                          <th style="width:12%" class="text-center">By</th>
-                          <th style="width:12%" class="text-center">Date</th>
+                          <th style="width:11%" class="text-center">By</th>
+                          <th style="width:11%" class="text-center">Date</th>
                           <th style="width:66%" class="text-center">Text</th>
-                          <th *ngIf="authService.isUserAdmin()" style="width:10%" class="text-center">Delete</th>
+                          <th *ngIf="authService.isUserAdmin()" style="width:8%" class="text-center">&nbsp;</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -53,7 +60,7 @@
                                   title="Confirmation"
                                   cancelButtonType="btn btn-danger"
                                   confirmButtonType="btn btn-info"
-                                  message="Delete list: {{list.title}}?"
+                                  message="Delete comment by: {{comment.author.firstname}} {{comment.author.lastname}}?"
                                   placement="left"
                                   (confirm)="removeComment(comment)">
                                   <i class="fa fa-times"></i>

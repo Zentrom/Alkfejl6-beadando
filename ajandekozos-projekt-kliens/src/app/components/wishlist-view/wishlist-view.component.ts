@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { filter } from 'rxjs/operators';
 
@@ -7,6 +7,7 @@ import { WishList } from '../../model/wishlist';
 import { WishlistService } from '../../services/wishlist.service';
 import { EditWishlistDialogComponent } from './edit-wishlist-dialog/edit-wishlist-dialog.component';
 import { BreadcrumbService } from '../../services/breadcrumb.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-wishlist-view',
@@ -19,12 +20,15 @@ export class WishlistViewComponent implements OnInit {
   private wishlists: WishList[];
   private editWishlistDialogRef: MatDialogRef<EditWishlistDialogComponent>;
   private isDialogOpen: boolean;
+  private userId: number;
 
   constructor(
     private router: Router,
     private wishlistService: WishlistService,
     private breadcrumbService: BreadcrumbService,
+    private authService: AuthService,    
     private dialog: MatDialog,
+    private activatedRoute: ActivatedRoute,
   ) {} 
 
   public addList(wishlist: WishList): void {
@@ -49,7 +53,6 @@ export class WishlistViewComponent implements OnInit {
       });
       this.isDialogOpen = true;
     }
-  
 
     this.editWishlistDialogRef.afterClosed().pipe(
       filter(result => result && result.title.trim()))
@@ -66,10 +69,16 @@ export class WishlistViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.wishlistService.getWishLists().subscribe((wishlists: WishList[]) => {
-      this.wishlists = wishlists;
-    });
-    
+    if (this.authService.isUserAdmin()) {
+      this.userId = parseInt(this.activatedRoute.snapshot.paramMap.get('userId'));
+      this.wishlistService.listFriendsLists(this.userId).subscribe((usersLists: WishList[]) =>{
+        this.wishlists = usersLists;
+      });         
+    } else {
+      this.wishlistService.getWishLists().subscribe((wishlists: WishList[]) => {
+        this.wishlists = wishlists;
+      });
+    }
   }
   
 }

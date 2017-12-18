@@ -95,8 +95,17 @@ export class FriendPresentsViewComponent implements OnInit {
       this.presentService.updateFriendPresent(this.friendId, this.friendListId, present).subscribe((updatedPresent: Present) => {
       });
     }
+  }
 
-    //this.presentService.updatePresent().subscribe(() = >);
+  public setBuyerNull(present: Present) {
+    if (present.user !== null) {
+      present.user = null;
+      this.presentService.updateFriendPresent(this.friendId, this.friendListId, present).subscribe((updatedPresent: Present) => {
+      });
+      this.snackBar.open(present.name + "'s buyer set to none", "Dismiss", {
+        duration: 3000
+      })
+    }
   }
 
   public checkBuyer(present: Present): boolean {
@@ -108,8 +117,14 @@ export class FriendPresentsViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.friendListId = parseInt(this.activatedRoute.snapshot.paramMap.get('friendListId'));
-    this.friendId = parseInt(this.activatedRoute.snapshot.paramMap.get('friendId'));
+    if (this.authService.isUserAdmin()) {
+      this.friendListId = parseInt(this.activatedRoute.snapshot.paramMap.get('listId'));
+      this.friendId = parseInt(this.activatedRoute.snapshot.paramMap.get('userId'));
+    } else {
+      this.friendListId = parseInt(this.activatedRoute.snapshot.paramMap.get('friendListId'));
+      this.friendId = parseInt(this.activatedRoute.snapshot.paramMap.get('friendId'));
+    }
+
 
     this.presentService.listPresentsOfFriendsOrUsersList(this.friendId, this.friendListId).subscribe((friendsPresents: Present[]) => {
       this.presents = friendsPresents;
