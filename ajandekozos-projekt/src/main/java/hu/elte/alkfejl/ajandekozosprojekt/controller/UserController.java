@@ -59,14 +59,14 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
-    @Role({ADMIN, USER})
+    @Role(USER)
     @GetMapping(ResourceConstants.FRIENDS)
     public ResponseEntity<List<UserDTO>> listFriends(@RequestParam(name = "firstname") String firstName, @RequestParam(name = "lastname") String lastName) {
         List<UserDTO> friends = userService.listFriends(firstName,lastName);
         return ResponseEntity.ok(friends);
     }
 
-    @Role({ADMIN, USER})
+    @Role(USER)
     @DeleteMapping(ResourceConstants.DELETE_FRIEND)
     public ResponseEntity deleteFriend(@PathVariable int friendId) {
         userService.deleteFriend(friendId);
