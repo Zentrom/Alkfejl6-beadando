@@ -25,10 +25,6 @@ public class FriendRequest extends BaseEntity {
     @JoinColumn(name = "REQUESTEE_ID")
     private User requestee;
 
-/*    @Enumerated(EnumType.ORDINAL)
-    @Column(nullable = false)
-    private Status status = Status.PENDING;*/
-
     public enum Status {
         PENDING, ACCEPTED, DECLINED;
     }

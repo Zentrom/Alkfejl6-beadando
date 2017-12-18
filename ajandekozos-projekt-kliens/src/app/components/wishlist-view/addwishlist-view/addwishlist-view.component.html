@@ -11,11 +11,9 @@
             </button>
         </mat-form-field>
         <br>
-        <div *ngIf="error">{{error}}</div>
+        <div *ngIf="error" #error>{{error}}</div>
         <button mat-raised-button color="primary"
-            (click)="clickButton(listname); listname=''">
-            Create list
-        </button>
+            (click)="clickButton(listname); listname=''">Create list</button>
         <button id="reset" mat-raised-button color="primary"
         (click)="listname=''; error=''">
          Reset

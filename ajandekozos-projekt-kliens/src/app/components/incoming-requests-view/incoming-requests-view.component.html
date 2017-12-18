@@ -38,13 +38,13 @@
                     <td>{{ request.requester.firstname }}</td>
                     <td>{{ request.requester.lastname }}</td>
                     <td>
-                        <button class="btn btn-info innerbtn"
+                        <button #accept class="btn btn-info innerbtn"
                                     (click)="processRequest(request, 1)">
                                         Accept
                         </button>
                     </td>
                     <td>
-                        <button class="btn btn-danger innerbtn"
+                        <button #decline class="btn btn-danger innerbtn"
                                     (click)="processRequest(request, 2)">
                                         Decline
                         </button>

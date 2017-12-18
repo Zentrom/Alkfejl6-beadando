@@ -9,10 +9,36 @@
             <img class="center" src="../../../assets/present.svg" alt="Present">
         </div>
         <br>
-        <p>This application is all about gifting. Our goal is to make the process of giving easier.</p>
+        <div *ngIf="!authService.isLoggedIn(); else loggedIn">
+            <h6>This application is all about gifting. Our goal is to make the process of giving easier.<br><hr><br>Please login/register in order to access all features.</h6>
+        </div>
 
+        <ng-template #loggedIn>
+            <div *ngIf="authService.isUserAdmin()">
+                <h6>Here's what you can do as an Admin: </h6>
+                <br>
+                <ul class="list-group">
+                    <li class="list-group-item">list users by firstname/lastname</li>
+                    <li class="list-group-item">delete users</li>
+                    <li class="list-group-item">open user's wishlists</li>
+                    <li class="list-group-item">modify/delete the users's lists</li>
+                    <li class="list-group-item">delete comments</li>
+                 </ul>
+            </div>
+
+            <div *ngIf="!authService.isUserAdmin()">
+                <h6>Here's what you can do as an User: </h6>
+                <br>
+                <ul class="list-group">
+                    <li class="list-group-item">create lists for your birthday, christmas etc.</li>
+                    <li class="list-group-item">you can delete/modify these lists</li>
+                    <li class="list-group-item">add presents to these lists</li>
+                    <li class="list-group-item">add friends</li>
+                    <li class="list-group-item">browse/add to friend's lists and comment on presents</li>
+                </ul>
+            </div>
+        </ng-template>
     </mat-card-content>
-
 </mat-card>
 
 
