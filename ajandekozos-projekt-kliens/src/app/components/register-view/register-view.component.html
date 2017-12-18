@@ -2,26 +2,26 @@
   <mat-card-content>
     <h3>Register</h3>
     <mat-form-field>
-      <input matInput type="text" placeholder="Username" #usernameinput>
+      <input matInput type="text" placeholder="Username" #usernameinput name="username">
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input matInput type="password" placeholder="Password" #passwordinput>
+      <input matInput type="password" placeholder="Password" #passwordinput name="password">
     </mat-form-field>
     <br>
     <mat-form-field>
-        <input matInput type="text" placeholder="Firstname" #firstnameinput>
+        <input matInput type="text" placeholder="Firstname" #firstnameinput name="firstname">
       </mat-form-field>
       <br>
       <mat-form-field>
-          <input matInput type="text" placeholder="Lastname" #lastnameinput>
+          <input matInput type="text" placeholder="Lastname" #lastnameinput name="lastname">
         </mat-form-field>
         <br>
     <mat-form-field>
-        <input matInput type="email" placeholder="Email" #emailinput>
+        <input matInput type="email" placeholder="Email" #emailinput name="email">
     </mat-form-field>
     <br>
-    <button mat-raised-button color="primary" 
+    <button mat-raised-button color="primary" name="register"
             (click)="tryRegister(usernameinput.value, passwordinput.value, firstnameinput.value, lastnameinput.value, emailinput.value)">
       Register
     </button>

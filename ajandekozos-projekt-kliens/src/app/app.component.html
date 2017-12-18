@@ -24,10 +24,10 @@
         <mat-toolbar color="primary">
                         Gifting app
             <button mat-button routerLink="/"  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Index</button>
-            <button #lists mat-button routerLink="/user/wishlists" routerLinkActive="active">My Wishlists</button>
+            <button name="lists" mat-button routerLink="/user/wishlists" routerLinkActive="active">My Wishlists</button>
             <button mat-button routerLink="/user/friends" routerLinkActive="active">My Friends</button>
             <button mat-button routerLink="/user/newrequest" routerLinkActive="active">Add Friends</button>
-            <button #requests mat-button routerLink="/user/friendrequests" routerLinkActive="active">Incoming requests</button>
+            <button name="requests" mat-button routerLink="/user/friendrequests" routerLinkActive="active">Incoming requests</button>
             <span class="fillspace"></span>
             <button mat-button routerLink="/" (click)="authService.logout()">Logout</button>
             <i class="fa fa-user-circle" matTooltip="Logged in as {{authService.getUser().firstname}} {{authService.getUser().lastname}}" aria-hidden="true"></i>            

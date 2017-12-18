@@ -2,14 +2,14 @@
   <mat-card-content>
     <h3>Login</h3>
     <mat-form-field>
-      <input id="us" matInput type="text" placeholder="Username" #usernameinput>
+      <input id="us" name="username" matInput type="text" placeholder="Username" #usernameinput>
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input id="pw" matInput type="password" placeholder="Password" #passwordinput>
+      <input id="pw" name="password" matInput type="password" placeholder="Password" #passwordinput>
     </mat-form-field>
     <br>
-    <button id="bejelentkezes" mat-raised-button color="primary" 
+    <button id="bejelentkezes" name="bejelentkezes" mat-raised-button color="primary" 
             (click)="tryLogin(usernameinput.value, passwordinput.value)">
       Login
     </button>
