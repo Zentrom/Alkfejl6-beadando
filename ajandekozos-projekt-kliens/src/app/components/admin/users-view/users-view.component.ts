@@ -3,6 +3,7 @@ import {MatSnackBar} from '@angular/material';
 
 import { UserDTO } from '../../../model/userdto';
 import { AdminService } from '../../../services/admin.service';
+import { BreadcrumbService } from '../../../services/breadcrumb.service';
 
 @Component({
   selector: 'app-users-view',
@@ -12,10 +13,10 @@ import { AdminService } from '../../../services/admin.service';
 })
 export class UsersViewComponent implements OnInit {
   private users: UserDTO[];
-  private error: string;
 
   constructor(
     private adminService: AdminService,
+    private breadcrumbService: BreadcrumbService,
     public snackBar: MatSnackBar
   ) {}
 
@@ -25,20 +26,19 @@ export class UsersViewComponent implements OnInit {
         this.users.splice(index, 1);  
       });
   
-      this.snackBar.open('User: ' + user.firstname + ' ' + user.lastname + 'was deleted', 'Dismiss', {
+      this.snackBar.open('User: ' + user.firstname + ' ' + user.lastname + ' was deleted', 'Dismiss', {
         duration: 3000
       });
   }
 
   public searchUsers(showall: boolean = false, firstname: string = "", lastname: string = ""): void {
-    if ( !firstname.trim() && !lastname.trim() && !showall ) {
-      this.error = "Please enter something!";
-    } else {
-      this.error = "";
-      this.adminService.getUsers(firstname, lastname).subscribe((filteredUsers: UserDTO[]) => {
-        this.users = filteredUsers;
-      });
-    }
+    this.adminService.getUsers(firstname, lastname).subscribe((filteredUsers: UserDTO[]) => {
+      this.users = filteredUsers;
+    });
+  }
+
+  public setBreadcrumbs(firstname: string, lastname: string) {
+    this.breadcrumbService.friendName = firstname + " " + lastname;
   }
 
   ngOnInit() {

@@ -1,6 +1,11 @@
-.presentsview {
+.presents-view {
     margin: 20px auto;
     width: 1000px;
+  }
+
+  .presents-admin-view {
+    margin: 20px auto;
+    width: 1200px;
   }
 
 mat-spinner {

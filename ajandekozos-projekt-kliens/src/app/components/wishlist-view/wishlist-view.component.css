@@ -22,3 +22,6 @@ table {
   display:block;
 }
 
+.breadcrumb {
+  background-color: white;
+}

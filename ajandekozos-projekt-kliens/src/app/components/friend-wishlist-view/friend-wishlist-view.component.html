@@ -1,6 +1,6 @@
 <mat-card class="wishlistview">
   <mat-card-title>
-      <h3>Friends wishlists</h3>
+      <h3>Wishlists of {{breadcrumbService.friendName}}</h3>
   </mat-card-title>
 
   <div *ngIf="!wishlists; else loaded">

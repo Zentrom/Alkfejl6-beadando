@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
 
 import { Present } from '../../model/present';
 import { User } from '../../model/user';
@@ -8,6 +7,7 @@ import { Comment } from '../../model/comment';
 import { CommentService } from '../../services/comment.service';
 import { PresentService } from '../../services/present.service';
 import { BreadcrumbService } from '../../services/breadcrumb.service';
+import { AuthService } from '../../services/auth.service';
 import { UserDTO } from '../../model/userdto';
 
 @Component({
@@ -18,7 +18,6 @@ import { UserDTO } from '../../model/userdto';
 })
 
 export class CommentsViewComponent implements OnInit {
-  private present: Present;
   private comments: Comment[];
   private friendId: number;
   private friendListId: number;
@@ -33,60 +32,51 @@ export class CommentsViewComponent implements OnInit {
     private authService: AuthService,
     private commentService: CommentService
   ) {} 
+  
+  convertToDateString(comment: Comment): string{
+    this.date=new Date(comment.timeStamp);
 
-  getPresentName(){
-    this.presentService.readPresent(this.friendListId,this.presentId).subscribe((present: Present) => {
-      this.present= present;
-    });
-  }
+    var year = this.date.getFullYear().toString().slice(2, 4);
+    var month = (this.date.getMonth() < 10) ? "0" + this.date.getMonth().toString() : this.date.getMonth().toString();
+    var day = (this.date.getDate() < 10) ? "0" + this.date.getDate().toString() : this.date.getDate().toString();
+    var hour = (this.date.getHours() < 10) ? "0" + this.date.getHours().toString() : this.date.getHours().toString();
+    var minutes = (this.date.getMinutes() < 10) ? "0" + this.date.getMinutes().toString() : this.date.getMinutes().toString()
 
-  convertToDateString(wilcommen: Comment): string{
-    this.date=new Date(wilcommen.timeStamp);
-    return this.date.toDateString();
+    return year + "." + month + "." + day + ", " + hour + ":" + minutes;
   }
 
   public postComment(commentText: string): void{
-    //console.log(this.breadCrumbService.userName);
-    
-    //ez itt lehet furán néz ki,de működik!!!!!!
-    var tmpComment = new Comment(100,commentText,new Date()
-    ,new UserDTO(432,"fsfdsf","ggrdgdrdrg"));
+    var tmpComment = new Comment(null ,commentText, null, null);
     this.commentService.addComment(this.friendId,this.friendListId,this.presentId,tmpComment).subscribe((newComment:Comment) => {
       this.comments.push(newComment);
     });
   }
 
   public removeComment(comment: Comment): void{
-    this.commentService.deleteComment(this.friendId,this.friendListId,this.presentId,comment.id).subscribe(() => {
+    console.log("COMMENT ID: " + comment.id);
+    this.commentService.deleteComment(this.friendId, this.friendListId, this.presentId, comment.id).subscribe(() => {
       var index = this.comments.indexOf(comment);
-      this.comments.splice(index, 1);    
-    });
+      this.comments.splice(index, 1);
+      console.log("TÖRÖL COMMENT");    
+    })
+
   }
 
   ngOnInit() {
-    //this.present= null;
     this.comments= null;
-    this.presentId = parseInt(this.activatedRoute.snapshot.paramMap.get('friendPresentId'));
-    this.friendListId = parseInt(this.activatedRoute.snapshot.paramMap.get('friendListId'));
-    
-    //console.log(this.presentId);
-    this.getPresentName();
-    //this.breadCrumbService.presentName=this.present.name;
-    //this.setBread();
-    this.friendId = parseInt(this.activatedRoute.snapshot.paramMap.get('friendId'));
-    
-    //var ts = new Date(1420844400000);
-   // console.log(ts.toDateString());
-    // this.getCommentDate();
+    if (this.authService.isUserAdmin()) {
+      this.presentId = parseInt(this.activatedRoute.snapshot.paramMap.get('presentId'));
+      this.friendListId = parseInt(this.activatedRoute.snapshot.paramMap.get('listId'));
+      this.friendId = parseInt(this.activatedRoute.snapshot.paramMap.get('userId'));
+    } else {
+      this.presentId = parseInt(this.activatedRoute.snapshot.paramMap.get('friendPresentId'));
+      this.friendListId = parseInt(this.activatedRoute.snapshot.paramMap.get('friendListId'));
+      this.friendId = parseInt(this.activatedRoute.snapshot.paramMap.get('friendId'));
+    }
+
     this.commentService.getComments(this.friendId, this.friendListId, this.presentId).subscribe((comments: Comment[]) => {
       this.comments = comments;
-      //for(let i: number=0;i<this.comments.length;i++){
-     //   this.comments.timeStamp[i]=(new Date(this.comments[i].timeStamp)).toDateString();
-     // }
-      //console.log(this.comments[0].timeStamp);
-      //console.log(this.date.toLocaleDateString());
     });
-    
   }
     
 }

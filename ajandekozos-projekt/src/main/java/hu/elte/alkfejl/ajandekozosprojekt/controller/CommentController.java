@@ -17,7 +17,7 @@ import static hu.elte.alkfejl.ajandekozosprojekt.model.User.Role.ADMIN;
 import static hu.elte.alkfejl.ajandekozosprojekt.model.User.Role.USER;
 
 @RestController
-@RequestMapping(ResourceConstants.COMMENTS)
+@RequestMapping()
 public class CommentController {
 
     private CommentService commentService;
@@ -31,27 +31,25 @@ public class CommentController {
     }
 
     @Role({ADMIN, USER})
-    @GetMapping("")
+    @GetMapping(ResourceConstants.COMMENTS)
     public ResponseEntity<List<CommentDTO>> listComments(@PathVariable int friendPresentId) {
         List<CommentDTO> comments = commentService.findAllByPresentId(friendPresentId);
         return ResponseEntity.ok(comments);
     }
 
     @Role(USER)
-    @PostMapping("")
+    @PostMapping(ResourceConstants.COMMENTS)
     public ResponseEntity<CommentDTO> addComment(@PathVariable int friendPresentId, @RequestBody Comment comment) {
         CommentDTO saved = commentService.create(friendPresentId, userService.getUser(), comment);
         return ResponseEntity.ok(saved);
     }
 
-    @Role({ADMIN, USER})
+    @Role(ADMIN)
     @DeleteMapping(ResourceConstants.COMMENTID)
     public ResponseEntity deleteComment(@PathVariable int commentId) {
-        if (commentService.checkPermission(userService.getUser(), commentId)) {
-            commentService.delete(commentId);
-            return ResponseEntity.ok().build();
-        }
-        return ResponseEntity.badRequest().build();
+        System.out.println("TÖRLÉS: " + commentId);
+        commentService.delete(commentId);
+        return ResponseEntity.ok().build();
     }
 
     // TODO ha nem jó a permission akkor most milyen commentes is kap paraméterben? -> kliensoldali varázslat

@@ -32,6 +32,9 @@ import { CommentsViewComponent } from '../../components/comments-view/comments-v
         { path: 'user/newrequest', component: AddFriendViewComponent, data: { roles: ['USER', 'ADMIN'] } },
         { path: 'user/friendrequests', component: IncomingRequestsViewComponent, data: { roles: ['USER', 'ADMIN'] } },
         { path: 'users', component: UsersViewComponent, data: { roles: ['ADMIN'] }, pathMatch: 'full' },
+        { path: 'users/:userId/wishlists', component: WishlistViewComponent, data: { roles: ['ADMIN'] }, pathMatch: 'full' },        
+        { path: 'users/:userId/wishlists/:listId/presents', component: FriendPresentsViewComponent, data: { roles: ['ADMIN'] }, pathMatch: 'full' }, 
+        { path: 'users/:userId/wishlists/:listId/presents/:presentId/comments', component: CommentsViewComponent, data: { roles: ['ADMIN'] }, pathMatch: 'full' }, 
         { path: '**', component: IndexViewComponent }
       ]}
 ];

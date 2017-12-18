@@ -42,7 +42,6 @@ public class Present extends BaseEntity {
     private WishList wishList;
 
     @JsonIgnore
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "present", cascade = CascadeType.ALL)
     private List<Comment> comments;
 

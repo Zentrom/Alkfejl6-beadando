@@ -1,34 +1,5 @@
-<mat-card class="searchusersview">
-    <mat-card-title>
-            <h3>Search users</h3>
-    </mat-card-title>
-
-<mat-card-content>
-    <mat-form-field>
-        <input matInput #firstname type="text" placeholder="Firstname" [(ngModel)]="firstnamevalue">
-        <button mat-button *ngIf="firstnamevalue" matSuffix mat-icon-button aria-label="Clear" (click)="firstnamevalue=''">
-                <mat-icon>close</mat-icon>
-        </button>
-    </mat-form-field>
-    <mat-form-field>
-        <input matInput #lastname type="text" placeholder="Lastname" [(ngModel)]="lastnamevalue">
-        <button mat-button *ngIf="lastnamevalue" matSuffix mat-icon-button aria-label="Clear" (click)="lastnamevalue=''">
-                <mat-icon>close</mat-icon>
-        </button>
-    </mat-form-field>
-    <br>
-    <div *ngIf="error">{{error}}</div>
-    <br>
-    <button mat-raised-button color="primary"
-        (click)="searchUsers(false, firstname.value, lastname.value); ">
-        Search
-    </button>
-    <button mat-raised-button color="primary" id="showall"
-    (click)="searchUsers(true); firstnamevalue=''; lastnamevalue=''">
-    Show all
-    </button>
-</mat-card-content>
-</mat-card>
+<app-search-by-name-view (searchParams)="searchUsers($event.showall, $event.firstname, $event.lastname)">
+</app-search-by-name-view>
 
 <mat-card class="usersview">
 <mat-card-title>
@@ -51,9 +22,10 @@
                 <thead>
                 <tr>
                     <th style="width:10%" class="text-center">Id</th>
-                    <th style="width:43%" class="text-center">Firstname</th>
-                    <th style="width:43%" class="text-center">Lastname</th>
-                    <th style="width:14%" class="text-center">Delete</th>
+                    <th style="width:30%" class="text-center">Firstname</th>
+                    <th style="width:30%" class="text-center">Lastname</th>
+                    <th style="width:15%" class="text-center">Lists</th>                    
+                    <th style="width:15%" class="text-center">Delete</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -61,6 +33,13 @@
                     <td>{{ user.id }}</td>
                     <td>{{ user.firstname }}</td>
                     <td>{{ user.lastname }}</td>
+                    <td>
+                        <button class="btn btn-info innerbtn"
+                                routerLink="/users/{{user.id}}/wishlists"
+                                (click)="setBreadcrumbs(user.firstname, user.lastname)">
+                            <i class="fa fa-chevron-right"></i>
+                        </button>
+                    </td>
                     <td>
                         <button
                             class="btn btn-danger innerbtn"

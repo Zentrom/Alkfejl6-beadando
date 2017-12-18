@@ -41,7 +41,6 @@ public class User extends BaseEntity {
     private String email;
 
     @JsonIgnore
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     private List<WishList> wishLists;
 
@@ -51,22 +50,19 @@ public class User extends BaseEntity {
     private List<User> friends;
 
     @JsonIgnore
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "requestee", cascade = CascadeType.ALL)
     private Set<FriendRequest> friendRequestsFromUsers;
 
     @JsonIgnore
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "requester", cascade = CascadeType.ALL)
     private List<FriendRequest> usersToRequest;
 
     @JsonIgnore
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     private List<Comment> comments;
 
     @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Present> presents;
 
     @Enumerated(EnumType.STRING)

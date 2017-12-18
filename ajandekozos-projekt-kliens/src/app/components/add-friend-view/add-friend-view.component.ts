@@ -13,7 +13,6 @@ import { FriendRequest } from '../../model/friendrequest';
 })
 export class AddFriendViewComponent implements OnInit {
   private possibleFriends: UserDTO[];
-  private error: string;
 
   constructor(
     private friendrequestService: FriendrequestService,
@@ -32,17 +31,9 @@ export class AddFriendViewComponent implements OnInit {
   }
 
   public searchUsers(showall: boolean = false, firstname: string = "", lastname: string = ""): void {
-    if ( !firstname.trim() && !lastname.trim() && !showall ) {
-      this.error = "Please enter something!";
-    } else {
-      this.error = "";
-      this.friendrequestService.listPossibleFriends(firstname, lastname).subscribe((filteredUsers: UserDTO[]) => {
-        this.possibleFriends = filteredUsers;
-        //filteredUsers.forEach(user => {
-        //  console.log(user.firstname + " " + user.lastname);
-        //});
-      });
-    }
+    this.friendrequestService.listPossibleFriends(firstname, lastname).subscribe((filteredUsers: UserDTO[]) => {
+      this.possibleFriends = filteredUsers;
+    });
   }
 
   ngOnInit() {

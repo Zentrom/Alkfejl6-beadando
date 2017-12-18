@@ -71,7 +71,6 @@ export class FriendWishlistViewComponent implements OnInit {
 
   ngOnInit() {
     this.userId = parseInt(this.activatedRoute.snapshot.paramMap.get('userId'));
-    
     this.wishlistService.listFriendsLists(this.userId).subscribe((friendsLists: WishList[]) =>{
       this.wishlists = friendsLists;
     });    

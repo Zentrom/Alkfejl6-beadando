@@ -5,7 +5,7 @@
 
 <mat-card class="presentsview">
     <mat-card-title>
-        <h3>Presents</h3>
+        <h3>Presents of {{breadCrumbService.listTitle}}</h3>
     </mat-card-title>
 
     <div *ngIf="!presents; else loaded">
@@ -43,7 +43,7 @@
                           <td>{{ present.name }}</td>
                           <td>{{ present.price }} Ft</td>
                           <td> 
-                            <button [ngClass]="getButtonClass(present)" [disabled]=!present.link (click)="goToUrl(present.link)">Link</button>                   
+                            <button class="btn btn-primary innerbtn" [disabled]=!present.link (click)="goToUrl(present.link)">Link</button>                   
                           </td>
                           <td>
                             <button class="btn btn-warning innerbtn" (click)="openEditPresentDialog(present)">

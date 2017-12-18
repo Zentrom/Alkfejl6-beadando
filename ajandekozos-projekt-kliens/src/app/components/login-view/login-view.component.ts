@@ -24,7 +24,7 @@ export class LoginViewComponent implements OnInit {
 
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
-      duration: 2000,
+      duration: 3000,
     });
   }
 
@@ -36,7 +36,7 @@ export class LoginViewComponent implements OnInit {
     this.authService.login(username, password).subscribe((success: boolean) => {
       if (success) {
         this.router.navigate(['/']);
-        this.openSnackBar("Logged in as:",username);
+        this.openSnackBar("Logged in as: " + username, "Dismiss");
       } else {
         this.error = 'Error: Wrong username or password!';
       }

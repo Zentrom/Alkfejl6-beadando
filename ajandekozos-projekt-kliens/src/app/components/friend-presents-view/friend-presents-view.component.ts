@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { Location } from '@angular/common';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 import { filter } from 'rxjs/operators';
 
 import { User } from '../../model/user';
@@ -33,17 +33,9 @@ export class FriendPresentsViewComponent implements OnInit {
     private authService: AuthService,
     private breadCrumbService: BreadcrumbService,
     private location: Location,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public snackBar: MatSnackBar
   ) {} 
-
-
-
-  public getButtonClass(present: Present): string {
-    if (present.link) {
-      return "btn btn-primary innerbtn";
-    }
-    return "btn btn-danger innerbtn";
-  }
   
   public goToUrl(url: string): void {
     if (!/^http[s]?:\/\//.test(url)) {
@@ -69,7 +61,7 @@ export class FriendPresentsViewComponent implements OnInit {
       .subscribe(result => {
         present.name = result.name;
         present.price = result.price;
-        present.link = result.link;
+        present.link = (result.link.trim().length === 0) ? null : result.link;
         this.presentService.updatePresent(this.friendListId, present).subscribe((updatedPresent) => {
         });
     });
@@ -93,21 +85,46 @@ export class FriendPresentsViewComponent implements OnInit {
     if (present.user === null) {
       var buyer: UserDTO = new UserDTO(this.authService.getUser().id, this.authService.getUser().firstname, this.authService.getUser().lastname);
       present.user = buyer;
-      console.log("NEM VOLT BUYER");
+      this.presentService.updateFriendPresent(this.friendId, this.friendListId, present).subscribe((updatedPresent: Present) => {
+      });
+      this.snackBar.open("You bought: " + present.name + " for your friend", "Dismiss", {
+        duration: 3000
+      })
     } else {
-      console.log("VOLT BUYER");
+      present.user = null;
+      this.presentService.updateFriendPresent(this.friendId, this.friendListId, present).subscribe((updatedPresent: Present) => {
+      });
     }
-
-    //this.presentService.updatePresent().subscribe(() = >);
   }
 
-  public setBreadcrumbs(presentTitle: string): void {
-    this.breadCrumbService.presentName = presentTitle;
+  public setBuyerNull(present: Present) {
+    if (present.user !== null) {
+      present.user = null;
+      this.presentService.updateFriendPresent(this.friendId, this.friendListId, present).subscribe((updatedPresent: Present) => {
+      });
+      this.snackBar.open(present.name + "'s buyer set to none", "Dismiss", {
+        duration: 3000
+      })
+    }
+  }
+
+  public checkBuyer(present: Present): boolean {
+    return present.user && !(present.user.id === this.authService.getUser().id);
+  }
+
+  public setBreadcrumbs(presentName: string): void {
+    this.breadCrumbService.presentName = presentName;
   }
 
   ngOnInit() {
-    this.friendListId = parseInt(this.activatedRoute.snapshot.paramMap.get('friendListId'));
-    this.friendId = parseInt(this.activatedRoute.snapshot.paramMap.get('friendId'));
+    if (this.authService.isUserAdmin()) {
+      this.friendListId = parseInt(this.activatedRoute.snapshot.paramMap.get('listId'));
+      this.friendId = parseInt(this.activatedRoute.snapshot.paramMap.get('userId'));
+    } else {
+      this.friendListId = parseInt(this.activatedRoute.snapshot.paramMap.get('friendListId'));
+      this.friendId = parseInt(this.activatedRoute.snapshot.paramMap.get('friendId'));
+    }
+
 
     this.presentService.listPresentsOfFriendsOrUsersList(this.friendId, this.friendListId).subscribe((friendsPresents: Present[]) => {
       this.presents = friendsPresents;

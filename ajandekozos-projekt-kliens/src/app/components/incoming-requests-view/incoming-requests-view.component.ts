@@ -15,7 +15,6 @@ import { FriendRequest } from '../../model/friendrequest';
 export class IncomingRequestsViewComponent implements OnInit {
   private originalRequests: FriendRequest[];
   private filteredRequests: FriendRequest[];
-  private error: string;
   private firstLook: boolean;
 
     constructor(
@@ -23,9 +22,16 @@ export class IncomingRequestsViewComponent implements OnInit {
       public snackBar: MatSnackBar
     ) {}
 
+    manageSearch(showall: boolean, firstname: string, lastname: string): void {
+      if (showall) {
+        this.resetOriginalRequests();
+      } else {
+        this.filterRequests(firstname, lastname);
+      }
+    }
+
     resetOriginalRequests(): void {
       this.filteredRequests = this.originalRequests;
-      this.error = "";
       this.firstLook = false;
     }
 
@@ -46,9 +52,7 @@ export class IncomingRequestsViewComponent implements OnInit {
             return ( request.requester.firstname.includes(firstname) && request.requester.lastname.includes(lastname) )
           });
         } 
-      } else {
-        this.error = "Please enter something!";
-      }
+      } 
     }
 
     processRequest(friendrequest: FriendRequest, status: string): void {
