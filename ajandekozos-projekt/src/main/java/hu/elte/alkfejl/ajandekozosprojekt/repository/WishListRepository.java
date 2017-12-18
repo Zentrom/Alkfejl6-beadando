@@ -12,8 +12,6 @@ public interface WishListRepository extends CrudRepository<WishList, Integer> {
 
     Iterable<WishList> findAllByUserId(int userId);
 
-    WishList findByTitle(String title);
-
     WishList findById(int listId);
 
 

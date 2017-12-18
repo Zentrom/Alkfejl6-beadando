@@ -53,14 +53,6 @@ public class WishListController {
         return ResponseEntity.ok(updated);
     }
 
-    // TODO kell ez a végpont?
-    @Role({ADMIN, USER})
-    @GetMapping(ResourceConstants.WISHLISTSID)
-    public ResponseEntity<WishList> readWishList(@PathVariable int wishlistId) {
-        WishList read = wishListService.findById(wishlistId);
-        return ResponseEntity.ok(read);
-    }
-
     @Role({ADMIN, USER})
     @GetMapping(ResourceConstants.FRIEND_LISTS)
     public ResponseEntity<Iterable<WishList>> listFriendsOrUsersLists(@PathVariable int friendId) {
@@ -68,19 +60,7 @@ public class WishListController {
         return ResponseEntity.ok(friendsLists);
     }
 
-    @Role(ADMIN)
-    @DeleteMapping(ResourceConstants.DELETE_OR_UPDATE_USER_LIST)
-    public ResponseEntity adminDeleteUsersWishList(@PathVariable int userListId) {
-        wishListService.delete(userListId);
-        return ResponseEntity.ok().build();
-    }
 
-    @Role(ADMIN)
-    @PatchMapping(ResourceConstants.DELETE_OR_UPDATE_USER_LIST)
-    public ResponseEntity<WishList> adminUpdateUsersWishList(@PathVariable int userListId, @RequestBody WishList wishList) {
-        WishList updated = wishListService.update(userListId, wishList);
-        return ResponseEntity.ok(updated);
-    }
 
 
 }

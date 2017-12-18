@@ -20,10 +20,6 @@ public class WishListService {
         return wishListRepository.findAllByUser(user);
     }
 
-    public WishList findById(int listId) {
-        return wishListRepository.findById(listId);
-    }
-
     public Iterable<WishList> findAllByUserId(int userId) {
         return wishListRepository.findAllByUserId(userId);
     }

@@ -20,10 +20,6 @@ export class FriendrequestService {
       return this.httpClient.delete(api + 'user/friendrequests/' + requestId, {params: {status}, responseType: 'text'});
   }
 
-  public readRequest(requestId: number): Observable<FriendRequest> {
-    return this.httpClient.get<FriendRequest>(api + 'user/friendrequests/' + requestId);
-  }
-
   public listPossibleFriends(firstname: string, lastname: string): Observable<UserDTO[]> {
     return this.httpClient.get<UserDTO[]>(api + 'user/newrequest', {params: {firstname, lastname}});
   }

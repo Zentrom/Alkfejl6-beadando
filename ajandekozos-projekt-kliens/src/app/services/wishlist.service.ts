@@ -27,26 +27,9 @@ export class WishlistService {
     return this.httpClient.patch<WishList>(api + 'user/wishlists/' + wishlist.id, wishlist);
   }
 
-  public readWishList(wishlistId: number): Observable<WishList> {
-    return this.httpClient.get<WishList>(api + 'user/wishlists/' + wishlistId);
-  }
-
   public listFriendsLists(friendId: number): Observable<WishList[]> {
     return this.httpClient.get<WishList[]>(api + 'user/friends/' + friendId + '/wishlists');
   }
-
-  public adminDeleteUsersWishList(friendId: number, listId: number): Observable<any> {
-    return this.httpClient.delete(api + 'user/friends/' + friendId + '/wishlists/' + listId, {responseType: 'text'});
-  }
-
-  public adminUpdateUsersWishList(friendId: number, wishlist: WishList): Observable<WishList> {
-    return this.httpClient.patch<WishList>(api + 'user/friends/' + friendId + '/wishlists/' + wishlist.id, wishlist);
-  }
-
-  public adminAddToUsersWishList(friendId: number, wishlist: WishList): Observable<WishList> {
-    return this.httpClient.post<WishList>(api + 'user/friends/' + friendId + '/wishlists', wishlist);
-  }
-
 
 
 }
