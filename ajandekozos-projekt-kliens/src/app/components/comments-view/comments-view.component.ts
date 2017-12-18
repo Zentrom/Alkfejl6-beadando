@@ -53,13 +53,10 @@ export class CommentsViewComponent implements OnInit {
   }
 
   public removeComment(comment: Comment): void{
-    console.log("COMMENT ID: " + comment.id);
     this.commentService.deleteComment(this.friendId, this.friendListId, this.presentId, comment.id).subscribe(() => {
       var index = this.comments.indexOf(comment);
       this.comments.splice(index, 1);
-      console.log("TÖRÖL COMMENT");    
     })
-
   }
 
   ngOnInit() {

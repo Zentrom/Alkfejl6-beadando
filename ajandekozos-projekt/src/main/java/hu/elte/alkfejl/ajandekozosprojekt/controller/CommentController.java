@@ -39,7 +39,7 @@ public class CommentController {
 
     @Role(USER)
     @PostMapping(ResourceConstants.COMMENTS)
-    public ResponseEntity<CommentDTO> addComment(@PathVariable int friendPresentId, @RequestBody Comment comment) {
+    public ResponseEntity<CommentDTO> addComment(@PathVariable int friendPresentId, @RequestBody CommentDTO comment) {
         CommentDTO saved = commentService.create(friendPresentId, userService.getUser(), comment);
         return ResponseEntity.ok(saved);
     }
@@ -47,28 +47,8 @@ public class CommentController {
     @Role(ADMIN)
     @DeleteMapping(ResourceConstants.COMMENTID)
     public ResponseEntity deleteComment(@PathVariable int commentId) {
-        System.out.println("TÖRLÉS: " + commentId);
         commentService.delete(commentId);
         return ResponseEntity.ok().build();
-    }
-
-    // TODO ha nem jó a permission akkor most milyen commentes is kap paraméterben? -> kliensoldali varázslat
-    @Role({ADMIN, USER})
-    @PatchMapping(ResourceConstants.COMMENTID)
-    public ResponseEntity<CommentDTO> updateComment(@PathVariable int commentId, @RequestBody Comment comment) {
-        if (commentService.checkPermission(userService.getUser(), commentId)) {
-            CommentDTO updated = commentService.update(commentId, comment);
-            return ResponseEntity.ok(updated);
-        }
-        return ResponseEntity.badRequest().build();
-    }
-
-    // TODO valószínűleg nem kell
-    @Role({ADMIN, USER})
-    @GetMapping(ResourceConstants.COMMENTID)
-    public ResponseEntity<CommentDTO> readComment(@PathVariable int commentId) {
-        CommentDTO read = commentService.findById(commentId);
-        return ResponseEntity.ok(read);
     }
 
 }

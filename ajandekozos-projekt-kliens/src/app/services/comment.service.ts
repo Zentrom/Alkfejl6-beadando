@@ -20,16 +20,8 @@ export class CommentService {
     return this.httpClient.post<Comment>(api + 'user/friends/' + friendId + '/wishlists/' + friendListId + '/presents/' + presentId + '/comments', comment);
   }
 
-  public updateComment(friendId: number, friendListId: number, presentId: number, comment: Comment): Observable<Comment> {
-    return this.httpClient.patch<Comment>(api + 'user/friends/' + friendId + '/wishlists/' + friendListId + '/presents/' + presentId + '/comments/' + comment.id, comment);
-  }
-
   public deleteComment(friendId: number, friendListId: number, presentId: number, commentId: number): Observable<any> {
     return this.httpClient.delete(api + 'user/friends/' + friendId + '/wishlists/' + friendListId + '/presents/' + presentId + '/comments/' + commentId, {responseType: 'text'});
-  }
-
-  public readComment(friendId: number, friendListId: number, presentId: number, commentId: number): Observable<Comment> {
-    return this.httpClient.get<Comment>(api + 'user/friends/' + friendId + '/wishlists/' + friendListId + '/presents/' + presentId + '/comments/' + commentId);
   }
 
 }

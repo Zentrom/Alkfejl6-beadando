@@ -2,7 +2,7 @@
 
 ## Bevezetés
 
-Célunk egy olyan webes applikáció fejlesztése, amely segíti az ajándékozás folyamatát, legyen szó születésnapról, karácsonyról vagy bármilyen más egyéb ünnepről. A programmal, regisztrálás és belépés után, kívánság listákat készíthetünk, amelyet a barátaink (barátnak felvett felhasználók) láthatnak, illetve módosításokat hajthatnak végre rajta, anélkül, hogy azt a lista tulajdonosa láthatná.
+Célunk egy olyan webes applikáció fejlesztése, amely segíti az ajándékozás folyamatát, legyen szó születésnapról, karácsonyról vagy bármilyen más egyéb ünnepről. A programmal, regisztrálás és belépés után, kívánság listákat készíthetünk, amelyet a barátaink (barátnak felvett felhasználók) láthatnak, illetve módosításokat hajthatnak végre rajta, anélkül, hogy ezt a lista eredeti tulajdonosa láthatná.
 
 
 ## Funkcionális követelmények  
@@ -14,16 +14,17 @@ Célunk egy olyan webes applikáció fejlesztése, amely segíti az ajándékoz�
 - más felhasználók felvétele barátként
   - a barátok láthatják egymás listáit
   - a barátok hozzáadhatnak az eredeti tulajdonos listájához elemeket, de ezt a tulaj nem láthatja
-  - kihúzhatnak elemeket, jelölve ezzel azt, hogy már megvásárolták azt
+  - megjelölhetjük az adott ajándékot, hogy mi azt meg fogjuk vásárolni
   - a barátok számára látható, hogy ki vásárolta meg az adott elemet
-  - a barátok kommentelhetnek a lista elemek alá
+  - a barátok kommentelhetnek a lista elemekhez
 - felhasználók közötti keresés
+- barát kérések küldése olyan felhasználók számára, akik még nem barátaink és még nem küldtünk nekik kérést
 
 
 ## Nem funkcionális követelmények
 - A weboldal elérhető tetszőleges böngészőből
 - Szerveroldal
-  - Java Spring boot használata (Lombok, Thymeleaf, h2, JPA, HTML, CSS)
+  - Java Spring boot használata (Lombok, h2, JPA, HTML, CSS)
   - MVC modell
   - REST API
   - authorizált végpontok
@@ -50,7 +51,7 @@ Célunk egy olyan webes applikáció fejlesztése, amely segíti az ajándékoz�
   
 ##  Szerepkörök
 - User: Saját listákat hozhat létre, kereshet a felhasználók között és barátok vehet fel. Továbbá hozzáadhat/kihúzhat elemeket a barátok listáiról és kommentelhet is hozzájuk.
-- Admin: Belenyúlhat az adatbázisba, módosíthatja a listákat, törölhet felhasználókat stb.
+- Admin: Belenyúlhat az adatbázisba, módosíthatja az ajándékokat, törölhet felhasználókat, listákat, ajándékokat, kommenteket stb.
 
 ## Fejlesztői környezet
 - NetBeans/IntelliJ IDEA

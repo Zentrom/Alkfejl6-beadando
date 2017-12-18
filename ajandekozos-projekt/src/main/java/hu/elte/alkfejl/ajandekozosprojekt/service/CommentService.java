@@ -48,59 +48,20 @@ public class CommentService {
         return commentsDTO;
     }
 
-    // TODO valószínűleg nem kell
-    public CommentDTO findById(int commentId) {
-        CommentDTO foundDTO = new CommentDTO();
-        Comment found = commentRepository.findOne(commentId);
-
-        foundDTO.setId(found.getId());
-        foundDTO.setText(found.getText());
-        foundDTO.setTimeStamp(found.getTimestamp());
-        foundDTO.setAuthor(new UserDTO(found.getUser().getId(), found.getUser().getFirstname(), found.getUser().getLastname()));
-
-        return foundDTO;
-    }
-
-    public boolean checkPermission(User user, int commentId) {
-        Comment comment = commentRepository.findOne(commentId);
-        if (comment.getUser().equals(user) || user.getRole().equals(User.Role.ADMIN)) {
-            return true;
-        }
-
-        return false;
-    }
-
-    public CommentDTO create(int presentId, User user, Comment comment) {
-        CommentDTO savedDTO = new CommentDTO();
-
+    public CommentDTO create(int presentId, User user, CommentDTO newCommentDTO) {
         Present present = presentRepository.findOne(presentId);
-        // TODO jó a dátum így?
+
+        Comment comment = new Comment();
+        comment.setText(newCommentDTO.getText());
         comment.setUser(user);
         comment.setTimestamp(Timestamp.valueOf(LocalDateTime.now()));
         comment.setPresent(present);
         Comment saved = commentRepository.save(comment);
 
-        savedDTO.setId(saved.getId());
-        savedDTO.setText(saved.getText());
-        savedDTO.setTimeStamp(saved.getTimestamp());
-        savedDTO.setAuthor(new UserDTO(saved.getUser().getId(), saved.getUser().getFirstname(), saved.getUser().getLastname()));
-
-        return savedDTO;
-    }
-
-    public CommentDTO update(int commentId, Comment comment) {
-        CommentDTO updatedDTO = new CommentDTO();
-        Comment currentComment = commentRepository.findOne(commentId);
-
-        currentComment.setText(comment.getText());
-        currentComment.setTimestamp(comment.getTimestamp());
-        // TODO settelni kell az usert is? -> valószínűleg nem kell
-/*        currentComment.setUser(comment.getUser());*/
-        Comment updated = commentRepository.save(comment);
-        updatedDTO.setText(updated.getText());
-        updatedDTO.setTimeStamp(updated.getTimestamp());
-
-        return updatedDTO;
+        newCommentDTO.setId(saved.getId());
+        newCommentDTO.setAuthor(new UserDTO(user.getId(), user.getFirstname(), user.getLastname()));
+        newCommentDTO.setTimeStamp(saved.getTimestamp());
+        return newCommentDTO;
     }
 
     public void delete(int commentId) {

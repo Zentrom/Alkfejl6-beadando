@@ -17,6 +17,8 @@ export class SearchByNameViewComponent implements OnInit {
       this.error = "Please enter something!";
     } else {
       this.error = "";
+      firstname = firstname.trim();
+      lastname = lastname.trim();
       this.searchParams.emit({showall, firstname, lastname});
     }
   }

@@ -82,13 +82,5 @@ public class WishListController {
         return ResponseEntity.ok(updated);
     }
 
-    // TODO itt jó user legyen settelve a requestbodyban (ne az Admin)
-/*    @Role(ADMIN)
-    @PostMapping(ResourceConstants.FRIEND_LISTS)
-    public ResponseEntity<WishList> adminAddToUsersWishList(@RequestBody WishList wishList) {
-        WishList saved = wishListService.create(wishList);
-        return ResponseEntity.ok(saved);
-    }*/
-
 
 }
