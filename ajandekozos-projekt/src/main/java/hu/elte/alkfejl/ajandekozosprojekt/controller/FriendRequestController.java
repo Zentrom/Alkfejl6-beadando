@@ -57,6 +57,5 @@ public class FriendRequestController {
         return ResponseEntity.ok(saved);
     }
 
-    // TODO kell readPossibleFriend végpont?
 
 }

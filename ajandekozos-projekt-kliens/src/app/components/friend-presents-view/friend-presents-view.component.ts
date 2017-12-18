@@ -69,7 +69,7 @@ export class FriendPresentsViewComponent implements OnInit {
   }
 
   public addPresent(present: Present): void {
-    this.presentService.addNewPresentForFriendOrUser(this.friendId, this.friendListId, present).subscribe((newHiddenPresent: Present) => {
+    this.presentService.addPresent(this.friendListId, present).subscribe((newHiddenPresent: Present) => {
       this.presents.push(newHiddenPresent);
     })
   }

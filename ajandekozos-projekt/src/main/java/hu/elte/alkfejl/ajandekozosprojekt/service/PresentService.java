@@ -35,7 +35,6 @@ public class PresentService {
         this.userRepository = userRepository;
     }
 
-    // TODO itt hogy setteljem a buyert ha az null?
     public List<PresentDTO> findAllByListId(int listId) {
         List<PresentDTO> presentsDTO = new LinkedList<>();
         List<Present> presents = presentRepository.findAllByWishListId(listId);
@@ -74,20 +73,6 @@ public class PresentService {
         return presentsDTO;
     }
 
-    public PresentDTO findById(int presentId) {
-        Present found = presentRepository.findOne(presentId);
-        PresentDTO foundDTO = new PresentDTO();
-        foundDTO.setId(found.getId());
-        foundDTO.setName(found.getName());
-        foundDTO.setPrice(found.getPrice());
-        foundDTO.setLink(found.getLink());
-        foundDTO.setUser(found.getUser() != null ?
-                new UserDTO(found.getId(), found.getUser().getFirstname(), found.getUser().getLastname())
-                : null);
-
-        return foundDTO;
-    }
-
     @Transactional
     public PresentDTO create(int wishlistId, PresentDTO presentDTO) {
         WishList wishList = wishListRepository.findById(wishlistId);
@@ -97,7 +82,6 @@ public class PresentService {
         present.setPrice(presentDTO.getPrice());
         present.setLink(presentDTO.getLink());
         present.setHidden(presentDTO.isHidden());
-        //present.setUser(null);
         present.setWishList(wishList);
         Present saved = presentRepository.save(present);
 
@@ -106,15 +90,6 @@ public class PresentService {
         return presentDTO;
     }
 
-/*    public PresentDTO updatePresent(User currentUser, int presentId, PresentDTO present) {
-        if (currentUser.getRole().equals(ADMIN)) {
-            System.out.println("ADMIN V LIST OWNER");
-            return updateByListOwnerOrAdmin(presentId, present);
-        } else {
-            System.out.println("FRIEND");
-            return updateByFriend(presentId, present);
-        }
-    }*/
 
     public PresentDTO updateByListOwnerOrAdmin(int presentId, PresentDTO present) {
         Present currentPresent = presentRepository.findOne(presentId);
@@ -123,8 +98,6 @@ public class PresentService {
         currentPresent.setLink(present.getLink());
 
         presentRepository.save(currentPresent);
-
-        System.out.println("PRESENT ADMIN V OWNER UPDATE");
 
         return present;
     }
@@ -141,17 +114,12 @@ public class PresentService {
         currentPresent.setName(present.getName());
         currentPresent.setPrice(present.getPrice());
         currentPresent.setLink(present.getLink());
-
         presentRepository.save(currentPresent);
-
-        System.out.println("PRESENT FRIEND UPDATE");
-
 
         return present;
     }
 
     public void delete(int id) {
-        System.out.println("PRESENT ID TO DELETE: "+ id);
         presentRepository.delete(id);
     }
 
