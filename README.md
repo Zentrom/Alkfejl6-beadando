@@ -143,11 +143,58 @@ Megtekinthetjük még a kommenteket is ahol ugyancsak lehetőségünk van törl�
 ## Logout
 Az admin ezzel a menüponttal kiléphet az oldalról.
 
+## Frontend könyvtárstruktúra
+![alt text](pictures/frontend_konyvtar.png "Könyvtárstruktúra a frontenden")
 
+## Frontend komponensek
+![alt text](pictures/frontend_komponens.png "Komponensek a frontenden")
 
+## Frontend modellek
+![alt text](pictures/frontend_model.png "Modellek a frontenden")
 
+## Frontend modul/config
+![alt text](pictures/frontend_modul_config.png "Modul/config a frontenden")
 
+## Frontend servicek
+![alt text](pictures/frontend_servicev2.png "Servicek a frontenden")
 
+## Funkció leírása - Friend request elfogadása/elutasítása
+Belépés után az Incoming Requests menüpontra kattintva az applikáció elnavigál minket az incoming-requests-view komponensre.
+Az incoming-requests-view felhasznál egy másik már meglévő komponenst a kerséshez, ez a search-by-name-view.
+A Show All vagy vagy a Search gombra kattintva a friendrequest.service segítségével elkérjük az adott felhasználóhoz tartozó
+függőben lévő barát kéréseket az adatbázistól (GetMappingel). Az Accept/Decline gombokkal elfogadhatjuk/elutasíthatjuk az adott kérést, ami újból meghívja a fentebb említett service-t,
+ami kitörli az adatbázisból a requestet (DeleteMapping) de ha elfogadtuk azt, akkor a kérő usert hozzáadja a beloggolt user barátaihoz.
+
+## Kapcsolat a szerverrel
+A szerver-kliens kapcsolatot kizárólag a servicek végzik. Ezek kezelik a megfelelő POST, GET, PATCH, DELETE kéréseket.
+A fennt felsorolt modellek nevei pontosan megegyeznek a backendben lévő modellekkel, DTO osztályokkal a megfelelő működés érdekében.
+
+## Tesztelés
+
+## Login
+![alt text](pictures/login_test.png "Login tesztelése")
+
+A következőeket teszteltük:
+- navigálás a Login oldalra
+- belépés próbálása üres mezőkkel
+- belépés nem valid felhasználói adatokkal
+- belépés valid adatokkal
+
+## My Wishlists
+![alt text](pictures/list_test.png "Wishlist hozzáadás tesztelése")
+
+A következőeket teszteltük:
+- navigálás a My Wishlists oldalra
+- lista létrehozása üres névvel
+- lista létrehozása nem üres névvel
+
+## Incoming Requests
+![alt text](pictures/requests_test.png "Requestek elfogadása/elutasítása")
+
+A következőeket teszteltük:
+- navigálás az Incoming Requests oldalra
+- request elutasítása
+- request elfogadása
 
 
 ## Készítették:

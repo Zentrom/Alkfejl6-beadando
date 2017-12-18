@@ -12,7 +12,7 @@ describe('Handling Friend-requests functionality', () => {
     });
 
     beforeEach(() => {
-        element(by.id('lists')).click();
+        element(by.id('requests')).click();
       });
 
     it('should navigate to the incoming requests page', () => { 
