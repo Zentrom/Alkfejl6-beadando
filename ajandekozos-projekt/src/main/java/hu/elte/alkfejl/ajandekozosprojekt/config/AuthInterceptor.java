@@ -22,10 +22,6 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        // handle OPTION methods
-/*        if (!(handler instanceof HandlerMethod)) {
-            return true;
-        }*/
         List<User.Role> routeRoles = getRoles((HandlerMethod) handler);
         User user = userService.getUser();
 

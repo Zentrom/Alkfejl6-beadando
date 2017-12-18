@@ -82,6 +82,16 @@ Célunk egy olyan webes applikáció fejlesztése, amely segíti az ajándékoz�
 ## Végpontok
 ![alt text](pictures/mappings.png "Végpontok")
 
+## Egy végpont működése
+![alt text](pictures/request_endpoint.png "Request végpont")
+![alt text](pictures/request_endpoint_string.png "Request végpont string")
+![alt text](pictures/findpossiblefriends.png "Lehetséges barátok")
+
+A listPossibleFriends végpontot csak a userek érhetik el a fentebbi címen, amire GET kérést kell küldeni a kliens oldalról.
+A végpont @RequestParam paraméterekként várja a keresett userek vezeték/keresztnevét. Ezután meghívódik a UserService findPossibleFriends metódusa, ami egy 
+UserDTO objektumokkal feltöltött listád az vissza. A függvény a paraméterek alapján lekéri a UserRepository által az adatbázisból a lehetséges usereket, amiket aztán kiszűrünk az alapján, hogy
+"ADMIN" jogosultságú-e, barát-e már küldtünk-e az adott usernek requestet. Majd a filterezett Usereknek megfelelő DTO objektumkat hozunk létre és töltünk fel velük egy listát, amit visszaad az eljárás.
+
 ## Spring boot dependecyk-k
 - spring-boot-starter-data-jpa
 - spring-boot-devtools
@@ -91,9 +101,7 @@ Célunk egy olyan webes applikáció fejlesztése, amely segíti az ajándékoz�
 - spring-security-crypto
 - spring-boot-test-autoconfigure
 
-### Use case:
-- User szemszögből:
-![alt text](pictures/user_usecase.png "User use case")
+
 
 # Felhasználói dokumentáció
 
@@ -167,7 +175,7 @@ ami kitörli az adatbázisból a requestet (DeleteMapping) de ha elfogadtuk azt,
 
 ## Kapcsolat a szerverrel
 A szerver-kliens kapcsolatot kizárólag a servicek végzik. Ezek kezelik a megfelelő POST, GET, PATCH, DELETE kéréseket.
-A fennt felsorolt modellek nevei pontosan megegyeznek a backendben lévő modellekkel, DTO osztályokkal a megfelelő működés érdekében.
+A fent felsorolt modellek nevei pontosan megegyeznek a backendben lévő modellekkel, DTO osztályokkal a megfelelő működés érdekében.
 
 ## Tesztelés
 

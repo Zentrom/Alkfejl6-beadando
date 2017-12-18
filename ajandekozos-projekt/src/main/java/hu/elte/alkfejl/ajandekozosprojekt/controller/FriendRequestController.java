@@ -42,16 +42,15 @@ public class FriendRequestController {
     }
 
     @Role(USER)
-    @GetMapping(ResourceConstants.SEARCH_USER_OR_CREATE_FRIENDREQUEST)
+    @GetMapping(ResourceConstants.CREATE_FRIENDREQUEST)
     public ResponseEntity<List<UserDTO>> listPossibleFriends(@RequestParam(name = "firstname") String firstName, @RequestParam(name = "lastname") String lastName) {
         List<UserDTO> searchedUsers = userService.findPossibleFriends(firstName, lastName);
-        searchedUsers.forEach(user -> System.out.println(user.getFirstname() + " " + user.getLastname()));
         return ResponseEntity.ok(searchedUsers);
     }
 
 
     @Role(USER)
-    @PostMapping(ResourceConstants.SEARCH_USER_OR_CREATE_FRIENDREQUEST)
+    @PostMapping(ResourceConstants.CREATE_FRIENDREQUEST)
     public ResponseEntity<FriendRequestDTO> createFriendRequest(@RequestBody int requesteeId) {
         FriendRequestDTO saved = friendRequestService.create(requesteeId, userService.getUser());
         return ResponseEntity.ok(saved);

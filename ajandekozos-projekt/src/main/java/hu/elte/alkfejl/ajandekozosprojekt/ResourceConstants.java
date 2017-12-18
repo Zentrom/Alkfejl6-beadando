@@ -17,7 +17,7 @@ public class ResourceConstants {
     public static final String FRIEND_REQUESTS = "api/user/friendrequests";
     public static final String FRIEND_REQUESTID = "api/user/friendrequests/{friendRequestId}";
 
-    public static final String SEARCH_USER_OR_CREATE_FRIENDREQUEST = "api/user/newrequest";
+    public static final String CREATE_FRIENDREQUEST = "api/user/newrequest";
 
     public static final String FRIENDS = "api/user/friends";
     public static final String FRIEND_LISTS = "api/user/friends/{friendId}/wishlists";
